@@ -12,7 +12,7 @@ public class Libro {
     private final int isbn;
     private final int annoProduzione;
 
-    public Libro(String titolo, int isbn, int annoProduzione, int copie, int copiePrestate) {
+    public Libro(String titolo, int isbn, int annoProduzione, int copie) {
         Titolo = titolo;
         this.isbn = isbn;
         this.annoProduzione = annoProduzione;
