@@ -1,55 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<Accordion maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-    <panes>
-        <TitledPane animated="false" text="Menu">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-            <graphic>
-                <MenuBar>
-                    <menus>
-                        <Menu mnemonicParsing="false" text="Aggiungi Utente">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Aggiungi Libro">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Richiedi Prestito">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-            </graphic>
-        </TitledPane>
-        <TitledPane animated="false" text="untitled 2">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-            <graphic>
-                <TableView prefHeight="340.0" prefWidth="540.0">
-                    <columns>
-                        <TableColumn prefWidth="150.0" text="Nome Utente" />
-                        <TableColumn minWidth="0.0" prefWidth="75.0" text="Libro" />
-                        <TableColumn minWidth="0.0" prefWidth="98.0" text="Durata Prestito" />
-                    </columns>
-                </TableView>
-            </graphic>
-        </TitledPane>
-        <TitledPane animated="false" text="untitled 3">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-        </TitledPane>
-    </panes>
-</Accordion>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="CONTROLLER_NAME"
+            prefHeight="400.0" prefWidth="600.0">
+
+</AnchorPane>
