@@ -9,5 +9,25 @@
  * @author salvatoremoccia
  */
 public class Utente {
-     
+    private final String nome;
+    private final String cognome;
+    private final int idUtente;
+    private final String email;
+    private int prestiti;
+
+    public Utente(String nome, String cognome, int idUtente, String email) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.idUtente = idUtente;
+        this.email = email;
+        this.prestiti = 0;
+    }
+
+    public boolean richiestaPrestito() {
+        if (prestiti < 3) {
+            prestiti++;
+            return true;
+        }
+        return false;
+    }
 }
