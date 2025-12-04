@@ -23,6 +23,26 @@ public class Utente {
         this.prestiti = 0;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public int getIdUtente() {
+        return idUtente;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getPrestiti() {
+        return prestiti;
+    }
+
     public boolean richiestaPrestito() {
         if (prestiti < 3) {
             prestiti++;

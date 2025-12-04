@@ -20,6 +20,26 @@ public class Libro {
         this.copiePrestate = 0;
     }
 
+    public String getTitolo() {
+        return Titolo;
+    }
+
+    public int getCopie() {
+        return copie;
+    }
+
+    public int getCopiePrestate() {
+        return copiePrestate;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public int getAnnoProduzione() {
+        return annoProduzione;
+    }
+
     public boolean disponibile(){
         if (copiePrestate < copie) return true;
         return false;

@@ -13,6 +13,22 @@ public class Prestito {
         this.dataInzioPrestito = dataInzioPrestito;
     }
 
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public LocalDate getDataInzioPrestito() {
+        return dataInzioPrestito;
+    }
+
     public boolean inzioPrestito(){
         if(libro.richiestaPrestito() && utente.richiestaPrestito())
                 return true;
