@@ -20,13 +20,13 @@ public class Libro {
         this.copiePrestate = 0;
     }
 
-    public boolean isAvailable(){
+    public boolean disponibile(){
         if (copiePrestate < copie) return true;
         return false;
     }
 
-    public boolean prestito(){
-        if(isAvailable()){
+    public boolean richiestaPrestito(){
+        if(disponibile()){
             copiePrestate++;
             return true;
         }
