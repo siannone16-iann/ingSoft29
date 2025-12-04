@@ -32,5 +32,8 @@ public class Libro {
         }
         else return false;   //gestione eccezione da valutare se farlo in BibliotecaManager
     }
+    public void finePrestito(){
+        copiePrestate--;
+    }
 
 }

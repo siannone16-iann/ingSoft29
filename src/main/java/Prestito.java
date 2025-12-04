@@ -18,4 +18,8 @@ public class Prestito {
                 return true;
         return false;
     }
+    public void finePrestito(){
+        utente.finePrestito();
+        libro.finePrestito();
+    }
 }

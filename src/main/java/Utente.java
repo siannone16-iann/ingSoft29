@@ -30,4 +30,8 @@ public class Utente {
         }
         return false;
     }
+
+    public void finePrestito(){
+        prestiti--;
+    }
 }
