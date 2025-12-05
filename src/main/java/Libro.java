@@ -56,4 +56,10 @@ public class Libro {
         copiePrestate--;
     }
 
+    public void aumentaCopie(int numCopie){
+        copie = copie+numCopie;
+    }
+
+
+
 }
