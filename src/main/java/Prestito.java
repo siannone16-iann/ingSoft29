@@ -14,19 +14,31 @@ public class Prestito {
     }
 
     public LocalDate getDataScadenza() {
+
         return dataScadenza;
     }
 
     public Utente getUtente() {
+
         return utente;
     }
 
     public Libro getLibro() {
+
         return libro;
     }
 
     public LocalDate getDataInzioPrestito() {
+
         return dataInzioPrestito;
+    }
+
+    public String getNomeUtente() {
+        return utente.getNome() + " " + utente.getCognome();
+    }
+
+    public String getTitoloLibro(){
+        return libro.getTitolo();
     }
 
     public boolean inzioPrestito(){

@@ -6,14 +6,16 @@
 
 public class Libro {
 
-    private final String Titolo;
+    private final String titolo;
+    private final String autore;
     private int copie;
     private int copiePrestate;
     private final int isbn;
     private final int annoProduzione;
 
-    public Libro(String titolo, int isbn, int annoProduzione, int copie) {
-        Titolo = titolo;
+    public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie) {
+        this.titolo = titolo;
+        this.autore = autore;
         this.isbn = isbn;
         this.annoProduzione = annoProduzione;
         this.copie = copie;
@@ -21,7 +23,12 @@ public class Libro {
     }
 
     public String getTitolo() {
-        return Titolo;
+
+        return titolo;
+    }
+
+    public String getAutore() {
+        return autore;
     }
 
     public int getCopie() {
@@ -29,10 +36,12 @@ public class Libro {
     }
 
     public int getCopiePrestate() {
+
         return copiePrestate;
     }
 
     public int getIsbn() {
+
         return isbn;
     }
 
@@ -40,13 +49,13 @@ public class Libro {
         return annoProduzione;
     }
 
-    public boolean disponibile(){
-        if (copiePrestate < copie) return true;
-        return false;
+    public String getStato(){
+        if (copiePrestate < copie) return "Si";
+        return "No";
     }
 
     public boolean richiestaPrestito(){
-        if(disponibile()){
+        if(getStato().equals("Si")){
             copiePrestate++;
             return true;
         }
@@ -61,7 +70,7 @@ public class Libro {
     }
 
     public String toCSV(){
-        return Titolo +";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
+        return titolo +";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
     }
 
 }

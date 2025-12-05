@@ -24,22 +24,27 @@ public class Utente {
     }
 
     public String getNome() {
+
         return nome;
     }
 
     public String getCognome() {
+
         return cognome;
     }
 
     public int getIdUtente() {
+
         return idUtente;
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public int getPrestiti() {
+
         return prestiti;
     }
 

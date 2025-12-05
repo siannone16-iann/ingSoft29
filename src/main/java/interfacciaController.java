@@ -1,4 +1,5 @@
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class interfacciaController {
@@ -32,39 +36,47 @@ public class interfacciaController {
     @FXML
     private Label tLibri;
     @FXML
-    private TableColumn<?, ?> utenteNome;
+    private TableColumn<Utente, String> utenteNome;
     @FXML
-    private TableColumn<?, ?> utenteCognome;
+    private TableColumn<Utente, String> utenteCognome;
     @FXML
-    private TableColumn<?, ?> utenteEmail;
+    private TableColumn<Utente, String> utenteEmail;
     @FXML
-    private TableColumn<?, ?> utentePrestiti;
+    private TableColumn<Utente, Integer> utenteID;
     @FXML
-    private TableColumn<?, ?> prestitoUtente;
+    private TableColumn<Utente, Integer> utentePrestiti;
     @FXML
-    private TableColumn<?, ?> prestitoLibro;
+    private TableColumn<Prestito, String> prestitoUtente;
     @FXML
-    private TableColumn<?, ?> prestitoInizio;
+    private TableColumn<Prestito, String> prestitoLibro;
     @FXML
-    private TableColumn<?, ?> prestitoFine;
+    private TableColumn<Prestito, LocalDate> prestitoInizio;
     @FXML
-    private TableColumn<?, ?> libroTitolo;
+    private TableColumn<Prestito, LocalDate> prestitoFine;
     @FXML
-    private TableColumn<?, ?> libroAutore;
+    private TableColumn<Libro, String> libroTitolo;
     @FXML
-    private TableColumn<?, ?> libroAnno;
+    private TableColumn<Libro, String> libroAutore;
     @FXML
-    private TableColumn<?, ?> libroCopie;
+    private TableColumn<Libro, Integer> libroAnno;
     @FXML
-    private TableColumn<?, ?> libroDisponibile;
+    private TableColumn<Libro,Integer> libroIsbn;
+    @FXML
+    private TableColumn<Libro, Integer> libroCopie;
+    @FXML
+    private TableColumn<Libro, String> libroDisponibile;
     @FXML
     private ToggleGroup gruppoMenu;
     @FXML
-    private TableView<?> tabellaUtente;
+    private TableView<Utente> tabellaUtente;
     @FXML
-    private TableView<?> tabellaPrestiti;
+    private TableView<Prestito> tabellaPrestiti;
     @FXML
-    private TableView<?> tabellaLibri;
+    private TableView<Libro> tabellaLibri;
+
+    private ObservableList<Libro> listaLibri = FXCollections.observableArrayList();
+    private ObservableList<Utente> listaUtenti = FXCollections.observableArrayList();
+    private ObservableList<Prestito> listaPrestiti = FXCollections.observableArrayList();
 
 
     @FXML
@@ -73,8 +85,36 @@ public class interfacciaController {
         libri.setVisible(true);
         utenti.setVisible(false);
         prestiti.setVisible(false);
+
+        libroTitolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
+        libroAutore.setCellValueFactory(new PropertyValueFactory<>("autore"));
+        libroIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        libroAnno.setCellValueFactory(new PropertyValueFactory<>("annoProduzione"));
+        libroCopie.setCellValueFactory(new PropertyValueFactory<>("copie"));
+        libroDisponibile.setCellValueFactory(new PropertyValueFactory<>("stato"));
+
+        utenteNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        utenteCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+        utenteEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        utenteID.setCellValueFactory(new PropertyValueFactory<>("idUtente"));
+        utentePrestiti.setCellValueFactory(new PropertyValueFactory<>("prestiti"));
+
+        prestitoUtente.setCellValueFactory(new PropertyValueFactory<>("nomeUtente"));
+        prestitoLibro.setCellValueFactory(new PropertyValueFactory<>("titoloLibro"));
+        prestitoInizio.setCellValueFactory(new PropertyValueFactory<>("dataInzioPrestito"));
+        prestitoFine.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));
+
+        tabellaLibri.setItems(listaLibri);
+        tabellaUtente.setItems(listaUtenti);
+        tabellaPrestiti.setItems(listaPrestiti);
     }
 
+    public void setDati(ObservableList<Libro> libri, ObservableList<Utente> utenti, ObservableList<Prestito> prestiti) {
+        // setAll sostituisce il contenuto della lista interna con quello nuovo
+        this.listaLibri.setAll(libri);
+        this.listaUtenti.setAll(utenti);
+        this.listaPrestiti.setAll(prestiti);
+    }
 
     @FXML
     private void switchTab(ActionEvent event) {
