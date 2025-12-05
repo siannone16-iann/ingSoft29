@@ -60,6 +60,8 @@ public class Libro {
         copie = copie+numCopie;
     }
 
-
+    public String toCSV(){
+        return Titolo +";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
+    }
 
 }

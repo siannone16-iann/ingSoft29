@@ -85,8 +85,16 @@ public class BibliotecaManager {
             System.out.println("Errore nel salvataggio: "+ e.getMessage());
         }    
     }
-    
-    
+    public void salvaLinbroSuFile(){
+        try(PrintWriter writer = new PrintWriter(new File("libri.csv"))){
+            for(Libro l : catalogo){
+                writer.println(l.toCSV());
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Errore nel salvataggio: "+ e.getMessage());
+        }
+    }
+
     
     
 }
