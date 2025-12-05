@@ -97,7 +97,15 @@ public class BibliotecaManager {
             System.out.println("Errore nel salvataggio: "+ e.getMessage());
         }
     }
-
+    public void salvaUtentesufile(){
+        try(PrintWriter writer = new PrintWriter(new File("utenti.csv"))){
+            for(Utente u: registroUtenti){
+                writer.println(u.toCSV());
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Errrore nel salvataggio: "+ e.getMessage());
+        }
+    }
     public void caricaDati() {
         // 1. CARICA LIBRI
         File fLibri = new File(FILE_LIBRI);
