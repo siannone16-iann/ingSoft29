@@ -49,6 +49,7 @@ public class BibliotecaManager {
     public void aggiungiLibro(String titolo, int isbn, int annoProduzione, int copie){
         Libro nuovoLibro = new Libro(titolo, isbn, annoProduzione, copie);
         catalogo.add(nuovoLibro);
+        salvaLinbroSuFile();
     }
     
      
