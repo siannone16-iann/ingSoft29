@@ -93,6 +93,7 @@ public class BibliotecaManager {
             registroPrestiti.add(nuovoPrestito);
             salvaPrestitiSuFile();
             salvaLibroSuFile();
+            salvaUtentesufile();
             System.out.println("prestito salvato");
         }
         else System.out.println("prestito non salvato");
@@ -105,6 +106,7 @@ public class BibliotecaManager {
             prestitoDaChiudere.finePrestito();
             salvaPrestitiSuFile();
             salvaLibroSuFile();
+            salvaUtentesufile();
         }
         
     }
@@ -174,7 +176,7 @@ public class BibliotecaManager {
                         continue;
                     }
                     // CSV Utente: Nome;Cognome;ID;Email
-                    registroUtenti.add(new Utente(dati[0], dati[1], Integer.parseInt(dati[2]), dati[3]));
+                    registroUtenti.add(new Utente(dati[0], dati[1], Integer.parseInt(dati[2]), dati[3], Integer.parseInt(dati[4])));
                 }
             } catch(Exception e) { System.out.println("Err Caricamento Utenti: " + e.getMessage()); }
         }

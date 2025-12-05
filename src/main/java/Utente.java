@@ -15,14 +15,18 @@ public class Utente {
     private final String email;
     private int prestiti;
 
-    public Utente(String nome, String cognome, int idUtente, String email) {
+    public Utente(String nome, String cognome, int idUtente, String email, int prestiti) {
         this.nome = nome;
         this.cognome = cognome;
         this.idUtente = idUtente;
         this.email = email;
-        this.prestiti = 0;
+        this.prestiti = prestiti;
     }
-
+    
+    public Utente(String nome, String cognome, int idUtente, String email){
+        this(nome, cognome, idUtente, email, 0);
+    }
+    
     public String getNome() {
 
         return nome;
