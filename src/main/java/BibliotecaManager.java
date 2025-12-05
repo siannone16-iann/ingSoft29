@@ -19,9 +19,9 @@ public class BibliotecaManager {
     private ObservableList<Libro> catalogo;
     private ObservableList<Utente> registroUtenti;
     private ObservableList<Prestito> registroPrestiti;
-    private final String FILE_LIBRI = "libri.csv";
-    private final String FILE_UTENTI = "utenti.csv";
-    private final String FILE_PRESTITI = "prestiti.csv";
+    private final String FILE_LIBRI = "dati/libri.csv";
+    private final String FILE_UTENTI = "dati/utenti.csv";
+    private final String FILE_PRESTITI = "dati/prestiti.csv";
     
     //costruttore
     public BibliotecaManager(){
@@ -93,7 +93,7 @@ public class BibliotecaManager {
         
     }
     public void salvaPrestitiSuFile(){
-        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/prestiti.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File(FILE_PRESTITI))){
             for(Prestito p : registroPrestiti){
                 writer.println(p.toCSV());
             }
@@ -102,7 +102,7 @@ public class BibliotecaManager {
         }    
     }
     public void salvaLibroSuFile(){
-        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/libri.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File(FILE_LIBRI))){
             for(Libro l : catalogo){
                 writer.println(l.toCSV());
             }
@@ -111,7 +111,7 @@ public class BibliotecaManager {
         }
     }
     public void salvaUtentesufile(){
-        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/utenti.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File(FILE_UTENTI))){
             for(Utente u: registroUtenti){
                 writer.println(u.toCSV());
             }

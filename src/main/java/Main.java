@@ -30,15 +30,27 @@ public class Main extends Application {
             }
 
             // Caricamento
-            Parent root = FXMLLoader.load(urlDelFile);
+            FXMLLoader loader = new FXMLLoader(urlDelFile);
+            Parent root = loader.load();
             System.out.println("--- 3. FXML CARICATO CORRETTAMENTE ---");
 
+            BibliotecaManager manager = new BibliotecaManager();
+
+            interfacciaController controller = loader.getController();
+            controller.setDati(
+                    manager.getCatalogo(),
+                    manager.getRegistroUtenti(),
+                    manager.getRegistroPrestiti()
+            );
+
+
             Scene scene = new Scene(root);
-            primaryStage.setTitle("Gestione Biblioteca");
+            primaryStage.setTitle("Gestione Biblioteca Universitaria");
             primaryStage.setScene(scene);
-            
-            // Mostra la finestra
+
             primaryStage.show();
+
+            // Mostra la finestra
             System.out.println("--- 4. FINESTRA MOSTRATA ---");
 
         } catch (IOException e) {
