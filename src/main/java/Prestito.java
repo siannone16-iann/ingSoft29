@@ -38,4 +38,8 @@ public class Prestito {
         utente.finePrestito();
         libro.finePrestito();
     }
+    
+    public String toCSV(){
+        return utente.getIdUtente() +";"+libro.getIsbn()+";"+dataScadenza.toString();
+    }
 }

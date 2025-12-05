@@ -54,4 +54,8 @@ public class Utente {
     public void finePrestito(){
         prestiti--;
     }
+    
+    public String toCSV(){
+        return nome +";"+cognome+";"+idUtente+";"+";"+email;
+    }
 }    
