@@ -48,8 +48,8 @@ public class BibliotecaManager {
     
     
     
-    public void aggiungiLibro(String titolo, int isbn, int annoProduzione, int copie){
-        Libro nuovoLibro = new Libro(titolo, isbn, annoProduzione, copie);
+    public void aggiungiLibro(String titolo, String autore, int isbn, int annoProduzione, int copie){
+        Libro nuovoLibro = new Libro(titolo, autore, isbn, annoProduzione, copie);
         catalogo.add(nuovoLibro);
         salvaLibroSuFile();
     }
@@ -114,7 +114,7 @@ public class BibliotecaManager {
                 while(scanner.hasNextLine()){
                     String[] dati = scanner.nextLine().split(";");
                     // CSV Libro: Titolo;ISBN;Anno;Copie
-                    catalogo.add(new Libro(dati[0], Integer.parseInt(dati[1]), Integer.parseInt(dati[2]), Integer.parseInt(dati[3])));
+                    catalogo.add(new Libro(dati[0], dati[1], Integer.parseInt(dati[2]), Integer.parseInt(dati[3]), Integer.parseInt(dati[4])));
                 }
             } catch(Exception e) { System.out.println("Err Caricamento Libri: " + e.getMessage()); }
         }
