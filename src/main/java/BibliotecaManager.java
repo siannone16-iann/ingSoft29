@@ -49,6 +49,16 @@ public class BibliotecaManager {
     
     
     public void aggiungiLibro(String titolo, String autore, int isbn, int annoProduzione, int copie){
+        for(Libro l : catalogo){
+            if(l.getIsbn() == isbn){
+                //libro già esistente nel catalogo, sommo le copie
+                int vecchieCopie = l.getCopie();
+                int nuoveCopie = copie + vecchieCopie;
+                l.setCopie(nuoveCopie);
+                salvaLibroSuFile();
+                return;
+            }
+        }
         Libro nuovoLibro = new Libro(titolo, autore, isbn, annoProduzione, copie);
         catalogo.add(nuovoLibro);
         salvaLibroSuFile();
@@ -57,9 +67,15 @@ public class BibliotecaManager {
      
     
     public void aggiungiUtente(String nome, String cognome, int idUtente, String email){
+        
+        for(Utente u : registroUtenti){
+            if(u.getIdUtente() == idUtente){
+                return;
+            }
+        }
         Utente nuovoUtente = new Utente(nome, cognome, idUtente, email);
         registroUtenti.add(nuovoUtente);
-        salvaUtentesufile();  
+        salvaUtentesufile(); 
     }
     
     public void aggiungiPrestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
