@@ -82,8 +82,13 @@ public class Libro {
         copie = copie+numCopie;
     }
 
+    public void setCopie(int copie) {
+        this.copie = copie;
+    }
+
     public String toCSV(){
         return titolo +";"+autore+";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
     }
+
 
 }
