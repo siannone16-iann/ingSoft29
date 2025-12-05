@@ -67,6 +67,7 @@
                                 <TableColumn fx:id="libroAnno" prefWidth="75.0" text="Anno" />
                                 <TableColumn fx:id="libroIsbn" prefWidth="75.0" text="Isbn" />
                                 <TableColumn fx:id="libroCopie" prefWidth="75.0" text="Copie" />
+                                <TableColumn fx:id="libroCopieD" prefWidth="75.0" text="Copie Disponibili" />
                                 <TableColumn fx:id="libroDisponibile" prefWidth="100.0" text="Disponibilità" />
                             </columns>
                         </TableView>
