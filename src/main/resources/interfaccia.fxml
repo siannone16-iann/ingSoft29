@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.scene.text.*?>
-        <?import javafx.scene.control.*?>
-        <?import java.lang.*?>
-        <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
     <left>
@@ -21,12 +22,26 @@
     <center>
         <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox fx:id="utenti" prefHeight="365.0" prefWidth="449.0">
+                <VBox fx:id="utenti" minWidth="0.0" visible="false">
                     <children>
-                        <Label fx:id="tUtenti" style="-fx-background-color: lightblue;" text="Utenti">
-                            <font>
-                                <Font name="Arial" size="24.0" />
-                            </font></Label>
+                  <HBox minWidth="0.0">
+                     <children>
+                              <Label fx:id="tUtenti" style="-fx-background-color: lightblue;" text="Utenti">
+                                  <font>
+                                      <Font name="Arial" size="24.0" />
+                                  </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btUtente" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Utente" textAlignment="JUSTIFY">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                         <TableView fx:id="tabellaUtente" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="utenteNome" prefWidth="75.0" text="Nome" />
@@ -38,12 +53,26 @@
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="prestiti" prefHeight="357.0" prefWidth="443.0">
+                <VBox fx:id="prestiti" minWidth="0.0" visible="false">
                     <children>
-                        <Label fx:id="tPrestiti" style="-fx-background-color: lightblue;" text="Prestiti">
-                            <font>
-                                <Font size="24.0" />
-                            </font></Label>
+                  <HBox minWidth="0.0">
+                     <children>
+                              <Label fx:id="tPrestiti" style="-fx-background-color: lightblue;" text="Prestiti">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btPrestito" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Prestito" textAlignment="JUSTIFY">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                         <TableView fx:id="tabellaPrestiti" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="prestitoUtente" prefWidth="75.0" text="Utente" />
@@ -54,18 +83,32 @@
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="libri" prefHeight="361.0" prefWidth="449.0">
+                <VBox fx:id="libri" minWidth="0.0">
                     <children>
-                        <Label fx:id="tLibri" style="-fx-background-color: lightblue;" text="Libri">
-                            <font>
-                                <Font name="Arial" size="24.0" />
-                            </font></Label>
+                  <HBox maxWidth="1.7976931348623157E308" minWidth="0.0">
+                     <children>
+                              <Label fx:id="tLibri" style="-fx-background-color: lightblue;" text="Libri">
+                                  <font>
+                                      <Font name="Arial" size="24.0" />
+                                  </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btLibro" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Libro" textAlignment="JUSTIFY">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                         <TableView fx:id="tabellaLibri" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="libroTitolo" prefWidth="75.0" text="Titolo" />
                                 <TableColumn fx:id="libroAutore" prefWidth="75.0" text="Autore" />
                                 <TableColumn fx:id="libroAnno" prefWidth="75.0" text="Anno" />
-                                <TableColumn fx:id="libroIsbn" prefWidth="75.0" text="Isbn" />
+                                <TableColumn fx:id="libroIsbn" prefWidth="75.0" text="ISBN" />
                                 <TableColumn fx:id="libroCopie" prefWidth="75.0" text="Copie" />
                                 <TableColumn fx:id="libroCopieD" prefWidth="75.0" text="Copie Disponibili" />
                                 <TableColumn fx:id="libroDisponibile" prefWidth="100.0" text="Disponibilità" />

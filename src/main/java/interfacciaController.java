@@ -1,22 +1,25 @@
-import java.net.URL;
+/**
+ *
+ * @author salvatoremoccia
+ */
+
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 public class interfacciaController {
 
+    @FXML
+    private Button btUtente;
+    @FXML
+    private Button btLibro;
+    @FXML
+    private Button btPrestito;
     @FXML
     private ToggleButton bLibri;
     @FXML
@@ -80,6 +83,9 @@ public class interfacciaController {
     private ObservableList<Utente> listaUtenti = FXCollections.observableArrayList();
     private ObservableList<Prestito> listaPrestiti = FXCollections.observableArrayList();
 
+    private BibliotecaManager manager;
+    private Finestre gestioneForm;
+
 
     @FXML
     private void initialize(){
@@ -110,13 +116,24 @@ public class interfacciaController {
         tabellaLibri.setItems(listaLibri);
         tabellaUtente.setItems(listaUtenti);
         tabellaPrestiti.setItems(listaPrestiti);
+
+        //btLibro.setOnAction(event -> {
+         //   if(gestioneForm != null) gestioneForm.nuovoLibro();
+         //       });
+        //btUtente.setOnAction(event -> {
+        //if(gestioneForm != null) gestioneForm.nuovoUtente();
+        //});
+
+
     }
 
-    public void setDati(ObservableList<Libro> libri, ObservableList<Utente> utenti, ObservableList<Prestito> prestiti) {
-        // setAll sostituisce il contenuto della lista interna con quello nuovo
-        this.listaLibri.setAll(libri);
-        this.listaUtenti.setAll(utenti);
-        this.listaPrestiti.setAll(prestiti);
+    public void setManager(BibliotecaManager manager) {
+        this.manager = manager;
+        this.gestioneForm = new Finestre(manager);
+
+        this.listaLibri.setAll(manager.getCatalogo());
+        this.listaUtenti.setAll(manager.getRegistroUtenti());
+        this.listaPrestiti.setAll(manager.getRegistroPrestiti());
     }
 
     @FXML
@@ -133,6 +150,19 @@ public class interfacciaController {
             libri.setVisible(true);
         } else if (bottone.getId().equals("bPrestiti")) {
             prestiti.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void Form(ActionEvent event){
+        Button bottone = (Button) event.getSource();
+
+        if(bottone.getId().equals("btUtente")){
+            gestioneForm.nuovoUtente();
+            listaUtenti.setAll(manager.getRegistroUtenti());
+        } else if(bottone.getId().equals("btLibro")){
+            gestioneForm.nuovoLibro();
+            listaLibri.setAll(manager.getCatalogo());
         }
     }
 }

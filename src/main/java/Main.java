@@ -37,12 +37,7 @@ public class Main extends Application {
             BibliotecaManager manager = new BibliotecaManager();
 
             interfacciaController controller = loader.getController();
-            controller.setDati(
-                    manager.getCatalogo(),
-                    manager.getRegistroUtenti(),
-                    manager.getRegistroPrestiti()
-            );
-
+            controller.setManager(manager);
 
             Scene scene = new Scene(root);
             primaryStage.setTitle("Gestione Biblioteca Universitaria");

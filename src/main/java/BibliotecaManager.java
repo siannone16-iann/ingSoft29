@@ -64,8 +64,6 @@ public class BibliotecaManager {
         salvaLibroSuFile();
     }
     
-     
-    
     public void aggiungiUtente(String nome, String cognome, int idUtente, String email){
         
         for(Utente u : registroUtenti){
@@ -144,9 +142,6 @@ public class BibliotecaManager {
             try(Scanner scanner = new Scanner(fLibri)){
                 while(scanner.hasNextLine()){
                     String riga = scanner.nextLine().trim();
-                    if (riga.isEmpty()) {
-                        continue;
-                    }
                     String[] dati = riga.split(";");
 
                     if (dati.length < 6) {
@@ -166,12 +161,9 @@ public class BibliotecaManager {
             try(Scanner scanner = new Scanner(fUtenti)){
                 while(scanner.hasNextLine()){
                     String riga = scanner.nextLine().trim();
-                    if (riga.isEmpty()) {
-                        continue;
-                    }
                     String[] dati = riga.split(";");
 
-                    if (dati.length < 4) {
+                    if (dati.length < 5) {
                         System.out.println("Riga ignorata (dati insufficienti): " + riga);
                         continue;
                     }
