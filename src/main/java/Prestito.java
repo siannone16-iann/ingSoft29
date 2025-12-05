@@ -7,7 +7,7 @@ public class Prestito {
     private final LocalDate dataInzioPrestito;
 
     public Prestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
-        this.utente=utente;
+        this.utente = utente;
         this.dataScadenza = dataScadenza;
         this.libro = libro;
         this.dataInzioPrestito = dataInzioPrestito;
@@ -40,6 +40,6 @@ public class Prestito {
     }
     
     public String toCSV(){
-        return utente.getIdUtente() +";"+libro.getIsbn()+";"+dataScadenza.toString();
+        return utente.getIdUtente() +";"+libro.getIsbn()+";"+dataInzioPrestito.toString()+";"+dataScadenza.toString();
     }
 }

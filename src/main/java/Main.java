@@ -47,6 +47,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         System.out.println("--- 0. PROGRAMMA AVVIATO ---");
+        BibliotecaManager mang
         launch(args);
     }
 }
