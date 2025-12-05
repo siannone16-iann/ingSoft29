@@ -28,6 +28,8 @@ public class BibliotecaManager {
         this.catalogo = FXCollections.observableArrayList();
         this.registroUtenti = FXCollections.observableArrayList();
         this.registroPrestiti = FXCollections.observableArrayList();
+        
+        caricaDati();
     }
     
     
@@ -49,7 +51,7 @@ public class BibliotecaManager {
     public void aggiungiLibro(String titolo, int isbn, int annoProduzione, int copie){
         Libro nuovoLibro = new Libro(titolo, isbn, annoProduzione, copie);
         catalogo.add(nuovoLibro);
-        salvaLinbroSuFile();
+        salvaLibroSuFile();
     }
     
      
@@ -96,7 +98,67 @@ public class BibliotecaManager {
         }
     }
 
+    public void caricaDati() {
+        // 1. CARICA LIBRI
+        File fLibri = new File(FILE_LIBRI);
+        if(fLibri.exists()){
+            try(Scanner scanner = new Scanner(fLibri)){
+                while(scanner.hasNextLine()){
+                    String[] dati = scanner.nextLine().split(";");
+                    // CSV Libro: Titolo;ISBN;Anno;Copie
+                    catalogo.add(new Libro(dati[0], Integer.parseInt(dati[1]), Integer.parseInt(dati[2]), Integer.parseInt(dati[3])));
+                }
+            } catch(Exception e) { System.out.println("Err Caricamento Libri: " + e.getMessage()); }
+        }
+
+        // 2. CARICA UTENTI
+        File fUtenti = new File(FILE_UTENTI);
+        if(fUtenti.exists()){
+            try(Scanner scanner = new Scanner(fUtenti)){
+                while(scanner.hasNextLine()){
+                    String[] dati = scanner.nextLine().split(";");
+                    // CSV Utente: Nome;Cognome;ID;Email
+                    registroUtenti.add(new Utente(dati[0], dati[1], Integer.parseInt(dati[2]), dati[3]));
+                }
+            } catch(Exception e) { System.out.println("Err Caricamento Utenti: " + e.getMessage()); }
+        }
+
+        // 3. CARICA PRESTITI (Solo dopo aver caricato Utenti e Libri!)
+        File fPrestiti = new File(FILE_PRESTITI);
+        if(fPrestiti.exists()){
+            try(Scanner scanner = new Scanner(fPrestiti)){
+                while(scanner.hasNextLine()){
+                    String[] dati = scanner.nextLine().split(";");
+                    // CSV Prestito: ID_Utente;ISBN_Libro;Scadenza;Inizio
+                    
+                    int idUtente = Integer.parseInt(dati[0]);
+                    int isbnLibro = Integer.parseInt(dati[1]);
+                    LocalDate scadenza = LocalDate.parse(dati[2]);
+                    LocalDate inizio = LocalDate.parse(dati[3]);
+
+                    // Cerchiamo gli oggetti "veri" usando gli ID letti dal file
+                    Utente u = trovaUtentePerId(idUtente);
+                    Libro l = trovaLibroPerIsbn(isbnLibro);
+
+                    // Se esistono entrambi (integrità dati), ricreiamo il prestito
+                    if(u != null && l != null){
+                        registroPrestiti.add(new Prestito(u, scadenza, l, inizio));
+                    }
+                }
+            } catch(Exception e) { System.out.println("Err Caricamento Prestiti: " + e.getMessage()); }
+        }
+    }
     
+    // --- HELPER PER IL CARICAMENTO ---
+    private Utente trovaUtentePerId(int id) {
+        for(Utente u : registroUtenti) if(u.getIdUtente() == id) return u;
+        return null;
+    }
+
+    private Libro trovaLibroPerIsbn(int isbn) {
+        for(Libro l : catalogo) if(l.getIsbn() == isbn) return l;
+        return null;
+    }
     
 }
     
