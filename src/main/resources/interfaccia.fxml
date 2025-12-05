@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.text.*?>
+        <?import javafx.scene.control.*?>
+        <?import java.lang.*?>
+        <?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
+    <left>
+        <VBox prefHeight="400.0" prefWidth="151.0" BorderPane.alignment="CENTER">
+            <children>
+                <ToggleButton fx:id="bLibri" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="181.0" text="Libri">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="gruppoMenu" />
+                    </toggleGroup></ToggleButton>
+                <ToggleButton fx:id="bUtenti" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="180.0" text="Utenti" toggleGroup="$gruppoMenu" />
+                <ToggleButton fx:id="bPrestiti" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="156.0" text="Prestiti" toggleGroup="$gruppoMenu" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="utenti" prefHeight="365.0" prefWidth="449.0">
+                    <children>
+                        <Label fx:id="tUtenti" style="-fx-background-color: lightblue;" text="Utenti">
+                            <font>
+                                <Font name="Arial" size="24.0" />
+                            </font></Label>
+                        <TableView fx:id="tabellaUtente" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="utenteNome" prefWidth="75.0" text="Nome" />
+                                <TableColumn fx:id="utenteCognome" prefWidth="75.0" text="Cognome" />
+                                <TableColumn fx:id="utenteEmail" prefWidth="75.0" text="email" />
+                                <TableColumn fx:id="utentePrestiti" prefWidth="75.0" text="Prestiti" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+                <VBox fx:id="prestiti" prefHeight="357.0" prefWidth="443.0">
+                    <children>
+                        <Label fx:id="tPrestiti" style="-fx-background-color: lightblue;" text="Prestiti">
+                            <font>
+                                <Font size="24.0" />
+                            </font></Label>
+                        <TableView fx:id="tabellaPrestiti" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="prestitoUtente" prefWidth="75.0" text="Utente" />
+                                <TableColumn fx:id="prestitoLibro" prefWidth="70.0" text="Libro" />
+                                <TableColumn fx:id="prestitoInizio" prefWidth="110.0" text="Data Prestito" />
+                                <TableColumn fx:id="prestitoFine" prefWidth="110.0" text="Scadenza Prestito" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+                <VBox fx:id="libri" prefHeight="361.0" prefWidth="449.0">
+                    <children>
+                        <Label fx:id="tLibri" style="-fx-background-color: lightblue;" text="Libri">
+                            <font>
+                                <Font name="Arial" size="24.0" />
+                            </font></Label>
+                        <TableView fx:id="tabellaLibri" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="libroTitolo" prefWidth="75.0" text="Titolo" />
+                                <TableColumn fx:id="libroAutore" prefWidth="75.0" text="Autore" />
+                                <TableColumn fx:id="libroAnno" prefWidth="75.0" text="Anno" />
+                                <TableColumn fx:id="libroCopie" prefWidth="75.0" text="Copie" />
+                                <TableColumn fx:id="libroDisponibile" prefWidth="100.0" text="Disponibilità" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+    <top>
+        <Label prefHeight="37.0" prefWidth="574.0" text="Biblioteca Universitaria" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="30.0" />
+            </font></Label>
+    </top>
+</BorderPane>
