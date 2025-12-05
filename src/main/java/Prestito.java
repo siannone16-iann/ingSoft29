@@ -4,13 +4,13 @@ public class Prestito {
     private final LocalDate dataScadenza;
     private final Utente utente;
     private final Libro libro;
-    private final LocalDate dataInzioPrestito;
+    private final LocalDate dataInizioPrestito;
 
-    public Prestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
+    public Prestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInizioPrestito){
         this.utente = utente;
         this.dataScadenza = dataScadenza;
         this.libro = libro;
-        this.dataInzioPrestito = dataInzioPrestito;
+        this.dataInizioPrestito = dataInizioPrestito;
     }
 
     public LocalDate getDataScadenza() {
@@ -28,9 +28,9 @@ public class Prestito {
         return libro;
     }
 
-    public LocalDate getDataInzioPrestito() {
+    public LocalDate getDataInizioPrestito() {
 
-        return dataInzioPrestito;
+        return dataInizioPrestito;
     }
 
     public String getNomeUtente() {
@@ -41,7 +41,7 @@ public class Prestito {
         return libro.getTitolo();
     }
 
-    public boolean inzioPrestito(){
+    public boolean inizioPrestito(){
         if(libro.richiestaPrestito() && utente.richiestaPrestito()){
                 return true;
         }
@@ -53,6 +53,6 @@ public class Prestito {
     }
     
     public String toCSV(){
-        return utente.getIdUtente() +";"+libro.getIsbn()+";"+dataInzioPrestito.toString()+";"+dataScadenza.toString();
+        return utente.getIdUtente() +";"+libro.getIsbn()+";"+ dataInizioPrestito.toString()+";"+dataScadenza.toString();
     }
 }

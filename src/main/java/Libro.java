@@ -73,7 +73,12 @@ public class Libro {
         }
     }
 
+    public int getCopieDisponibili(){
+        return copie-copiePrestate;
+    }
+
     public void aumentaCopie(int numCopie){
+
         copie = copie+numCopie;
     }
 

@@ -64,6 +64,8 @@ public class interfacciaController {
     @FXML
     private TableColumn<Libro, Integer> libroCopie;
     @FXML
+    private TableColumn<Libro, Integer> libroCopieD;
+    @FXML
     private TableColumn<Libro, String> libroDisponibile;
     @FXML
     private ToggleGroup gruppoMenu;
@@ -91,6 +93,7 @@ public class interfacciaController {
         libroIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         libroAnno.setCellValueFactory(new PropertyValueFactory<>("annoProduzione"));
         libroCopie.setCellValueFactory(new PropertyValueFactory<>("copie"));
+        libroCopieD.setCellValueFactory(new PropertyValueFactory<>("copieDisponibili"));
         libroDisponibile.setCellValueFactory(new PropertyValueFactory<>("stato"));
 
         utenteNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -101,7 +104,7 @@ public class interfacciaController {
 
         prestitoUtente.setCellValueFactory(new PropertyValueFactory<>("nomeUtente"));
         prestitoLibro.setCellValueFactory(new PropertyValueFactory<>("titoloLibro"));
-        prestitoInizio.setCellValueFactory(new PropertyValueFactory<>("dataInzioPrestito"));
+        prestitoInizio.setCellValueFactory(new PropertyValueFactory<>("dataInizioPrestito"));
         prestitoFine.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));
 
         tabellaLibri.setItems(listaLibri);
