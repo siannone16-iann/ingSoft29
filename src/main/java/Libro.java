@@ -13,13 +13,17 @@ public class Libro {
     private final int isbn;
     private final int annoProduzione;
 
-    public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie) {
+    public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie, int copiePrestate) {
         this.titolo = titolo;
         this.autore = autore;
         this.isbn = isbn;
         this.annoProduzione = annoProduzione;
         this.copie = copie;
-        this.copiePrestate = 0;
+        this.copiePrestate = copiePrestate;
+    }
+    
+    public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie){
+        this(titolo, autore, isbn, annoProduzione, copie, 0);
     }
 
     public String getTitolo() {
@@ -64,7 +68,9 @@ public class Libro {
         return false;   //gestione eccezione da valutare se farlo in BibliotecaManager
     }
     public void finePrestito(){
-        copiePrestate--;
+        if(copiePrestate > 0){
+            copiePrestate--;
+        }
     }
 
     public void aumentaCopie(int numCopie){

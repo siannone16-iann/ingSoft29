@@ -57,7 +57,10 @@ public class Utente {
     }
 
     public void finePrestito(){
-        prestiti--;
+        if(prestiti > 0){
+            prestiti--;
+        }
+        
     }
     
     public String toCSV(){

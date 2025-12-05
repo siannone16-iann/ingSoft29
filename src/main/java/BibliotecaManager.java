@@ -72,10 +72,11 @@ public class BibliotecaManager {
         }    
         System.out.println("prestito non salvato");
         */
-        if(utente.getPrestiti() < 3 && libro.getCopie() > libro.getCopiePrestate()){
-            Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
+        if(utente.richiestaPrestito() && libro.richiestaPrestito()){
+            Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro, dataInzioPrestito);
             registroPrestiti.add(nuovoPrestito);
             salvaPrestitiSuFile();
+            salvaLibroSuFile();
             System.out.println("prestito salvato");
         }
         else System.out.println("prestito non salvato");
@@ -87,6 +88,7 @@ public class BibliotecaManager {
             registroPrestiti.remove(prestitoDaChiudere);
             prestitoDaChiudere.finePrestito();
             salvaPrestitiSuFile();
+            salvaLibroSuFile();
         }
         
     }
@@ -125,7 +127,7 @@ public class BibliotecaManager {
                 while(scanner.hasNextLine()){
                     String[] dati = scanner.nextLine().split(";");
                     // CSV Libro: Titolo;ISBN;Anno;Copie
-                    catalogo.add(new Libro(dati[0], dati[1], Integer.parseInt(dati[2]), Integer.parseInt(dati[3]), Integer.parseInt(dati[4])));
+                    catalogo.add(new Libro(dati[0], dati[1], Integer.parseInt(dati[2]), Integer.parseInt(dati[3]), Integer.parseInt(dati[4]), Integer.parseInt(dati[5])));
                 }
             } catch(Exception e) { System.out.println("Err Caricamento Libri: " + e.getMessage()); }
         }

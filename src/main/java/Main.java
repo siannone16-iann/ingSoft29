@@ -105,6 +105,8 @@ public class Main extends Application {
 
             // Chiamata al metodo
             manager.aggiungiPrestito(utenteSelezionato, dataScadenza, libroSelezionato, dataInizio);
+            manager.aggiungiPrestito(utenteSelezionato, dataScadenza, libroSelezionato, dataInizio);
+            manager.aggiungiPrestito(utenteSelezionato, dataScadenza, libroSelezionato, dataInizio);
             
             System.out.println("    Prestito registrato per: " + utenteSelezionato.getCognome() + 
                                " -> Libro: " + libroSelezionato.getTitolo());
