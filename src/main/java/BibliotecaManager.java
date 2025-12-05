@@ -23,38 +23,6 @@ public class BibliotecaManager {
         this.registroUtenti = FXCollections.observableArrayList();
         this.registroPrestiti = FXCollections.observableArrayList();
         
-    Utente utente0 = new Utente("Davide", "Martelli", 0, "ciao0@email.com");
-    Utente utente1 = new Utente("Simone", "Iannone", 1, "ciao1@email.com");
-    Utente utente2 = new Utente("Salvatore", "Moccia", 2, "ciao2@email.com");
-    Utente utente3 = new Utente("Lorenzo", "Nevola", 3, "ciao3@email.com");
-    Utente utente4 = new Utente("Pinco", "Pallino", 4, "ciao4@email.com");
-    
-    Libro libro0 = new Libro("titolo0", 0, 2010, 2);
-    Libro libro1 = new Libro("titolo1", 1, 2011, 3);
-    Libro libro2 = new Libro("titolo2", 2, 2011, 1);
-    Libro libro3 = new Libro("titolo3", 3, 2019, 1);
-    Libro libro4 = new Libro("titolo4", 4, 2024, 4);
-    
-    Prestito prestito0 = new Prestito(utente0, LocalDate.of(2025, 12, 31), libro0,LocalDate.now());
-    Prestito prestito1 = new Prestito(utente1, LocalDate.of(2025, 11, 28), libro1,LocalDate.now());
-    Prestito prestito2 = new Prestito(utente3, LocalDate.of(2026, 01, 01), libro4,LocalDate.now());
-        
-        aggiungiLibro(libro0);
-        aggiungiLibro(libro1);
-        aggiungiLibro(libro2);
-        aggiungiLibro(libro3);
-        aggiungiLibro(libro4);
-        
-        aggiungiUtente(utente0);
-        aggiungiUtente(utente1);
-        aggiungiUtente(utente2);
-        aggiungiUtente(utente3);
-        aggiungiUtente(utente4);
-        
-        aggiungiPrestito(prestito0);
-        aggiungiPrestito(prestito1);
-        aggiungiPrestito(prestito2);
-        
     }
     
     
@@ -73,16 +41,21 @@ public class BibliotecaManager {
     
     
     
-    public void aggiungiLibro(Libro nuovoLibro){
+    public void aggiungiLibro(String titolo, int isbn, int annoProduzione, int copie){
+        Libro nuovoLibro = new Libro(titolo, isbn, annoProduzione, copie);
         catalogo.add(nuovoLibro);
     }
     
-    public void aggiungiUtente(Utente nuovoUtente){
+     
+    
+    public void aggiungiUtente(String nome, String cognome, int idUtente, String email){
+        Utente nuovoUtente = new Utente(nome, cognome, idUtente, email);
         registroUtenti.add(nuovoUtente);
         
     }
     
-    public void aggiungiPrestito(Prestito nuovoPrestito){
+    public void aggiungiPrestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
+        Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
         registroPrestiti.add(nuovoPrestito);
     }
     
