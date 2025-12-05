@@ -141,7 +141,17 @@ public class BibliotecaManager {
         if(fLibri.exists()){
             try(Scanner scanner = new Scanner(fLibri)){
                 while(scanner.hasNextLine()){
-                    String[] dati = scanner.nextLine().split(";");
+                    String riga = scanner.nextLine().trim();
+                    if (riga.isEmpty()) {
+                        continue;
+                    }
+                    String[] dati = riga.split(";");
+
+                    if (dati.length < 6) {
+                        System.out.println("Riga ignorata (dati insufficienti): " + riga);
+                        continue;
+                    }
+
                     // CSV Libro: Titolo;ISBN;Anno;Copie
                     catalogo.add(new Libro(dati[0], dati[1], Integer.parseInt(dati[2]), Integer.parseInt(dati[3]), Integer.parseInt(dati[4]), Integer.parseInt(dati[5])));
                 }
@@ -153,7 +163,16 @@ public class BibliotecaManager {
         if(fUtenti.exists()){
             try(Scanner scanner = new Scanner(fUtenti)){
                 while(scanner.hasNextLine()){
-                    String[] dati = scanner.nextLine().split(";");
+                    String riga = scanner.nextLine().trim();
+                    if (riga.isEmpty()) {
+                        continue;
+                    }
+                    String[] dati = riga.split(";");
+
+                    if (dati.length < 4) {
+                        System.out.println("Riga ignorata (dati insufficienti): " + riga);
+                        continue;
+                    }
                     // CSV Utente: Nome;Cognome;ID;Email
                     registroUtenti.add(new Utente(dati[0], dati[1], Integer.parseInt(dati[2]), dati[3]));
                 }
