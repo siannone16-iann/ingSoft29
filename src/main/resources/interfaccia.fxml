@@ -35,7 +35,7 @@
                            </HBox.margin>
                         </Label>
                         <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="btUtente" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Utente" textAlignment="JUSTIFY">
+                        <Button fx:id="btUtente" alignment="CENTER" mnemonicParsing="false" text="Nuovo Utente" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -66,7 +66,7 @@
                            </HBox.margin>
                         </Label>
                         <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="btPrestito" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Prestito" textAlignment="JUSTIFY">
+                        <Button fx:id="btPrestito" alignment="CENTER" mnemonicParsing="false" text="Nuovo Prestito" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -96,7 +96,7 @@
                            </HBox.margin>
                         </Label>
                         <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="btLibro" alignment="CENTER" mnemonicParsing="false" onAction="#Form" text="Nuovo Libro" textAlignment="JUSTIFY">
+                        <Button fx:id="btLibro" alignment="CENTER" mnemonicParsing="false" text="Nuovo Libro" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>

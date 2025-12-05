@@ -79,10 +79,6 @@ public class interfacciaController {
     @FXML
     private TableView<Libro> tabellaLibri;
 
-    private ObservableList<Libro> listaLibri = FXCollections.observableArrayList();
-    private ObservableList<Utente> listaUtenti = FXCollections.observableArrayList();
-    private ObservableList<Prestito> listaPrestiti = FXCollections.observableArrayList();
-
     private BibliotecaManager manager;
     private Finestre gestioneForm;
 
@@ -113,16 +109,12 @@ public class interfacciaController {
         prestitoInizio.setCellValueFactory(new PropertyValueFactory<>("dataInizioPrestito"));
         prestitoFine.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));
 
-        tabellaLibri.setItems(listaLibri);
-        tabellaUtente.setItems(listaUtenti);
-        tabellaPrestiti.setItems(listaPrestiti);
-
-        //btLibro.setOnAction(event -> {
-         //   if(gestioneForm != null) gestioneForm.nuovoLibro();
-         //       });
-        //btUtente.setOnAction(event -> {
-        //if(gestioneForm != null) gestioneForm.nuovoUtente();
-        //});
+        btLibro.setOnAction(event -> {
+            if(gestioneForm != null) gestioneForm.nuovoLibro();
+                });
+        btUtente.setOnAction(event -> {
+            if(gestioneForm != null) gestioneForm.nuovoUtente();
+                });
 
 
     }
@@ -131,9 +123,9 @@ public class interfacciaController {
         this.manager = manager;
         this.gestioneForm = new Finestre(manager);
 
-        this.listaLibri.setAll(manager.getCatalogo());
-        this.listaUtenti.setAll(manager.getRegistroUtenti());
-        this.listaPrestiti.setAll(manager.getRegistroPrestiti());
+        this.tabellaLibri.setItems(manager.getCatalogo());
+        this.tabellaUtente.setItems(manager.getRegistroUtenti());
+        this.tabellaPrestiti.setItems(manager.getRegistroPrestiti());
     }
 
     @FXML
@@ -150,19 +142,6 @@ public class interfacciaController {
             libri.setVisible(true);
         } else if (bottone.getId().equals("bPrestiti")) {
             prestiti.setVisible(true);
-        }
-    }
-
-    @FXML
-    private void Form(ActionEvent event){
-        Button bottone = (Button) event.getSource();
-
-        if(bottone.getId().equals("btUtente")){
-            gestioneForm.nuovoUtente();
-            listaUtenti.setAll(manager.getRegistroUtenti());
-        } else if(bottone.getId().equals("btLibro")){
-            gestioneForm.nuovoLibro();
-            listaLibri.setAll(manager.getCatalogo());
         }
     }
 }
