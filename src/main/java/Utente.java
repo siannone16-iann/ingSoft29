@@ -61,6 +61,6 @@ public class Utente {
     }
     
     public String toCSV(){
-        return nome +";"+cognome+";"+idUtente+";"+email;
+        return nome +";"+cognome+";"+idUtente+";"+email+";"+prestiti;
     }
 }    

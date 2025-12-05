@@ -59,16 +59,27 @@ public class BibliotecaManager {
     public void aggiungiUtente(String nome, String cognome, int idUtente, String email){
         Utente nuovoUtente = new Utente(nome, cognome, idUtente, email);
         registroUtenti.add(nuovoUtente);
-        
+        salvaUtentesufile();  
     }
     
     public void aggiungiPrestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
-        Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
-        registroPrestiti.add(nuovoPrestito);
-        if(nuovoPrestito.inzioPrestito()){
+        //Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
+        
+        /*if(nuovoPrestito.inzioPrestito(libro, utente)){
+            registroPrestiti.add(nuovoPrestito);
             salvaPrestitiSuFile();
+            System.out.println("prestito salvato");
         }    
-            
+        System.out.println("prestito non salvato");
+        */
+        if(utente.getPrestiti() < 3 && libro.getCopie() > libro.getCopiePrestate()){
+            Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
+            registroPrestiti.add(nuovoPrestito);
+            salvaPrestitiSuFile();
+            System.out.println("prestito salvato");
+        }
+        else System.out.println("prestito non salvato");
+
     }
     
     public void restituisciLibro(Prestito prestitoDaChiudere){
@@ -80,7 +91,7 @@ public class BibliotecaManager {
         
     }
     public void salvaPrestitiSuFile(){
-        try(PrintWriter writer = new PrintWriter(new File("prestiti.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/prestiti.csv"))){
             for(Prestito p : registroPrestiti){
                 writer.println(p.toCSV());
             }
@@ -89,7 +100,7 @@ public class BibliotecaManager {
         }    
     }
     public void salvaLibroSuFile(){
-        try(PrintWriter writer = new PrintWriter(new File("libri.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/libri.csv"))){
             for(Libro l : catalogo){
                 writer.println(l.toCSV());
             }
@@ -98,7 +109,7 @@ public class BibliotecaManager {
         }
     }
     public void salvaUtentesufile(){
-        try(PrintWriter writer = new PrintWriter(new File("utenti.csv"))){
+        try(PrintWriter writer = new PrintWriter(new File("src/main/resources/utenti.csv"))){
             for(Utente u: registroUtenti){
                 writer.println(u.toCSV());
             }

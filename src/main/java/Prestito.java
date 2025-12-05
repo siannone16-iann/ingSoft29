@@ -42,8 +42,9 @@ public class Prestito {
     }
 
     public boolean inzioPrestito(){
-        if(libro.richiestaPrestito() && utente.richiestaPrestito())
+        if(libro.richiestaPrestito() && utente.richiestaPrestito()){
                 return true;
+        }
         return false;
     }
     public void finePrestito(){

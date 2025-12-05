@@ -50,8 +50,10 @@ public class Libro {
     }
 
     public String getStato(){
-        if (copiePrestate < copie) return "Si";
-        return "No";
+        if (copiePrestate < copie){ 
+            return "Si";
+        }
+        else return "No";
     }
 
     public boolean richiestaPrestito(){
@@ -59,7 +61,7 @@ public class Libro {
             copiePrestate++;
             return true;
         }
-        else return false;   //gestione eccezione da valutare se farlo in BibliotecaManager
+        return false;   //gestione eccezione da valutare se farlo in BibliotecaManager
     }
     public void finePrestito(){
         copiePrestate--;
@@ -70,7 +72,7 @@ public class Libro {
     }
 
     public String toCSV(){
-        return titolo +";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
+        return titolo +";"+autore+";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
     }
 
 }
