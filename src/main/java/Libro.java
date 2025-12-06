@@ -87,7 +87,7 @@ public class Libro {
     }
 
     public String toCSV(){
-        return titolo +";"+autore+";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
+     return titolo +";"+autore+";"+isbn+";"+annoProduzione+";"+copie+";"+copiePrestate;
     }
 
 
