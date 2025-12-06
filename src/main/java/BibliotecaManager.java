@@ -76,6 +76,11 @@ public class BibliotecaManager {
                 int vecchieCopie = l.getCopie();
                 int nuoveCopie = copie + vecchieCopie;
                 l.setCopie(nuoveCopie);
+
+                // FORZA L'AGGIORNAMENTO DELL'INTERFACCIA
+                int index = catalogo.indexOf(l);
+                catalogo.set(index, l);
+
                 salvaLibroSuFile();
                 System.out.println("Copie aggiunte al libro esistente: " + titolo);
                 return;
