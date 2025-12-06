@@ -115,6 +115,17 @@ public class interfacciaController {
         btUtente.setOnAction(event -> {
             if(gestioneForm != null) gestioneForm.nuovoUtente();
                 });
+        btPrestito.setOnAction(event -> {
+            if(gestioneForm != null) {
+                gestioneForm.nuovoPrestito();
+
+                // Opzionale: Aggiorna le tabelle dopo aver chiuso la finestra
+                // Serve perché un nuovo prestito cambia le copie dei libri e i prestiti degli utenti
+                tabellaLibri.refresh();
+                tabellaUtente.refresh();
+                tabellaPrestiti.refresh();
+            }
+        });
 
 
     }
