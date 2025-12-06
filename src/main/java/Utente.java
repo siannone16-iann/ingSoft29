@@ -52,6 +52,12 @@ public class Utente {
         return prestiti;
     }
 
+    public void setPrestiti(int prestiti) {
+        this.prestiti = prestiti;
+    }
+    
+    
+
     public boolean richiestaPrestito() {
         if (prestiti < 3) {
             prestiti++;
