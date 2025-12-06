@@ -22,18 +22,35 @@ public class BibliotecaManager {
     private final String FILE_LIBRI = "dati/libri.csv";
     private final String FILE_UTENTI = "dati/utenti.csv";
     private final String FILE_PRESTITI = "dati/prestiti.csv";
-    
+    private int prossimoIdUtente;
+
     //costruttore
     public BibliotecaManager(){
         this.catalogo = FXCollections.observableArrayList();
         this.registroUtenti = FXCollections.observableArrayList();
         this.registroPrestiti = FXCollections.observableArrayList();
-        
+        this.prossimoIdUtente = 1;
+
         caricaDati();
+        aggiornaIdUtente();
     }
-    
-    
-    
+
+    private void aggiornaIdUtente() {
+        int maxId = 0;
+        for (Utente u : registroUtenti) {
+            if (u.getIdUtente() > maxId) {
+                maxId = u.getIdUtente();
+            }
+        }
+        prossimoIdUtente = maxId + 1;
+    }
+
+    public int getProssimoIdUtente() {
+        return prossimoIdUtente;
+    }
+
+
+
     public ObservableList<Libro> getCatalogo() {
         return catalogo;
     }
@@ -45,62 +62,76 @@ public class BibliotecaManager {
     public ObservableList<Prestito> getRegistroPrestiti() {
         return registroPrestiti;
     }
-    
-    
-    
+
+
+
     public void aggiungiLibro(String titolo, String autore, int isbn, int annoProduzione, int copie){
-        int i = 0;
+        // Controlla se esiste già lo STESSO libro (tutti i campi uguali)
         for(Libro l : catalogo){
-            if(l.getIsbn() == isbn){
-                //libro già esistente nel catalogo, sommo le copie
+            if(l.getIsbn() == isbn &&
+                    l.getTitolo().equalsIgnoreCase(titolo) &&
+                    l.getAutore().equalsIgnoreCase(autore) &&
+                    l.getAnnoProduzione() == annoProduzione){
+                // È lo stesso libro, aggiungo solo le copie
                 int vecchieCopie = l.getCopie();
                 int nuoveCopie = copie + vecchieCopie;
                 l.setCopie(nuoveCopie);
-                catalogo.set(i, l);
                 salvaLibroSuFile();
-                return;
-            }
-            i++;
-        }     
-        Libro nuovoLibro = new Libro(titolo, autore, isbn, annoProduzione, copie);
-        catalogo.add(nuovoLibro);
-        salvaLibroSuFile();
-    }
-    
-    public void aggiungiUtente(String nome, String cognome, int idUtente, String email){
-        
-        for(Utente u : registroUtenti){
-            if(u.getIdUtente() == idUtente){
+                System.out.println("Copie aggiunte al libro esistente: " + titolo);
                 return;
             }
         }
-        Utente nuovoUtente = new Utente(nome, cognome, idUtente, email);
-        registroUtenti.add(nuovoUtente);
-        salvaUtentesufile(); 
+        // È un libro nuovo, lo aggiungo al catalogo
+        Libro nuovoLibro = new Libro(titolo, autore, isbn, annoProduzione, copie);
+        catalogo.add(nuovoLibro);
+        salvaLibroSuFile();
+        System.out.println("Nuovo libro aggiunto: " + titolo);
     }
-    
-    public void aggiungiPrestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
-        //Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro,dataInzioPrestito);
-        
-        /*if(nuovoPrestito.inzioPrestito(libro, utente)){
-            registroPrestiti.add(nuovoPrestito);
-            salvaPrestitiSuFile();
-            System.out.println("prestito salvato");
-        }    
-        System.out.println("prestito non salvato");
-        */
+
+    public void aggiungiUtente(String nome, String cognome, String email){
+        int nuovoId = prossimoIdUtente;
+
+        Utente nuovoUtente = new Utente(nome, cognome, nuovoId, email);
+        registroUtenti.add(nuovoUtente);
+
+        prossimoIdUtente++;
+
+        salvaUtentesufile();
+    }
+
+    public String aggiungiPrestito(Utente utente, LocalDate dataScadenza, Libro libro, LocalDate dataInzioPrestito){
+        // Controllo 1: L'utente ha già raggiunto il limite di 3 prestiti?
+        if(utente.getPrestiti() >= 3){
+            System.out.println("ERRORE: L'utente " + utente.getNome() + " " + utente.getCognome() +
+                    " ha già raggiunto il limite massimo di 3 prestiti attivi.");
+            return "L'utente ha già raggiunto il limite massimo di 3 prestiti attivi.";
+        }
+
+        // Controllo 2: Il libro è disponibile?
+        if(!libro.getStato().equals("Si")){
+            System.out.println("ERRORE: Il libro '" + libro.getTitolo() + "' non è disponibile. " +
+                    "Copie disponibili: " + libro.getCopieDisponibili());
+            return "Il libro non è disponibile. Tutte le copie sono in prestito.";
+        }
+
+        // Se tutti i controlli passano, procedo con il prestito
         if(utente.richiestaPrestito() && libro.richiestaPrestito()){
             Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro, dataInzioPrestito);
             registroPrestiti.add(nuovoPrestito);
             salvaPrestitiSuFile();
             salvaLibroSuFile();
             salvaUtentesufile();
-            System.out.println("prestito salvato");
+            System.out.println("Prestito salvato con successo: " + utente.getCognome() +
+                    " -> " + libro.getTitolo() +
+                    " (Prestiti utente: " + utente.getPrestiti() + "/3)");
+            return "success";
         }
-        else System.out.println("prestito non salvato");
-
+        else {
+            System.out.println("ERRORE: Impossibile creare il prestito per motivi sconosciuti.");
+            return "Errore durante la creazione del prestito.";
+        }
     }
-    
+
     public void restituisciLibro(Prestito prestitoDaChiudere){
         if(prestitoDaChiudere != null){
             registroPrestiti.remove(prestitoDaChiudere);
@@ -109,7 +140,7 @@ public class BibliotecaManager {
             salvaLibroSuFile();
             salvaUtentesufile();
         }
-        
+
     }
     public void salvaPrestitiSuFile(){
         try(PrintWriter writer = new PrintWriter(new File(FILE_PRESTITI))){
@@ -118,7 +149,7 @@ public class BibliotecaManager {
             }
         }catch(FileNotFoundException e){
             System.out.println("Errore nel salvataggio: "+ e.getMessage());
-        }    
+        }
     }
     public void salvaLibroSuFile(){
         try(PrintWriter writer = new PrintWriter(new File(FILE_LIBRI))){
@@ -152,7 +183,7 @@ public class BibliotecaManager {
                         continue;
                     }
 
-                    // CSV Libro: Titolo;autore;ISBN;Anno;Copie;copiePrestate
+                    // CSV Libro: Titolo;ISBN;Anno;Copie
                     catalogo.add(new Libro(dati[0], dati[1], Integer.parseInt(dati[2]), Integer.parseInt(dati[3]), Integer.parseInt(dati[4]), Integer.parseInt(dati[5])));
                 }
             } catch(Exception e) { System.out.println("Err Caricamento Libri: " + e.getMessage()); }
@@ -183,7 +214,7 @@ public class BibliotecaManager {
                 while(scanner.hasNextLine()){
                     String[] dati = scanner.nextLine().split(";");
                     // CSV Prestito: ID_Utente;ISBN_Libro;Scadenza;Inizio
-                    
+
                     int idUtente = Integer.parseInt(dati[0]);
                     int isbnLibro = Integer.parseInt(dati[1]);
                     LocalDate scadenza = LocalDate.parse(dati[2]);
@@ -201,7 +232,7 @@ public class BibliotecaManager {
             } catch(Exception e) { System.out.println("Err Caricamento Prestiti: " + e.getMessage()); }
         }
     }
-    
+
     // --- HELPER PER IL CARICAMENTO ---
     private Utente trovaUtentePerId(int id) {
         for(Utente u : registroUtenti) if(u.getIdUtente() == id) return u;
@@ -212,6 +243,5 @@ public class BibliotecaManager {
         for(Libro l : catalogo) if(l.getIsbn() == isbn) return l;
         return null;
     }
-    
+
 }
-    
