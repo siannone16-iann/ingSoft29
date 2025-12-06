@@ -115,7 +115,9 @@ public class interfacciaController {
         btUtente.setOnAction(event -> {
             if(gestioneForm != null) gestioneForm.nuovoUtente();
                 });
-
+        btPrestito.setOnAction(event -> {
+            if(gestioneForm != null) gestioneForm.nuovoPrestito();
+        });
 
     }
 
