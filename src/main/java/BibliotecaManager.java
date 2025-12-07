@@ -93,6 +93,7 @@ public class BibliotecaManager {
         System.out.println("Nuovo libro aggiunto: " + titolo);
     }
 
+
     public void aggiungiUtente(String nome, String cognome, String email){
         int nuovoId = prossimoIdUtente;
 
@@ -123,6 +124,13 @@ public class BibliotecaManager {
         if(utente.richiestaPrestito() && libro.richiestaPrestito()){
             Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro, dataInzioPrestito);
             registroPrestiti.add(nuovoPrestito);
+            //Forzo l'aggiornamento delle liste registroUtenti e catalogo
+            int i = registroUtenti.indexOf(utente);
+            registroUtenti.set(i, utente);
+            
+            int j = catalogo.indexOf(libro);
+            catalogo.set(j, libro);
+            
             salvaPrestitiSuFile();
             salvaLibroSuFile();
             salvaUtentesufile();
