@@ -27,11 +27,11 @@ public class Utente {
         this(nome, cognome, idUtente, email, 0);
     }
 
-    public void modificaUtente (String nome, String cognome, int idUtente, String email){
+    public void modificaUtente (String nome, String cognome, String email, int idUtente){
         this.nome = nome;
         this.cognome = cognome;
-        this.idUtente = idUtente;
         this.email = email;
+        this.idUtente=idUtente;
     }
     public String getNome() {
 

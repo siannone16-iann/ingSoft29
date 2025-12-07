@@ -9,8 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 public class interfacciaController {
 
@@ -79,6 +78,11 @@ public class interfacciaController {
     @FXML
     private TableView<Libro> tabellaLibri;
 
+    @FXML
+    private TableColumn<Libro, Void> libroModifica;
+    @FXML
+    private TableColumn<Utente, Void> utenteModifica;
+
     private BibliotecaManager manager;
     private Finestre gestioneForm;
 
@@ -119,6 +123,7 @@ public class interfacciaController {
             if(gestioneForm != null) gestioneForm.nuovoPrestito();
         });
 
+        BottoneModifica();
     }
 
     public void setManager(BibliotecaManager manager) {
@@ -128,6 +133,85 @@ public class interfacciaController {
         this.tabellaLibri.setItems(manager.getCatalogo());
         this.tabellaUtente.setItems(manager.getRegistroUtenti());
         this.tabellaPrestiti.setItems(manager.getRegistroPrestiti());
+    }
+
+    private void BottoneModifica() {
+        Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>> cellFactory = new Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>>() {
+            @Override
+            public TableCell<Libro, Void> call(final TableColumn<Libro, Void> param) {
+                final TableCell<Libro, Void> cell = new TableCell<Libro, Void>() {
+
+                    private final Button btn = new Button("Modifica");
+
+                    {
+
+                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
+
+                        btn.setOnAction((ActionEvent event) -> {
+
+                            Libro libroSelezionato = getTableView().getItems().get(getIndex());
+
+
+                            if (gestioneForm != null) {
+
+                                gestioneForm.formModificaLibro(libroSelezionato);
+                            }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+
+        Callback<TableColumn<Utente, Void>, TableCell<Utente, Void>> cellFactoryUtente = new Callback<TableColumn<Utente, Void>, TableCell<Utente, Void>>() {
+            @Override
+            public TableCell<Utente, Void> call(final TableColumn<Utente, Void> param) {
+                final TableCell<Utente, Void> cella = new TableCell<Utente, Void>() {
+
+                    private final Button btn = new Button("Modifica");
+
+                    {
+                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
+
+                        btn.setOnAction((ActionEvent event) -> {
+
+                            Utente utenteSelezionato = getTableView().getItems().get(getIndex());
+
+                            if (gestioneForm != null) {
+
+                                gestioneForm.formModificaUtente(utenteSelezionato);
+                            }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn); // Mostra il bottone solo se la riga esiste
+                        }
+                    }
+                };
+                return cella;
+            }
+        };
+
+
+        libroModifica.setCellFactory(cellFactory);
+        utenteModifica.setCellFactory(cellFactoryUtente);
     }
 
     @FXML

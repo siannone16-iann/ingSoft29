@@ -47,8 +47,9 @@
                                 <TableColumn fx:id="utenteNome" prefWidth="75.0" text="Nome" />
                                 <TableColumn fx:id="utenteCognome" prefWidth="75.0" text="Cognome" />
                                 <TableColumn fx:id="utenteEmail" prefWidth="75.0" text="email" />
-                                <TableColumn fx:id="utenteID" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="utenteID" prefWidth="75.0" text="Matricola" />
                                 <TableColumn fx:id="utentePrestiti" prefWidth="75.0" text="Prestiti" />
+                                <TableColumn fx:id="utenteModifica" prefWidth="100.0" text=" " sortable="false" />
                             </columns>
                         </TableView>
                     </children>
@@ -112,6 +113,7 @@
                                 <TableColumn fx:id="libroCopie" prefWidth="75.0" text="Copie" />
                                 <TableColumn fx:id="libroCopieD" prefWidth="75.0" text="Copie Disponibili" />
                                 <TableColumn fx:id="libroDisponibile" prefWidth="100.0" text="Disponibilità" />
+                                <TableColumn fx:id="libroModifica" prefWidth="100.0" text=" " sortable="false" />
                             </columns>
                         </TableView>
                     </children>

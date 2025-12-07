@@ -107,7 +107,7 @@ public class Finestre {
         TextField cognome = new TextField();
         TextField email = new TextField();
 
-        Label labelId = new Label("ID Utente (automatico): " + manager.getProssimoIdUtente());
+        Label labelId = new Label("Matricola (automatico): " + manager.getProssimoIdUtente());
         labelId.setStyle("-fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
         grid.add(new Label("Nome:"), 0, 0);    grid.add(nome, 1, 0);
@@ -314,6 +314,144 @@ public class Finestre {
                 mostraErrore(risultato);
                 event.consume(); // Blocca la chiusura del dialog
             }
+        });
+
+        dialog.showAndWait();
+    }
+
+
+    public void formModificaLibro(Libro libro){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Modifica Libro");
+        dialog.setHeaderText("Modifica il Libro" + libro.getTitolo());
+
+        // 1. Bottoni
+        ButtonType salvaButtonType = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+
+        // 2. Layout (Griglia)
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField titolo = new TextField(libro.getTitolo());
+        TextField autore = new TextField(libro.getAutore());
+        TextField isbn = new TextField(String.valueOf(libro.getIsbn()));
+        TextField anno = new TextField(String.valueOf(libro.getAnnoProduzione()));
+        TextField copie = new TextField(String.valueOf(libro.getCopie()));
+
+        grid.add(new Label("Titolo:"), 0, 0); grid.add(titolo, 1, 0);
+        grid.add(new Label("Autore:"), 0, 1); grid.add(autore, 1, 1);
+        grid.add(new Label("ISBN:"), 0, 2);   grid.add(isbn, 1, 2);
+        grid.add(new Label("Anno:"), 0, 3);   grid.add(anno, 1, 3);
+        grid.add(new Label("Copie:"), 0, 4);  grid.add(copie, 1, 4);
+
+        dialog.getDialogPane().setContent(grid);
+
+        // 3. LOGICA DI SALVATAGGIO (Dentro il filtro)
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+
+        btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
+            // A. Validazione Campi Vuoti
+            if (titolo.getText().trim().isEmpty() ||
+                    autore.getText().trim().isEmpty() ||
+                    isbn.getText().trim().isEmpty() ||
+                    anno.getText().trim().isEmpty() ||
+                    copie.getText().trim().isEmpty()) {
+
+                mostraErrore("Tutti i campi sono obbligatori.");
+                event.consume(); // Blocca la chiusura della finestra
+                return;
+            }
+
+            // B. Validazione Numerica e Salvataggio
+            try {
+                int vIsbn = Integer.parseInt(isbn.getText());
+                int vAnno = Integer.parseInt(anno.getText());
+                int vCopie = Integer.parseInt(copie.getText());
+
+                // SE SIAMO QUI, I DATI SONO OK -> SALVIAMO
+                try {
+                    libro.modificaLibro(
+                            titolo.getText(),
+                            autore.getText(),
+                            vIsbn,
+                            vAnno,
+                            vCopie
+                    );
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println("Libro modificato con successo.");
+                // Non consumiamo l'evento, così il dialog si chiude normalmente
+
+            } catch (NumberFormatException e) {
+                mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+                event.consume(); // Blocca la chiusura per errore
+            }
+        });
+
+        dialog.showAndWait();
+    }
+
+    public void formModificaUtente(Utente utente){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Modifica Utente");
+        dialog.setHeaderText("Modifica l'Utente: " + utente.getNome()+ " " + utente.getCognome());
+
+        // 1. Bottoni
+        ButtonType salvaButtonType = new ButtonType("Modifica", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+
+        // 2. Layout
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nome = new TextField(utente.getNome());
+        TextField cognome = new TextField(utente.getCognome());
+        TextField email = new TextField(utente.getEmail());
+        Label idUtente = new Label("Matricola : " + String.valueOf(utente.getIdUtente()));
+        idUtente.setStyle("-fx-font-weight: bold; -fx-text-fill: #2196F3;");
+
+        grid.add(new Label("Nome:"), 0, 0);    grid.add(nome, 1, 0);
+        grid.add(new Label("Cognome:"), 0, 1); grid.add(cognome, 1, 1);
+        grid.add(new Label("Email:"), 0, 2);   grid.add(email, 1, 2);
+        grid.add(idUtente, 0, 3, 2, 1);
+
+        dialog.getDialogPane().setContent(grid);
+
+
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+
+        btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
+
+            if (nome.getText().trim().isEmpty() ||
+                    cognome.getText().trim().isEmpty() ||
+                    email.getText().trim().isEmpty()) {
+
+                mostraErrore("Tutti i campi sono obbligatori.");
+                event.consume();
+                return;
+            }
+
+            if (!email.getText().contains("@")) {
+                mostraErrore("Inserisci un'email valida.");
+                event.consume();
+                return;
+            }
+
+            utente.modificaUtente(
+                    nome.getText(),
+                    cognome.getText(),
+                    email.getText(),
+                    utente.getIdUtente()
+            );
+
+            System.out.println("Utente modificato con successo.");
         });
 
         dialog.showAndWait();
