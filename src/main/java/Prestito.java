@@ -55,4 +55,7 @@ public class Prestito {
     public String toCSV(){
         return utente.getIdUtente() +";"+libro.getIsbn()+";"+ dataInizioPrestito.toString()+";"+dataScadenza.toString();
     }
+    public boolean Scaduto(){
+        return LocalDate.now().isAfter(this.dataScadenza);//Prendo la data di oggi e controllo se è successiva a quella della scadenza
+    }
 }
