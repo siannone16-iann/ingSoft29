@@ -9,10 +9,10 @@
  * @author salvatoremoccia
  */
 public class Utente {
-    private final String nome;
-    private final String cognome;
-    private final int idUtente;
-    private final String email;
+    private String nome;
+    private String cognome;
+    private int idUtente;
+    private String email;
     private int prestiti;
 
     public Utente(String nome, String cognome, int idUtente, String email, int prestiti) {
@@ -26,7 +26,13 @@ public class Utente {
     public Utente(String nome, String cognome, int idUtente, String email){
         this(nome, cognome, idUtente, email, 0);
     }
-    
+
+    public void modificaUtente (String nome, String cognome, int idUtente, String email){
+        this.nome = nome;
+        this.cognome = cognome;
+        this.idUtente = idUtente;
+        this.email = email;
+    }
     public String getNome() {
 
         return nome;

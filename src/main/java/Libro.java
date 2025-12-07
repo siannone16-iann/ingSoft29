@@ -6,12 +6,12 @@
 
 public class Libro {
 
-    private final String titolo;
-    private final String autore;
+    private String titolo;
+    private String autore;
     private int copie;
     private int copiePrestate;
-    private final int isbn;
-    private final int annoProduzione;
+    private int isbn;
+    private int annoProduzione;
 
     public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie, int copiePrestate) {
         this.titolo = titolo;
@@ -24,6 +24,14 @@ public class Libro {
     
     public Libro(String titolo, String autore, int isbn, int annoProduzione, int copie){
         this(titolo, autore, isbn, annoProduzione, copie, 0);
+    }
+
+    public void modificaLibro(String titolo, String autore, int isbn, int annoProduzione, int copie){
+        this.titolo=titolo;
+        this.autore=autore;
+        this.isbn=isbn;
+        this.annoProduzione=annoProduzione;
+        this.copie=copie;
     }
 
     public String getTitolo() {
