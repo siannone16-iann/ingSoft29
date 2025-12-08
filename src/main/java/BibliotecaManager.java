@@ -162,6 +162,14 @@ public class BibliotecaManager {
 
     }
 
+    public void aggiornaUtente(Utente u){
+        int index = registroUtenti.indexOf(u);
+        registroUtenti.set(index, u);
+
+        salvaUtentesufile();
+
+    }
+
 
     public void salvaPrestitiSuFile(){
         try(PrintWriter writer = new PrintWriter(new File(FILE_PRESTITI))){

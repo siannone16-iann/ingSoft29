@@ -328,12 +328,12 @@ public class Finestre {
         dialog.setHeaderText("Modifica il Libro: " + libro.getTitolo());
 
 
-        ButtonType salvaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
+        ButtonType aggiornaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
         ButtonType eliminaButton = new ButtonType("Elimina", ButtonBar.ButtonData.LEFT);
 
 
         dialog.getDialogPane().getButtonTypes().addAll(
-                salvaButton,
+                aggiornaButton,
                 eliminaButton,
                 ButtonType.CANCEL);
 
@@ -359,13 +359,13 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButton);
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(aggiornaButton);
         Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
 
         btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
-            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert conferma = new Alert(Alert.AlertType.WARNING);
             conferma.setTitle("Conferma Eliminazione");
             conferma.setHeaderText("Eliminare il libro : " + libro.getTitolo());
             conferma.setContentText("Scrivi CONFERMA per proseguire: ");
@@ -456,11 +456,15 @@ public class Finestre {
         dialog.setTitle("Modifica Utente");
         dialog.setHeaderText("Modifica l'Utente: " + utente.getNome()+ " " + utente.getCognome());
 
-        // 1. Bottoni
-        ButtonType salvaButtonType = new ButtonType("Modifica", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+        ButtonType aggiornaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
+        ButtonType eliminaButton = new ButtonType("Elimina", ButtonBar.ButtonData.LEFT);
 
-        // 2. Layout
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                aggiornaButton,
+                eliminaButton,
+                ButtonType.CANCEL);
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -480,7 +484,56 @@ public class Finestre {
         dialog.getDialogPane().setContent(grid);
 
 
-        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(aggiornaButton);
+        Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
+
+        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+
+        btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
+            Alert conferma = new Alert(Alert.AlertType.WARNING);
+            conferma.setTitle("Conferma Eliminazione");
+            conferma.setHeaderText("Eliminare il libro : " + utente.getNome() +" "+ utente.getCognome());
+            conferma.setContentText("Scrivi CONFERMA per proseguire: ");
+
+            TextField confermaTesto = new TextField();
+
+            confermaTesto.setPromptText("CONFERMA");
+
+            VBox box = new VBox(10);
+            box.getChildren().addAll(
+                    new Label("Questa operazione è irreversibile."),
+                    confermaTesto
+            );
+
+            conferma.getDialogPane().setContent(box);
+
+            Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
+            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+            elimina.setDisable(true);
+
+            confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
+                elimina.setDisable(
+                        !"CONFERMA".equals(newVal.trim())
+                );
+            });
+
+            Optional<ButtonType> risultato = conferma.showAndWait();
+
+            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+                try {
+
+                    ; //devo implementare la Logica dell'eliminazione
+
+                } catch (Exception e) {
+                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    event.consume();
+                }
+            }
+            else {
+                event.consume();
+            }
+
+        });
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
 
@@ -505,6 +558,8 @@ public class Finestre {
                     email.getText(),
                     utente.getIdUtente()
             );
+
+            manager.aggiornaUtente(utente);
 
             System.out.println("Utente modificato con successo.");
         });
