@@ -1,4 +1,9 @@
 /**
+ * @brief Controller principale dell'interfaccia grafica della Biblioteca.
+ *
+ * Questa classe implementa la vista .FXML e le altre classi.
+ * Si occupa di visualizzare le tabelle dei Libri, Utenti e Prestiti, gestire
+ * la navigazione tra le schede e configurare i filtri di ricerca in tempo reale.
  *
  * @author salvatoremoccia
  */
@@ -93,7 +98,15 @@ public class interfacciaController {
     private BibliotecaManager manager;
     private Finestre gestioneForm;
 
-
+    /**
+     * @brief Inizializza lo stato di partenza della vista.
+     *
+     * Metodo chiamato automaticamente da JavaFX una sola volta.
+     * Svolge le funzioni di:
+     * - Visibilità iniziale delle schede (parte con la scheda Libri attiva).
+     * - Collegamento tra le colonne delle tabelle e le proprietà degli oggetti.
+     * - Le azioni dei pulsanti "Nuovo" (Libro, Utente, Prestito).
+     */
     @FXML
     private void initialize(){
         bLibri.setSelected(true);
@@ -133,6 +146,15 @@ public class interfacciaController {
         BottoneModifica();
     }
 
+    /**
+     * @brief Collega il controller ai dati e gestisce la logica di ricerca.
+     *
+     * Il Controller collega le tabelle ai loro corrispettivi in Biblioteca manager,
+     * popola le tabelle e imposta i "Listener" sulle barre di ricerca per filtrare
+     * i risultati in tempo reale (mentre l'utente digita).
+     *
+     * @param manager L'istanza del manager che contiene il catalogo dei libri e i registri (Utente e Prestiti).
+     */
     public void setManager(BibliotecaManager manager) {
         this.manager = manager;
         this.gestioneForm = new Finestre(manager);
@@ -194,6 +216,13 @@ public class interfacciaController {
         this.tabellaUtente.setItems(utentiOrdinati);
         this.tabellaPrestiti.setItems(manager.getRegistroPrestiti());
     }
+
+    /**
+     * @brief Genera per ogni elemento un pulsante "Modifica" all'interno delle tabelle.
+     *
+     * Crea una cella personalizzata contenente un bottone per ogni riga.
+     * Cliccando il bottone, viene aperto il form di modifica per libro o utente che sia.
+     */
 
     private void BottoneModifica() {
         Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>> cellFactory = new Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>>() {
@@ -263,7 +292,7 @@ public class interfacciaController {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(btn); // Mostra il bottone solo se la riga esiste
+                            setGraphic(btn);
                         }
                     }
                 };
@@ -276,6 +305,14 @@ public class interfacciaController {
         utenteModifica.setCellFactory(cellFactoryUtente);
     }
 
+    /**
+     * @brief Gestisce la navigazione tra le schede nel menu laterale.
+     *
+     * Viene richiamato dai ToggleButton del menu laterale. Nasconde tutte le altre schede
+     * e mostra solo quella corrispondente al bottone premuto.
+     *
+     * @param event L'evento di click sul bottone del menu.
+     */
     @FXML
     private void switchTab(ActionEvent event) {
         ToggleButton bottone = (ToggleButton) event.getSource();
