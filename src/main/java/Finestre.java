@@ -7,7 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Finestre {
     private final BibliotecaManager manager;
@@ -323,13 +325,21 @@ public class Finestre {
     public void formModificaLibro(Libro libro){
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Modifica Libro");
-        dialog.setHeaderText("Modifica il Libro" + libro.getTitolo());
+        dialog.setHeaderText("Modifica il Libro: " + libro.getTitolo());
 
-        // 1. Bottoni
-        ButtonType salvaButtonType = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
 
-        // 2. Layout (Griglia)
+        ButtonType salvaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
+        ButtonType eliminaButton = new ButtonType("Elimina", ButtonBar.ButtonData.LEFT);
+
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                salvaButton,
+                eliminaButton,
+                ButtonType.CANCEL);
+
+
+
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -349,8 +359,56 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        // 3. LOGICA DI SALVATAGGIO (Dentro il filtro)
-        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButton);
+        Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
+
+        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+
+        btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            conferma.setTitle("Conferma Eliminazione");
+            conferma.setHeaderText("Eliminare il libro : " + libro.getTitolo());
+            conferma.setContentText("Scrivi CONFERMA per proseguire: ");
+
+            TextField confermaTesto = new TextField();
+
+            confermaTesto.setPromptText("CONFERMA");
+
+            VBox box = new VBox(10);
+            box.getChildren().addAll(
+                    new Label("Questa operazione è irreversibile."),
+                    confermaTesto
+            );
+
+            conferma.getDialogPane().setContent(box);
+
+            Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
+            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+            elimina.setDisable(true);
+
+            confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
+                elimina.setDisable(
+                        !"CONFERMA".equals(newVal.trim())
+                );
+            });
+
+            Optional<ButtonType> risultato = conferma.showAndWait();
+
+            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+                try {
+
+                    ; //devo implementare la Logica dell'eliminazione
+
+                } catch (Exception e) {
+                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    event.consume();
+                }
+            }
+            else {
+                event.consume();
+            }
+
+        });
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
             // A. Validazione Campi Vuoti
@@ -361,17 +419,14 @@ public class Finestre {
                     copie.getText().trim().isEmpty()) {
 
                 mostraErrore("Tutti i campi sono obbligatori.");
-                event.consume(); // Blocca la chiusura della finestra
+                event.consume();
                 return;
             }
 
-            // B. Validazione Numerica e Salvataggio
             try {
                 int vIsbn = Integer.parseInt(isbn.getText());
                 int vAnno = Integer.parseInt(anno.getText());
                 int vCopie = Integer.parseInt(copie.getText());
-
-                // SE SIAMO QUI, I DATI SONO OK -> SALVIAMO
                 try {
                     libro.modificaLibro(
                             titolo.getText(),
@@ -380,19 +435,19 @@ public class Finestre {
                             vAnno,
                             vCopie
                     );
+                    manager.aggiornaLibro(libro);
+
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    mostraErrore("Errore nella modifica del libro : "+ e.getMessage());
                 }
 
                 System.out.println("Libro modificato con successo.");
-                // Non consumiamo l'evento, così il dialog si chiude normalmente
 
             } catch (NumberFormatException e) {
                 mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
-                event.consume(); // Blocca la chiusura per errore
+                event.consume();
             }
         });
-
         dialog.showAndWait();
     }
 

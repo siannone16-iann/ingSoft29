@@ -77,12 +77,10 @@ public class BibliotecaManager {
                 int nuoveCopie = copie + vecchieCopie;
                 l.setCopie(nuoveCopie);
 
-                // FORZA L'AGGIORNAMENTO DELL'INTERFACCIA
-                int index = catalogo.indexOf(l);
-                catalogo.set(index, l);
+                aggiornaLibro(l);
 
-                salvaLibroSuFile();
                 System.out.println("Copie aggiunte al libro esistente: " + titolo);
+
                 return;
             }
         }
@@ -155,6 +153,16 @@ public class BibliotecaManager {
         }
 
     }
+
+    public void aggiornaLibro(Libro l){
+        int index = catalogo.indexOf(l);
+        catalogo.set(index, l);
+
+        salvaLibroSuFile();
+
+    }
+
+
     public void salvaPrestitiSuFile(){
         try(PrintWriter writer = new PrintWriter(new File(FILE_PRESTITI))){
             for(Prestito p : registroPrestiti){
