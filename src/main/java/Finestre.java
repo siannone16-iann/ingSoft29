@@ -624,6 +624,7 @@ public class Finestre {
             } catch (Exception e) {
                 mostraErrore(e.getMessage());
                 event.consume();
+
             }
         });
 
