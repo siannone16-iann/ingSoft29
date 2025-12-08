@@ -366,7 +366,7 @@ public class Finestre {
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
             Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
-            conferma.setTitle("Conferma Eliminazione");
+            conferma.setTitle("Elimina");
             conferma.setHeaderText("Eliminare il libro : " + libro.getTitolo());
             conferma.setContentText("Scrivi CONFERMA per proseguire: ");
 
@@ -376,7 +376,7 @@ public class Finestre {
 
             VBox box = new VBox(10);
             box.getChildren().addAll(
-                    new Label("Questa operazione è irreversibile."),
+                    new Label("Digita CONFERMA per proseguire. \n(Questa operazione è irreversibile)"),
                     confermaTesto
             );
 
@@ -423,26 +423,33 @@ public class Finestre {
                 return;
             }
 
+
             try {
                 int vIsbn = Integer.parseInt(isbn.getText());
                 int vAnno = Integer.parseInt(anno.getText());
                 int vCopie = Integer.parseInt(copie.getText());
-                try {
-                    libro.modificaLibro(
-                            titolo.getText(),
-                            autore.getText(),
-                            vIsbn,
-                            vAnno,
-                            vCopie
-                    );
-                    manager.aggiornaLibro(libro);
 
-                } catch (Exception e) {
-                    mostraErrore("Errore nella modifica del libro : "+ e.getMessage());
+                if(vCopie >= libro.getCopiePrestate()) {
+                    try {
+
+                        libro.modificaLibro(
+                                titolo.getText(),
+                                autore.getText(),
+                                vIsbn,
+                                vAnno,
+                                vCopie
+                        );
+                        manager.aggiornaLibro(libro);
+
+                    } catch (Exception e) {
+                        mostraErrore("Errore nella modifica del libro : " + e.getMessage());
+                    }
+                    System.out.println("Libro modificato con successo.");
                 }
-
-                System.out.println("Libro modificato con successo.");
-
+                else {
+                    mostraErrore("Il numero di copie che hai inserito : "+vCopie +", è minore di quelle già prestate ("+libro.getCopiePrestate()+ ").");
+                    event.consume();
+                }
             } catch (NumberFormatException e) {
                 mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
                 event.consume();
@@ -491,9 +498,8 @@ public class Finestre {
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
             Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
-            conferma.setTitle("Conferma Eliminazione");
-            conferma.setHeaderText("Eliminare il libro : " + utente.getNome() +" "+ utente.getCognome());
-            conferma.setContentText("Scrivi CONFERMA per proseguire: ");
+            conferma.setTitle("Elimina");
+            conferma.setHeaderText("Eliminare l'Utente : " + utente.getNome() +" "+ utente.getCognome());
 
             TextField confermaTesto = new TextField();
 
@@ -501,7 +507,7 @@ public class Finestre {
 
             VBox box = new VBox(10);
             box.getChildren().addAll(
-                    new Label("Questa operazione è irreversibile."),
+                    new Label("Digita CONFERMA per proseguire. \n(Questa operazione è irreversibile)"),
                     confermaTesto
             );
 

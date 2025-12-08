@@ -185,8 +185,7 @@ public class BibliotecaManager {
         int index = registroUtenti.indexOf(u);
         registroUtenti.set(index, u);
 
-        salvaUtentesufile();
-
+        salvaPrestitiSuFile();
     }
 
 

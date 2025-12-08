@@ -215,6 +215,7 @@ public class interfacciaController {
                             if (gestioneForm != null) {
 
                                 gestioneForm.formModificaLibro(libroSelezionato);
+                                tabellaPrestiti.refresh();
                             }
                         });
                     }
@@ -251,6 +252,7 @@ public class interfacciaController {
                             if (gestioneForm != null) {
 
                                 gestioneForm.formModificaUtente(utenteSelezionato);
+                                tabellaPrestiti.refresh();
                             }
                         });
                     }
