@@ -575,6 +575,61 @@ public class Finestre {
 
         dialog.showAndWait();
     }
+
+    public void formModificaPrestito(Prestito prestito){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Modifica Prestito");
+        dialog.setHeaderText("Registra un nuovo prestito");
+
+        ButtonType salvaButtonType = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(0, 150, 10, 10));
+
+        grid.add(new Label("Utente:"), 0, 0);      grid.add(new Label(prestito.getNomeUtente()), 1, 0);
+        grid.add(new Label("Libro:"), 0, 1);       grid.add(new Label(prestito.getTitoloLibro()), 1, 1);
+        grid.add(new Label("Data Inizio:"), 0, 2); grid.add(new Label(""+prestito.getDataInizioPrestito()), 1, 2);
+
+        DatePicker dataScadenza = new DatePicker(prestito.getDataScadenza());
+        grid.add(new Label("Scadenza:"), 0, 3);    grid.add(dataScadenza, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
+            if (dataScadenza.getValue() == null) {
+                mostraErrore("Il campo Scadenza è obbligatorio.");
+                event.consume();
+                return;
+            }
+
+            if (dataScadenza.getValue().isBefore(LocalDate.now())) {
+                mostraErrore("La data di scadenza non deve essere già passata.");
+                event.consume();
+                return;
+            }
+            try {
+                prestito.modificaPrestito(dataScadenza.getValue());
+
+                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                success.setTitle("Successo");
+                success.setHeaderText(null);
+                success.setContentText("Prestito registrato con successo!");
+                success.showAndWait();
+                System.out.println("Prestito salvato con successo.");
+
+            } catch (Exception e) {
+                mostraErrore(e.getMessage());
+                event.consume();
+            }
+        });
+
+        dialog.showAndWait();
+    }
+
     /**
      * @brief Mostra un alert di errore a video.
      * @param messaggio Il testo dell'errore da visualizzare.

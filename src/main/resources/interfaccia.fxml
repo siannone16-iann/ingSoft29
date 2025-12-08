@@ -84,6 +84,7 @@
                                 <TableColumn fx:id="prestitoLibro" prefWidth="70.0" text="Libro" />
                                 <TableColumn fx:id="prestitoInizio" prefWidth="110.0" text="Data Prestito" />
                                 <TableColumn fx:id="prestitoFine" prefWidth="110.0" text="Scadenza Prestito" />
+                                <TableColumn fx:id="prestitoModifica" prefWidth="100.0" sortable="false" text=" "/>
                             </columns>
                         </TableView>
                     </children>

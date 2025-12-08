@@ -89,6 +89,8 @@ public class interfacciaController {
     private TableColumn<Libro, Void> libroModifica;
     @FXML
     private TableColumn<Utente, Void> utenteModifica;
+    @FXML
+    private TableColumn<Prestito, Void> prestitoModifica;
 
     @FXML
     private TextField barraRicercaLibri;
@@ -221,14 +223,14 @@ public class interfacciaController {
      * @brief Genera per ogni elemento un pulsante "Modifica" all'interno delle tabelle.
      *
      * Crea una cella personalizzata contenente un bottone per ogni riga.
-     * Cliccando il bottone, viene aperto il form di modifica per libro o utente che sia.
+     * Cliccando il bottone, viene aperto il form di modifica per libro, utente o prestito.
      */
 
     private void BottoneModifica() {
-        Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>> cellFactory = new Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>>() {
+        Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>> cellFactoryLibro = new Callback<TableColumn<Libro, Void>, TableCell<Libro, Void>>() {
             @Override
             public TableCell<Libro, Void> call(final TableColumn<Libro, Void> param) {
-                final TableCell<Libro, Void> cell = new TableCell<Libro, Void>() {
+                final TableCell<Libro, Void> cellLibro = new TableCell<Libro, Void>() {
 
                     private final Button btn = new Button("Modifica");
 
@@ -259,7 +261,7 @@ public class interfacciaController {
                         }
                     }
                 };
-                return cell;
+                return cellLibro;
             }
         };
 
@@ -267,7 +269,7 @@ public class interfacciaController {
         Callback<TableColumn<Utente, Void>, TableCell<Utente, Void>> cellFactoryUtente = new Callback<TableColumn<Utente, Void>, TableCell<Utente, Void>>() {
             @Override
             public TableCell<Utente, Void> call(final TableColumn<Utente, Void> param) {
-                final TableCell<Utente, Void> cella = new TableCell<Utente, Void>() {
+                final TableCell<Utente, Void> cellUtente = new TableCell<Utente, Void>() {
 
                     private final Button btn = new Button("Modifica");
 
@@ -296,13 +298,52 @@ public class interfacciaController {
                         }
                     }
                 };
-                return cella;
+                return cellUtente;
             }
         };
 
 
-        libroModifica.setCellFactory(cellFactory);
+        Callback<TableColumn<Prestito, Void>, TableCell<Prestito, Void>> cellFactoryPrestito = new Callback<TableColumn<Prestito, Void>, TableCell<Prestito, Void>>() {
+            @Override
+            public TableCell<Prestito, Void> call(final TableColumn<Prestito, Void> param) {
+                final TableCell<Prestito, Void> cellPrestito = new TableCell<Prestito, Void>() {
+
+                    private final Button btn = new Button("Modifica");
+
+                    {
+
+                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
+
+                        btn.setOnAction((ActionEvent event) -> {
+
+                            Prestito prestitoSelezionato = getTableView().getItems().get(getIndex());
+
+
+                            if (gestioneForm != null) {
+
+                                gestioneForm.formModificaPrestito(prestitoSelezionato);
+                                tabellaPrestiti.refresh();
+                            }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cellPrestito;
+            }
+        };
+
+        libroModifica.setCellFactory(cellFactoryLibro);
         utenteModifica.setCellFactory(cellFactoryUtente);
+        prestitoModifica.setCellFactory(cellFactoryPrestito);
     }
 
     /**

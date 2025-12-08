@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Prestito {
-    private final LocalDate dataScadenza;
+    private  LocalDate dataScadenza;
     private final Utente utente;
     private final Libro libro;
     private final LocalDate dataInizioPrestito;
@@ -34,11 +34,18 @@ public class Prestito {
     }
 
     public String getNomeUtente() {
+
         return utente.getNome() + " " + utente.getCognome();
     }
 
     public String getTitoloLibro(){
+
         return libro.getTitolo();
+    }
+
+
+    public void modificaPrestito(LocalDate scadenza){
+        this.dataScadenza=scadenza;
     }
 
     public boolean inizioPrestito(){
