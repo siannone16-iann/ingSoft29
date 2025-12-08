@@ -41,6 +41,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        System.setProperty("glass.accessible.force", "false");
         launch(args);
     }
 }
