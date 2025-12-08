@@ -154,6 +154,25 @@ public class BibliotecaManager {
 
     }
 
+    public void eliminaLibro(Libro l){
+        if( l != null && l.getCopieDisponibili() > 0) {
+            catalogo.remove(l);
+            salvaLibroSuFile();
+            System.out.println("Il libro : " +l.getTitolo()+" è stato eliminato con successo.");
+        }
+        else
+            System.out.println("Non è stato possibile procedere con l'eliminazione. \n Verifica le copie disponibili.");
+    }
+
+    public void eliminaUtente(Utente u){
+        if (u != null && u.getPrestiti() == 0){
+            registroUtenti.remove(u);
+            salvaUtentesufile();
+            System.out.println("L'utente : "+u.getNome()+" "+u.getCognome()+" è stato eliminato dal registro.");
+        }
+        else
+            System.out.println("Non è stato possibile procedere con l'eliminazione. \n Verificare i prestiti a carico dell'utente.");
+    }
     public void aggiornaLibro(Libro l){
         int index = catalogo.indexOf(l);
         catalogo.set(index, l);

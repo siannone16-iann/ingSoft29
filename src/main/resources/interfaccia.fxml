@@ -8,7 +8,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
     <left>
-        <VBox prefHeight="400.0" prefWidth="151.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="363.0" prefWidth="87.0" BorderPane.alignment="CENTER">
             <children>
                 <ToggleButton fx:id="bLibri" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="181.0" text="Libri">
                     <toggleGroup>
@@ -22,7 +22,7 @@
     <center>
         <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox fx:id="utenti" minWidth="0.0" visible="false">
+                <VBox fx:id="utenti" minWidth="0.0" prefHeight="363.0" prefWidth="443.0" visible="false">
                     <children>
                   <HBox minWidth="0.0">
                      <children>
@@ -49,12 +49,12 @@
                                 <TableColumn fx:id="utenteEmail" prefWidth="75.0" text="email" />
                                 <TableColumn fx:id="utenteID" prefWidth="75.0" text="Matricola" />
                                 <TableColumn fx:id="utentePrestiti" prefWidth="75.0" text="Prestiti" />
-                                <TableColumn fx:id="utenteModifica" prefWidth="100.0" text=" " sortable="false" />
+                                <TableColumn fx:id="utenteModifica" prefWidth="100.0" sortable="false" text=" " />
                             </columns>
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="prestiti" minWidth="0.0" visible="false">
+                <VBox fx:id="prestiti" minWidth="0.0" prefHeight="363.0" prefWidth="557.0" visible="false">
                     <children>
                   <HBox minWidth="0.0">
                      <children>
@@ -106,14 +106,14 @@
                   </HBox>
                         <TableView fx:id="tabellaLibri" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="libroTitolo" prefWidth="75.0" text="Titolo" />
-                                <TableColumn fx:id="libroAutore" prefWidth="75.0" text="Autore" />
-                                <TableColumn fx:id="libroAnno" prefWidth="75.0" text="Anno" />
-                                <TableColumn fx:id="libroIsbn" prefWidth="75.0" text="ISBN" />
-                                <TableColumn fx:id="libroCopie" prefWidth="75.0" text="Copie" />
+                                <TableColumn fx:id="libroTitolo" prefWidth="100.0" text="Titolo" />
+                                <TableColumn fx:id="libroAutore" prefWidth="100.0" text="Autore" />
+                                <TableColumn fx:id="libroAnno" prefWidth="50.0" text="Anno" />
+                                <TableColumn fx:id="libroIsbn" prefWidth="50.0" text="ISBN" />
+                                <TableColumn fx:id="libroCopie" prefWidth="50.0" text="Copie" />
                                 <TableColumn fx:id="libroCopieD" prefWidth="75.0" text="Copie Disponibili" />
-                                <TableColumn fx:id="libroDisponibile" prefWidth="100.0" text="Disponibilità" />
-                                <TableColumn fx:id="libroModifica" prefWidth="100.0" text=" " sortable="false" />
+                                <TableColumn fx:id="libroDisponibile" prefWidth="50.0" text="Disponibilità" />
+                                <TableColumn fx:id="libroModifica" prefWidth="100.0" sortable="false" text=" " />
                             </columns>
                         </TableView>
                     </children>
@@ -122,7 +122,7 @@
         </StackPane>
     </center>
     <top>
-        <Label prefHeight="37.0" prefWidth="574.0" text="Biblioteca Universitaria" BorderPane.alignment="CENTER">
+        <Label prefHeight="37.0" prefWidth="574.0" text="Biblioteca Universitaria" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
             <font>
                 <Font size="30.0" />
             </font></Label>

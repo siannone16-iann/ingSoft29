@@ -329,7 +329,7 @@ public class Finestre {
 
 
         ButtonType aggiornaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
-        ButtonType eliminaButton = new ButtonType("Elimina", ButtonBar.ButtonData.LEFT);
+        ButtonType eliminaButton = new ButtonType("Rimuovi", ButtonBar.ButtonData.LEFT);
 
 
         dialog.getDialogPane().getButtonTypes().addAll(
@@ -365,7 +365,7 @@ public class Finestre {
         btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
-            Alert conferma = new Alert(Alert.AlertType.WARNING);
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
             conferma.setTitle("Conferma Eliminazione");
             conferma.setHeaderText("Eliminare il libro : " + libro.getTitolo());
             conferma.setContentText("Scrivi CONFERMA per proseguire: ");
@@ -381,7 +381,7 @@ public class Finestre {
             );
 
             conferma.getDialogPane().setContent(box);
-
+            conferma.getDialogPane().setGraphic(null);
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
             elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
             elimina.setDisable(true);
@@ -397,7 +397,7 @@ public class Finestre {
             if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
-                    ; //devo implementare la Logica dell'eliminazione
+                    manager.eliminaLibro(libro);
 
                 } catch (Exception e) {
                     mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
@@ -457,7 +457,7 @@ public class Finestre {
         dialog.setHeaderText("Modifica l'Utente: " + utente.getNome()+ " " + utente.getCognome());
 
         ButtonType aggiornaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
-        ButtonType eliminaButton = new ButtonType("Elimina", ButtonBar.ButtonData.LEFT);
+        ButtonType eliminaButton = new ButtonType("Rimuovi", ButtonBar.ButtonData.LEFT);
 
 
         dialog.getDialogPane().getButtonTypes().addAll(
@@ -490,7 +490,7 @@ public class Finestre {
         btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
-            Alert conferma = new Alert(Alert.AlertType.WARNING);
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
             conferma.setTitle("Conferma Eliminazione");
             conferma.setHeaderText("Eliminare il libro : " + utente.getNome() +" "+ utente.getCognome());
             conferma.setContentText("Scrivi CONFERMA per proseguire: ");
@@ -506,6 +506,7 @@ public class Finestre {
             );
 
             conferma.getDialogPane().setContent(box);
+            conferma.getDialogPane().setGraphic(null);
 
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
             elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
@@ -522,7 +523,7 @@ public class Finestre {
             if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
-                    ; //devo implementare la Logica dell'eliminazione
+                    manager.eliminaUtente(utente);
 
                 } catch (Exception e) {
                     mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
