@@ -1,4 +1,8 @@
 /**
+ * @brief Gestisce le finestre di dialogo per l'interazione con l'utente.
+ * * Questa classe si occupa di creare e mostrare i dialoghi che servono per l'inserimento,
+ * la modifica e l'eliminazione di Libri, Utenti e Prestiti, gestendo la validazione
+ * dell'input e la comunicazione con Biblioteca Manager.
  *
  * @author salvatoremoccia
  */
@@ -14,20 +18,26 @@ import java.util.Optional;
 public class Finestre {
     private final BibliotecaManager manager;
 
+    /**
+     * @brief Costruttore della classe Finestre.
+     * @param manager La classe che gestisce le funzioni della biblioteca.
+     */
     public Finestre (BibliotecaManager manager){
         this.manager=manager;
     }
-
+    /**
+     * @brief Apre il form per l'inserimento di un nuovo libro.
+     * * Gestisce la validazione dei campi (titolo, autore, ISBN, anno, copie)
+     * e invoca il manager per il salvataggio.
+     */
     public void nuovoLibro() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Nuovo Libro");
         dialog.setHeaderText("Aggiungi un nuovo libro al catalogo");
 
-        // 1. Bottoni
         ButtonType salvaButtonType = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
 
-        // 2. Layout (Griglia)
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -47,11 +57,9 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        // 3. LOGICA DI SALVATAGGIO (Dentro il filtro)
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
-            // A. Validazione Campi Vuoti
             if (titolo.getText().trim().isEmpty() ||
                     autore.getText().trim().isEmpty() ||
                     isbn.getText().trim().isEmpty() ||
@@ -59,17 +67,15 @@ public class Finestre {
                     copie.getText().trim().isEmpty()) {
 
                 mostraErrore("Tutti i campi sono obbligatori.");
-                event.consume(); // Blocca la chiusura della finestra
+                event.consume();
                 return;
             }
 
-            // B. Validazione Numerica e Salvataggio
             try {
                 int vIsbn = Integer.parseInt(isbn.getText());
                 int vAnno = Integer.parseInt(anno.getText());
                 int vCopie = Integer.parseInt(copie.getText());
 
-                // SE SIAMO QUI, I DATI SONO OK -> SALVIAMO
                 manager.aggiungiLibro(
                         titolo.getText(),
                         autore.getText(),
@@ -79,27 +85,28 @@ public class Finestre {
                 );
 
                 System.out.println("Libro salvato con successo.");
-                // Non consumiamo l'evento, così il dialog si chiude normalmente
 
             } catch (NumberFormatException e) {
                 mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
-                event.consume(); // Blocca la chiusura per errore
+                event.consume();
             }
         });
 
         dialog.showAndWait();
     }
-
+    /**
+     * @brief Apre il form per la registrazione di un nuovo utente.
+     * * Visualizza la matricola generata automaticamente e richiede nome, cognome ed email.
+     * Include validazione del formato email (il testo deve contenere una @).
+     */
     public void nuovoUtente() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Nuovo Utente");
         dialog.setHeaderText("Registra un nuovo utente");
 
-        // 1. Bottoni
         ButtonType salvaButtonType = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
 
-        // 2. Layout
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -119,11 +126,9 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        // 3. LOGICA DI SALVATAGGIO
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
-            // A. Campi Vuoti
             if (nome.getText().trim().isEmpty() ||
                     cognome.getText().trim().isEmpty() ||
                     email.getText().trim().isEmpty()) {
@@ -150,28 +155,28 @@ public class Finestre {
 
         dialog.showAndWait();
     }
-
+    /**
+     * @brief Apre il form per la creazione di un nuovo prestito.
+     * * Utilizza ComboBox per mostrare lo stato degli utenti (quanti prestiti hanno)
+     * e libri (copie disponibili). Valida la coerenza delle date (inizio/fine).
+     */
     public void nuovoPrestito() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Nuovo Prestito");
         dialog.setHeaderText("Registra un nuovo prestito");
 
-        // 1. Bottoni
         ButtonType salvaButtonType = new ButtonType("Salva", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
 
-        // 2. Layout
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // ComboBox per selezionare l'utente
         ComboBox<Utente> comboUtente = new ComboBox<>();
         comboUtente.setItems(manager.getRegistroUtenti());
         comboUtente.setPromptText("Seleziona utente");
 
-        // Per mostrare il nome completo e i prestiti attivi nella ComboBox
         comboUtente.setButtonCell(new ListCell<Utente>() {
             @Override
             protected void updateItem(Utente item, boolean empty) {
@@ -183,7 +188,7 @@ public class Finestre {
                             " (ID: " + item.getIdUtente() + ") - " +
                             "Prestiti: " + item.getPrestiti() + "/3";
                     setText(info);
-                    // Colora in rosso se ha raggiunto il limite
+
                     if (item.getPrestiti() >= 3) {
                         setStyle("-fx-text-fill: red;");
                     } else {
@@ -203,7 +208,6 @@ public class Finestre {
                             " (ID: " + item.getIdUtente() + ") - " +
                             "Prestiti: " + item.getPrestiti() + "/3";
                     setText(info);
-                    // Colora in rosso se ha raggiunto il limite
                     if (item.getPrestiti() >= 3) {
                         setStyle("-fx-text-fill: red;");
                     } else {
@@ -213,12 +217,10 @@ public class Finestre {
             }
         });
 
-        // ComboBox per selezionare il libro
         ComboBox<Libro> comboLibro = new ComboBox<>();
         comboLibro.setItems(manager.getCatalogo());
         comboLibro.setPromptText("Seleziona libro");
 
-        // Per mostrare il titolo del libro e le copie disponibili nella ComboBox
         comboLibro.setButtonCell(new ListCell<Libro>() {
             @Override
             protected void updateItem(Libro item, boolean empty) {
@@ -230,7 +232,6 @@ public class Finestre {
                             " (ISBN: " + item.getIsbn() + ") - " +
                             "Disponibili: " + item.getCopieDisponibili() + "/" + item.getCopie();
                     setText(info);
-                    // Colora in rosso se non ci sono copie disponibili
                     if (item.getCopieDisponibili() <= 0) {
                         setStyle("-fx-text-fill: red;");
                     } else {
@@ -250,7 +251,6 @@ public class Finestre {
                             " (ISBN: " + item.getIsbn() + ") - " +
                             "Disponibili: " + item.getCopieDisponibili() + "/" + item.getCopie();
                     setText(info);
-                    // Colora in rosso se non ci sono copie disponibili
                     if (item.getCopieDisponibili() <= 0) {
                         setStyle("-fx-text-fill: red;");
                     } else {
@@ -260,11 +260,9 @@ public class Finestre {
             }
         });
 
-        // DatePicker per la data di inizio
         DatePicker dataInizio = new DatePicker();
         dataInizio.setValue(LocalDate.now());
 
-        // DatePicker per la data di scadenza
         DatePicker dataScadenza = new DatePicker();
         dataScadenza.setValue(LocalDate.now().plusDays(30));
 
@@ -275,11 +273,9 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        // 3. LOGICA DI SALVATAGGIO
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
-            // A. Validazione selezioni
             if (comboUtente.getValue() == null || comboLibro.getValue() == null ||
                     dataInizio.getValue() == null || dataScadenza.getValue() == null) {
 
@@ -288,14 +284,12 @@ public class Finestre {
                 return;
             }
 
-            // B. Validazione date
             if (dataScadenza.getValue().isBefore(dataInizio.getValue())) {
                 mostraErrore("La data di scadenza non può essere precedente alla data di inizio.");
                 event.consume();
                 return;
             }
 
-            // C. Salvataggio
             String risultato = manager.aggiungiPrestito(
                     comboUtente.getValue(),
                     dataScadenza.getValue(),
@@ -304,7 +298,6 @@ public class Finestre {
             );
 
             if (risultato.equals("success")) {
-                // Mostra messaggio di successo
                 Alert success = new Alert(Alert.AlertType.INFORMATION);
                 success.setTitle("Successo");
                 success.setHeaderText(null);
@@ -312,15 +305,20 @@ public class Finestre {
                 success.showAndWait();
                 System.out.println("Prestito salvato con successo.");
             } else {
-                // Mostra il messaggio di errore restituito dal manager
                 mostraErrore(risultato);
-                event.consume(); // Blocca la chiusura del dialog
+                event.consume();
             }
         });
 
         dialog.showAndWait();
     }
 
+    /**
+     * @brief Apre il form per modificare o eliminare un libro esistente.
+     * * Permette di aggiornare i dati (se le copie non scendono sotto quelle prestate)
+     * o di eliminare il libro previa conferma esplicita (digitando "CONFERMA").
+     * * @param libro L'oggetto Libro da modificare o eliminare.
+     */
 
     public void formModificaLibro(Libro libro){
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -411,7 +409,6 @@ public class Finestre {
         });
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
-            // A. Validazione Campi Vuoti
             if (titolo.getText().trim().isEmpty() ||
                     autore.getText().trim().isEmpty() ||
                     isbn.getText().trim().isEmpty() ||
@@ -457,7 +454,12 @@ public class Finestre {
         });
         dialog.showAndWait();
     }
-
+    /**
+     * @brief Apre il form per modificare o eliminare un utente esistente.
+     * * Permette l'aggiornamento dei dati anagrafici o l'eliminazione dell'utente
+     * previa conferma esplicita.
+     * * @param utente L'oggetto Utente da modificare o eliminare.
+     */
     public void formModificaUtente(Utente utente){
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Modifica Utente");
@@ -573,7 +575,10 @@ public class Finestre {
 
         dialog.showAndWait();
     }
-
+    /**
+     * @brief Mostra un alert di errore a video.
+     * @param messaggio Il testo dell'errore da visualizzare.
+     */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Errore Input");
