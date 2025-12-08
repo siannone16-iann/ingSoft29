@@ -22,7 +22,7 @@
     <center>
         <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox fx:id="utenti" minWidth="0.0" prefHeight="363.0" prefWidth="443.0" visible="false">
+                <VBox fx:id="utenti" minWidth="0.0" prefHeight="363.0" prefWidth="443.0">
                     <children>
                   <HBox minWidth="0.0">
                      <children>
@@ -34,7 +34,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <TextField minHeight="27.0" minWidth="20.0" prefHeight="27.0" prefWidth="297.0" promptText="Cerca Utente per Nome , Cognome o Matricola">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
                         <Button fx:id="btUtente" alignment="CENTER" mnemonicParsing="false" text="Nuovo Utente" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -42,7 +46,7 @@
                         </Button>
                      </children>
                   </HBox>
-                        <TableView fx:id="tabellaUtente" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="tabellaUtente" prefHeight="316.0" prefWidth="497.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="utenteNome" prefWidth="75.0" text="Nome" />
                                 <TableColumn fx:id="utenteCognome" prefWidth="75.0" text="Cognome" />
@@ -84,7 +88,7 @@
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="libri" minWidth="0.0">
+                <VBox fx:id="libri" minWidth="0.0" visible="false">
                     <children>
                   <HBox maxWidth="1.7976931348623157E308" minWidth="0.0">
                      <children>
@@ -96,7 +100,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Region minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <TextField minHeight="29.0" minWidth="20.0" prefHeight="29.0" prefWidth="327.0" promptText="Cerca libro per Titolo, Autore o ISBN">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
                         <Button fx:id="btLibro" alignment="CENTER" mnemonicParsing="false" text="Nuovo Libro" textAlignment="JUSTIFY">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
