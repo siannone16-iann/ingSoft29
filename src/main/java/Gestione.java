@@ -15,14 +15,14 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class Finestre {
+public class Gestione {
     private final BibliotecaManager manager;
 
     /**
      * @brief Costruttore della classe Finestre.
      * @param manager La classe che gestisce le funzioni della biblioteca.
      */
-    public Finestre (BibliotecaManager manager){
+    public Gestione (BibliotecaManager manager){
         this.manager=manager;
     }
     /**
@@ -582,7 +582,9 @@ public class Finestre {
         dialog.setHeaderText("Registra un nuovo prestito");
 
         ButtonType salvaButtonType = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+        ButtonType eliminaButton = new ButtonType("Rimuovi", ButtonBar.ButtonData.LEFT);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, eliminaButton ,ButtonType.CANCEL);
+
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -599,6 +601,43 @@ public class Finestre {
         dialog.getDialogPane().setContent(grid);
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
+        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+
+        btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            conferma.setTitle("Termina Prestito");
+            conferma.setHeaderText("Vuoi terminare il prestito?");
+
+            VBox box = new VBox(10);
+            box.getChildren().addAll(
+                    new Label("Premendo conferma terminerai il prestito di: "),
+                    new Label("Libro : "+prestito.getTitoloLibro()+" preso in prestito da: " + prestito.getNomeUtente()+".")
+            );
+            conferma.getDialogPane().setContent(box);
+            conferma.getDialogPane().setGraphic(null);
+
+            Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
+            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+
+            Optional<ButtonType> risultato = conferma.showAndWait();
+
+            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+                try {
+
+                    manager.restituisciLibro(prestito);
+
+                } catch (Exception e) {
+                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    event.consume();
+                }
+            }
+            else {
+                event.consume();
+            }
+
+        });
+
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
             if (dataScadenza.getValue() == null) {
                 mostraErrore("Il campo Scadenza è obbligatorio.");
@@ -660,11 +699,7 @@ public class Finestre {
 
         dialog.getDialogPane().setContent(grid);
 
-        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
-
-
-
-            dialog.showAndWait();
+        dialog.showAndWait();
     }
 
     /**

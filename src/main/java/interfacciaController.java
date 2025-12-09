@@ -98,7 +98,7 @@ public class interfacciaController {
     private TextField barraRicercaUtenti;
 
     private BibliotecaManager manager;
-    private Finestre gestioneForm;
+    private Gestione gestioneForm;
 
     /**
      * @brief Inizializza lo stato di partenza della vista.
@@ -160,7 +160,7 @@ public class interfacciaController {
      */
     public void setManager(BibliotecaManager manager) {
         this.manager = manager;
-        this.gestioneForm = new Finestre(manager);
+        this.gestioneForm = new Gestione (manager);
 
         FilteredList<Libro> libriFiltrati = new FilteredList<>(manager.getCatalogo(), b -> true);
 
@@ -324,6 +324,8 @@ public class interfacciaController {
 
                                 gestioneForm.formModificaPrestito(prestitoSelezionato);
                                 tabellaPrestiti.refresh();
+                                tabellaUtente.refresh();
+                                tabellaLibri.refresh();
                             }
                         });
                     }
