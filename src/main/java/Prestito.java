@@ -84,7 +84,7 @@ public class Prestito {
      * * @return true se il prestito è andato a buon fine, false se il libro non c'è o l'utente ha troppi prestiti.
      */
     public boolean inizioPrestito(){
-        if(libro.richiestaPrestito() && utente.richiestaPrestito()){
+        if(libro.richiestaPrestito() && utente.richiestaPrestito(libro)){
             return true;
         }
         return false;
@@ -96,7 +96,7 @@ public class Prestito {
      * Da chiamare quando il libro viene fisicamente restituito.
      */
     public void finePrestito(){
-        utente.finePrestito();
+        utente.finePrestito(libro);
         libro.finePrestito();
     }
 

@@ -152,7 +152,7 @@ public class BibliotecaManager {
         }
 
         // Se tutti i controlli passano, procedo con il prestito
-        if(utente.richiestaPrestito() && libro.richiestaPrestito()){
+        if(utente.richiestaPrestito(libro) && libro.richiestaPrestito()){
             Prestito nuovoPrestito = new Prestito(utente, dataScadenza, libro, dataInzioPrestito);
             registroPrestiti.add(nuovoPrestito);
             //Forzo l'aggiornamento delle liste registroUtenti e catalogo

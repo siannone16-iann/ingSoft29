@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 /**
  *
  * @author salvatoremoccia
@@ -15,6 +16,7 @@ public class Utente {
     private int idUtente;
     private String email;
     private int prestiti;
+    private Libro[] libriInPrestito = new Libro[3];
 
     /**
      * Costruttore completo.
@@ -116,10 +118,13 @@ public class Utente {
      * @return true se il prestito è stato concesso (contatore incrementato);
      * false se l'utente ha già raggiunto il limite massimo di 3.
      */
-    public boolean richiestaPrestito() {
-        if (prestiti < 3) {
-            prestiti++;
-            return true;
+    public boolean richiestaPrestito(Libro libro) {
+        for(int i = 0; i < 3; i++){
+            if(libriInPrestito[i]==null){
+                libriInPrestito[i]=libro;
+                prestiti++;
+                return true;
+            }
         }
         return false;
     }
@@ -129,9 +134,12 @@ public class Utente {
      * Decrementa il contatore dei prestiti attivi, ma solo se l'utente ha effettivamente qualcosa in prestito
      * (evita che il contatore vada in negativo).
      */
-    public void finePrestito(){
-        if(prestiti > 0){
-            prestiti--;
+    public void finePrestito(Libro libro){
+        for(int i = 0; i < 3; i++){
+            if(libriInPrestito[i] != null && libriInPrestito[i].equals(libro)){ // evitare null point exception
+                libriInPrestito[i] = null;
+                prestiti--;
+            }
         }
         
     }
