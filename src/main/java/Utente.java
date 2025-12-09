@@ -5,6 +5,9 @@
  */
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author salvatoremoccia
@@ -16,7 +19,7 @@ public class Utente {
     private int idUtente;
     private String email;
     private int prestiti;
-    private Libro[] libriInPrestito = new Libro[3];
+    private ObservableList<Libro> libriInPrestito = FXCollections.observableArrayList();
 
     /**
      * Costruttore completo.
@@ -119,12 +122,10 @@ public class Utente {
      * false se l'utente ha già raggiunto il limite massimo di 3.
      */
     public boolean richiestaPrestito(Libro libro) {
-        for(int i = 0; i < 3; i++){
-            if(libriInPrestito[i]==null){
-                libriInPrestito[i]=libro;
-                prestiti++;
-                return true;
-            }
+        if (libriInPrestito.size() < 3) {
+            libriInPrestito.add(libro);
+            prestiti++;
+            return true;
         }
         return false;
     }
@@ -134,14 +135,9 @@ public class Utente {
      * Decrementa il contatore dei prestiti attivi, ma solo se l'utente ha effettivamente qualcosa in prestito
      * (evita che il contatore vada in negativo).
      */
-    public void finePrestito(Libro libro){
-        for(int i = 0; i < 3; i++){
-            if(libriInPrestito[i] != null && libriInPrestito[i].equals(libro)){ // evitare null point exception
-                libriInPrestito[i] = null;
-                prestiti--;
-            }
-        }
-        
+    public void finePrestito(Libro libro) {
+        libriInPrestito.remove(libro);
+        prestiti--;
     }
     /**
      * Converte i dati dell'utente in una stringa formattata per file CSV.
@@ -151,6 +147,11 @@ public class Utente {
      * @return La stringa pronta per essere scritta su file.
      */
     public String toCSV(){
-        return nome +";"+cognome+";"+idUtente+";"+email+";"+prestiti;
+        StringBuilder libri = new StringBuilder();
+        for(int i = 0; i < libriInPrestito.size(); i++) {
+            if(i > 0) libri.append(",");
+            libri.append(libriInPrestito.get(i).getTitolo());
+        }
+        return nome + ";" + cognome + ";" + idUtente + ";" + email + ";" + prestiti + ";" + libri.toString();
     }
 }    
