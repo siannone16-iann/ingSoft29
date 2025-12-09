@@ -19,7 +19,6 @@ public class Utente {
     private int idUtente;
     private String email;
     private int prestiti;
-    private ObservableList<Libro> libriInPrestito = FXCollections.observableArrayList();
 
     /**
      * Costruttore completo.
@@ -121,9 +120,8 @@ public class Utente {
      * @return true se il prestito è stato concesso (contatore incrementato);
      * false se l'utente ha già raggiunto il limite massimo di 3.
      */
-    public boolean richiestaPrestito(Libro libro) {
-        if (libriInPrestito.size() < 3) {
-            libriInPrestito.add(libro);
+    public boolean richiestaPrestito() {
+        if (prestiti< 3) {
             prestiti++;
             return true;
         }
@@ -135,9 +133,8 @@ public class Utente {
      * Decrementa il contatore dei prestiti attivi, ma solo se l'utente ha effettivamente qualcosa in prestito
      * (evita che il contatore vada in negativo).
      */
-    public void finePrestito(Libro libro) {
-        libriInPrestito.remove(libro);
-        prestiti--;
+    public void finePrestito() {
+        if (prestiti > 0) prestiti--;
     }
     /**
      * Converte i dati dell'utente in una stringa formattata per file CSV.
@@ -147,11 +144,6 @@ public class Utente {
      * @return La stringa pronta per essere scritta su file.
      */
     public String toCSV(){
-        StringBuilder libri = new StringBuilder();
-        for(int i = 0; i < libriInPrestito.size(); i++) {
-            if(i > 0) libri.append(",");
-            libri.append(libriInPrestito.get(i).getTitolo());
-        }
-        return nome + ";" + cognome + ";" + idUtente + ";" + email + ";" + prestiti + ";" + libri.toString();
+        return nome +";"+cognome+";"+idUtente+";"+email+";"+prestiti;
     }
 }    

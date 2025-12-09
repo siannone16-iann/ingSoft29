@@ -631,6 +631,42 @@ public class Finestre {
         dialog.showAndWait();
     }
 
+    public void utentePrestito(Utente utente){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Elenco Prestiti: ");
+        dialog.setHeaderText("Ecco i Prestiti dell'Utente : "+utente.getNome() + " "+ utente.getCognome());
+
+        ButtonType salvaButtonType = new ButtonType("Fatto", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        int riga = 0;
+        boolean flag = true;
+        for(Prestito p : manager.getRegistroPrestiti()) {
+            if (p.getUtente() == utente) {
+                flag=false;
+                Libro l = p.getLibro();
+                grid.add(new Label(" Titolo: "+l.getTitolo() + ",   Autore : " + l.getAutore() +",  Scadenza Prestito: "+ p.getDataScadenza()), 0, riga);
+                riga++;
+            }
+        }
+        if(flag){
+            grid.add(new Label("L'Utente non ha prestiti a carico."), 0, 0);
+        }
+
+        dialog.getDialogPane().setContent(grid);
+
+        Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+
+
+
+            dialog.showAndWait();
+    }
+
     /**
      * @brief Mostra un alert di errore a video.
      * @param messaggio Il testo dell'errore da visualizzare.

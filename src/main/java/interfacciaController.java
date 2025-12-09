@@ -146,6 +146,7 @@ public class interfacciaController {
         });
 
         BottoneModifica();
+        BottonePrestito();
     }
 
     /**
@@ -345,6 +346,44 @@ public class interfacciaController {
         utenteModifica.setCellFactory(cellFactoryUtente);
         prestitoModifica.setCellFactory(cellFactoryPrestito);
     }
+
+    public void BottonePrestito(){
+            Callback<TableColumn<Utente, Integer>, TableCell<Utente, Integer>> cellFactoryPrestito = new Callback<TableColumn<Utente, Integer>, TableCell<Utente, Integer>>() {
+                @Override
+                public TableCell<Utente, Integer> call(final TableColumn<Utente, Integer> param) {
+                    final TableCell<Utente, Integer> cellPrestito = new TableCell<Utente, Integer>() {
+
+                        private final Button btn = new Button();
+
+                        {
+                            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-border-color: transparent; -fx-cursor: hand; -fx-alignment: CENTER-LEFT;");
+                            btn.setOnAction((ActionEvent event) -> {
+
+                                Utente utenteSelezionato = getTableView().getItems().get(getIndex());
+
+                                if (gestioneForm != null) {
+                                    gestioneForm.utentePrestito(utenteSelezionato);
+                                }
+                            });
+                        }
+
+                        @Override
+                        protected void updateItem(Integer item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setGraphic(null);
+                            } else {
+
+                                btn.setText("Vedi (" + item + ")");
+                                setGraphic(btn);
+                            }
+                        }
+                    };
+                    return cellPrestito;
+                }
+            };
+            utentePrestiti.setCellFactory(cellFactoryPrestito);
+        }
 
     /**
      * @brief Gestisce la navigazione tra le schede nel menu laterale.
