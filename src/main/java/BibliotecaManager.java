@@ -233,6 +233,13 @@ public class BibliotecaManager {
         int index = registroUtenti.indexOf(u);
         registroUtenti.set(index, u);
 
+        salvaUtentesufile();
+    }
+
+    public void aggiornaPrestito(Prestito p){
+        int index = registroPrestiti.indexOf(p);
+        registroPrestiti.set(index, p);
+
         salvaPrestitiSuFile();
     }
 

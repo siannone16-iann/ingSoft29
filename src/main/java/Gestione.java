@@ -652,6 +652,8 @@ public class Gestione {
             }
             try {
                 prestito.modificaPrestito(dataScadenza.getValue());
+                manager.aggiornaPrestito(prestito);
+
 
                 Alert success = new Alert(Alert.AlertType.INFORMATION);
                 success.setTitle("Successo");
