@@ -21,7 +21,7 @@ public class Utente {
     private int prestiti;
 
     /**
-     * Costruttore completo.
+     * @brief Costruttore completo.
      * Crea un utente  manualmente tutti i dati, incluso il numero di prestiti già in corso.
      *
      *
@@ -40,7 +40,7 @@ public class Utente {
     }
 
     /**
-     * Costruttore per nuovi iscritti.
+     * @brief Costruttore per nuovi iscritti.
      * Crea un nuovo utente impostando  i prestiti a zero.
      *
      *
@@ -54,7 +54,7 @@ public class Utente {
     }
 
     /**
-     * Aggiorna le informazioni principali dell'utente .
+     * @brief Aggiorna le informazioni principali dell'utente .
      *
      * @param nome      Il nuovo nome.
      * @param cognome   Il nuovo cognome.
@@ -104,7 +104,7 @@ public class Utente {
     }
 
     /**
-     * Imposta  il numero di prestiti.
+     * @brief Imposta  il numero di prestiti.
      *
      *
      * @param prestiti Il nuovo numero di prestiti da assegnare.
@@ -114,7 +114,7 @@ public class Utente {
     }
 
     /**
-     * Tenta di avviare un nuovo prestito per l'utente.
+     * @brief Tenta di avviare un nuovo prestito per l'utente.
      * Controlla se l'utente ha ancora "slot" liberi. Il limite massimo è fissato a 3 prestiti contemporanei.
      *
      * @return true se il prestito è stato concesso (contatore incrementato);
@@ -129,7 +129,7 @@ public class Utente {
     }
 
     /**
-     * Registra la restituzione di un prestito.
+     * @brief Registra la restituzione di un prestito.
      * Decrementa il contatore dei prestiti attivi, ma solo se l'utente ha effettivamente qualcosa in prestito
      * (evita che il contatore vada in negativo).
      */
@@ -137,7 +137,7 @@ public class Utente {
         if (prestiti > 0) prestiti--;
     }
     /**
-     * Converte i dati dell'utente in una stringa formattata per file CSV.
+     * @brief Converte i dati dell'utente in una stringa formattata per file CSV.
      *
      *
      *

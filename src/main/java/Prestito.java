@@ -11,9 +11,9 @@ public class Prestito {
     private final LocalDate dataInizioPrestito;
 
     /**
-     * Crea un nuovo oggetto Prestito.
+     * @brief Crea un nuovo oggetto Prestito.
      * Collega un utente a un libro specifico e stabilisce le date di inizio e fine.
-     * * @param utente             La persona che prende in prestito il libro.
+     * @param utente             La persona che prende in prestito il libro.
      * @param dataScadenza       La data entro cui il libro deve tornare in biblioteca.
      * @param libro              Il volume oggetto del prestito.
      * @param dataInizioPrestito La data in cui il prestito viene registrato (solitamente oggi).
@@ -76,7 +76,7 @@ public class Prestito {
     }
 
     /**
-     * Tenta di ufficializzare l'inizio del prestito.
+     * @brief Tenta di ufficializzare l'inizio del prestito.
      * Esegue una doppia verifica:
      * 1. Controlla se il libro è disponibile (chiama libro.richiestaPrestito).
      * 2. Controlla se l'utente può prendere altri libri (chiama utente.richiestaPrestito).
@@ -91,7 +91,7 @@ public class Prestito {
     }
 
     /**
-     * Chiude la procedura di prestito.
+     * @brief Chiude la procedura di prestito.
      * Segnala all'oggetto Utente che ha liberato uno slot e all'oggetto Libro che è tornato disponibile.
      * Da chiamare quando il libro viene fisicamente restituito.
      */
@@ -101,7 +101,7 @@ public class Prestito {
     }
 
     /**
-     * Prepara i dati del prestito per il salvataggio su file.
+     * @brief Prepara i dati del prestito per il salvataggio su file.
      *
      * * @return Stringa formattata
      */
@@ -110,7 +110,7 @@ public class Prestito {
     }
 
     /**
-     * Verifica se siamo in ritardo con la restituzione.
+     * @brief Verifica se siamo in ritardo con la restituzione.
      * Confronta la data odierna con la data di scadenza impostata.
      * * @return true se oggi è successivo alla data di scadenza (prestito scaduto), false se siamo ancora in tempo.
      */

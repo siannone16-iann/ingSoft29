@@ -16,7 +16,7 @@ public class Libro {
     private int annoProduzione;
 
     /**
-     * Costruttore completo.
+     * @brief Costruttore completo.
      * Utile per caricare un libro da un database o file CSV, dove conosciamo già lo storico
      * di quante copie sono attualmente fuori in prestito.
      *
@@ -37,7 +37,7 @@ public class Libro {
     }
 
     /**
-     * Costruttore per nuovi acquisti.
+     * @brief Costruttore per nuovi acquisti.
      * Crea un libro impostando automaticamente le copie prestate a 0.
      * Da usare quando si inserisce un nuovo volume nell'inventario per la prima volta.
      *
@@ -52,7 +52,7 @@ public class Libro {
     }
 
     /**
-     * Aggiorna tutti i dati del libro in un colpo solo.
+     * @brief Aggiorna tutti i dati del libro in un colpo solo.
      * Utile per correggere errori di inserimento o aggiornare il numero di copie totali.
      *
      * @param titolo         Il nuovo titolo.
@@ -115,7 +115,7 @@ public class Libro {
     }
 
     /**
-     * Verifica la disponibilità del libro.
+     * @brief Verifica la disponibilità del libro.
      * Controlla se ci sono copie rimaste (copie totali > copie prestate).
      *
      * @return Una stringa: "Si" se il libro è disponibile, "No" se sono tutti in prestito.
@@ -128,7 +128,7 @@ public class Libro {
     }
 
     /**
-     * Tenta di prelevare una copia per un prestito.
+     * @brief Tenta di prelevare una copia per un prestito.
      * Se il libro è disponibile (Stato = "Si"), incrementa il contatore delle copie prestate.
      *
      * @return true se l'operazione è riuscita (c'era una copia disponibile), false se non ci sono copie.
@@ -142,7 +142,7 @@ public class Libro {
     }
 
     /**
-     * Registra il rientro di una copia.
+     * @brief Registra il rientro di una copia.
      * Decrementa il contatore delle copie prestate, rendendo una copia nuovamente disponibile.
      * Effettua un controllo per evitare che le copie prestate diventino negative.
      */
@@ -153,7 +153,7 @@ public class Libro {
     }
 
     /**
-     * Calcola quante copie sono fisicamente presenti in biblioteca ora.
+     * @brief Calcola quante copie sono fisicamente presenti in biblioteca ora.
      *
      * @return La differenza tra copie totali e copie prestate.
      */
@@ -162,7 +162,7 @@ public class Libro {
     }
 
     /**
-     * Aggiunge nuove copie all'inventario esistente.
+     * @brief Aggiunge nuove copie all'inventario esistente.
      * Utile quando la biblioteca acquista ulteriori volumi dello stesso libro.
      *
      * @param numCopie Il numero di nuove copie da aggiungere al totale.
@@ -173,7 +173,7 @@ public class Libro {
     }
 
     /**
-     * Sovrascrive il numero totale di copie.
+     * @brief Sovrascrive il numero totale di copie.
      *
      * @param copie Il nuovo numero totale.
      */
@@ -182,7 +182,7 @@ public class Libro {
     }
 
     /**
-     * Esporta i dati del libro in formato CSV.
+     * @brief Esporta i dati del libro in formato CSV.
      *
      *
      * @return La stringa formattata per il file.
