@@ -1,0 +1,261 @@
+
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f6f8;
+}
+
+
+.border-pane > .left > .vbox {
+    -fx-background-color: #2c3e50;
+    -fx-spacing: 0;
+}
+
+
+.toggle-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #bdc3c7;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15 20 15 20;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 5;
+    -fx-border-color: transparent;
+    -fx-pref-width: 200;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-border-color: #3498db;
+    -fx-font-weight: bold;
+}
+
+
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+}
+
+
+.border-pane > .top > .label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-padding: 15;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-text-fill: #2980b9;
+}
+
+
+#tLibri, #tUtenti, #tPrestiti {
+    -fx-font-size: 24px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #7f8c8d;
+}
+
+
+.button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+}
+
+.button:hover {
+    -fx-background-color: #2ecc71;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.button:pressed {
+    -fx-background-color: #219150;
+}
+
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 20;
+    -fx-padding: 8 15;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+}
+
+
+.table-view {
+    -fx-background-color: white;
+    -fx-table-cell-border-color: transparent;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-background-radius: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 10 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #f0f0f0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fbfbfb;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #eaf2f8;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #d6eaf8;
+    -fx-text-fill: black;
+}
+
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #bdc3c7;
+    -fx-background-radius: 10;
+}
+
+
+.bottone-aggiorna {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.bottone-aggiorna:hover {
+    -fx-background-color: #3498db;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+
+.bottone-elimina {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.bottone-elimina:hover {
+    -fx-background-color: #e74c3c;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.bottone-annulla {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-weight: normal;
+    -fx-border-color: transparent;
+}
+
+
+.bottone-annulla:hover {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-cursor: hand;
+}
+
+date-picker-popup {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 0);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #2c3e50;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+}
+
+.date-picker-popup .spinner .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: white;
+}
+
+
+.date-picker-popup .calendar-grid {
+    -fx-background-color: white;
+}
+
+
+.date-picker-popup .day-name-cell {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #bdc3c7;
+    -fx-font-size: 11px;
+}
+
+
+.date-picker-popup .day-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: transparent;
+}
+
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: transparent;
+}
+
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+.date-picker-popup .today {
+    -fx-background-color: #eaf2f8;
+    -fx-text-fill: #2980b9;
+    -fx-border-color: #2980b9;
+}

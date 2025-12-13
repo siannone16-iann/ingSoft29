@@ -355,7 +355,7 @@ public class interfacciaController {
                         private final Button btn = new Button();
 
                         {
-                            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-border-color: transparent; -fx-cursor: hand; -fx-alignment: CENTER-LEFT;");
+                            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-border-color: transparent; -fx-cursor: hand; -fx-alignment: CENTER-LEFT; -fx-font-weight: bold;");
                             btn.setOnAction((ActionEvent event) -> {
 
                                 Utente utenteSelezionato = getTableView().getItems().get(getIndex());
@@ -373,7 +373,7 @@ public class interfacciaController {
                                 setGraphic(null);
                             } else {
 
-                                btn.setText("Vedi (" + item + ")");
+                                btn.setText(""+item);
                                 setGraphic(btn);
                             }
                         }

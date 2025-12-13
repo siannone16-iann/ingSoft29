@@ -32,6 +32,7 @@ public class Gestione {
      */
     public void nuovoLibro() {
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Nuovo Libro");
         dialog.setHeaderText("Aggiungi un nuovo libro al catalogo");
 
@@ -58,6 +59,9 @@ public class Gestione {
         dialog.getDialogPane().setContent(grid);
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
             if (titolo.getText().trim().isEmpty() ||
@@ -84,7 +88,15 @@ public class Gestione {
                         vCopie
                 );
 
+                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                stileCSS(success);
+                success.getDialogPane().setGraphic(null);
+                success.setTitle("Successo");
+                success.setHeaderText(null);
+                success.setContentText("Libro registrato con successo!");
+                success.showAndWait();
                 System.out.println("Libro salvato con successo.");
+
 
             } catch (NumberFormatException e) {
                 mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
@@ -101,6 +113,7 @@ public class Gestione {
      */
     public void nuovoUtente() {
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Nuovo Utente");
         dialog.setHeaderText("Registra un nuovo utente");
 
@@ -127,6 +140,9 @@ public class Gestione {
         dialog.getDialogPane().setContent(grid);
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
             if (nome.getText().trim().isEmpty() ||
@@ -150,6 +166,13 @@ public class Gestione {
                     email.getText()
             );
 
+            Alert success = new Alert(Alert.AlertType.INFORMATION);
+            stileCSS(success);
+            success.getDialogPane().setGraphic(null);
+            success.setTitle("Successo");
+            success.setHeaderText(null);
+            success.setContentText("Utente registrato con successo!");
+            success.showAndWait();
             System.out.println("Utente salvato con successo.");
         });
 
@@ -162,6 +185,7 @@ public class Gestione {
      */
     public void nuovoPrestito() {
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Nuovo Prestito");
         dialog.setHeaderText("Registra un nuovo prestito");
 
@@ -274,6 +298,9 @@ public class Gestione {
         dialog.getDialogPane().setContent(grid);
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
             if (comboUtente.getValue() == null || comboLibro.getValue() == null ||
@@ -299,6 +326,8 @@ public class Gestione {
 
             if (risultato.equals("success")) {
                 Alert success = new Alert(Alert.AlertType.INFORMATION);
+                stileCSS(success);
+
                 success.setTitle("Successo");
                 success.setHeaderText(null);
                 success.setContentText("Prestito registrato con successo!");
@@ -322,6 +351,7 @@ public class Gestione {
 
     public void formModificaLibro(Libro libro){
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Modifica Libro");
         dialog.setHeaderText("Modifica il Libro: " + libro.getTitolo());
 
@@ -358,12 +388,17 @@ public class Gestione {
         dialog.getDialogPane().setContent(grid);
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(aggiornaButton);
+        btnSalva.setStyle("");
         Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
 
-        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+        btnElimina.getStyleClass().add("bottone-elimina");
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
             Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            stileCSS(conferma);
+
             conferma.setTitle("Elimina");
             conferma.setHeaderText("Eliminare il libro : " + libro.getTitolo());
             conferma.setContentText("Scrivi CONFERMA per proseguire: ");
@@ -381,7 +416,7 @@ public class Gestione {
             conferma.getDialogPane().setContent(box);
             conferma.getDialogPane().setGraphic(null);
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
             elimina.setDisable(true);
 
             confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
@@ -396,6 +431,15 @@ public class Gestione {
                 try {
 
                     manager.eliminaLibro(libro);
+
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    stileCSS(success);
+                    success.getDialogPane().setGraphic(null);
+                    success.setTitle("Successo");
+                    success.setHeaderText(null);
+                    success.setContentText("Libro eliminato con successo!");
+                    success.showAndWait();
+                    System.out.println("Libro eliminato con successo.");
 
                 } catch (Exception e) {
                     mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
@@ -438,6 +482,15 @@ public class Gestione {
                         );
                         manager.aggiornaLibro(libro);
 
+                        Alert success = new Alert(Alert.AlertType.INFORMATION);
+                        stileCSS(success);
+                        success.getDialogPane().setGraphic(null);
+                        success.setTitle("Successo");
+                        success.setHeaderText(null);
+                        success.setContentText("Libro modificato con successo!");
+                        success.showAndWait();
+                        System.out.println("Libro modificato con successo.");
+
                     } catch (Exception e) {
                         mostraErrore("Errore nella modifica del libro : " + e.getMessage());
                     }
@@ -462,6 +515,7 @@ public class Gestione {
      */
     public void formModificaUtente(Utente utente){
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Modifica Utente");
         dialog.setHeaderText("Modifica l'Utente: " + utente.getNome()+ " " + utente.getCognome());
 
@@ -495,11 +549,15 @@ public class Gestione {
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(aggiornaButton);
         Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
 
-        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+        btnElimina.getStyleClass().add("bottone-elimina");
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
             Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            stileCSS(conferma);
+
             conferma.setTitle("Elimina");
             conferma.setHeaderText("Eliminare l'Utente : " + utente.getNome() +" "+ utente.getCognome());
 
@@ -517,7 +575,7 @@ public class Gestione {
             conferma.getDialogPane().setGraphic(null);
 
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
             elimina.setDisable(true);
 
             confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
@@ -532,6 +590,14 @@ public class Gestione {
                 try {
 
                     manager.eliminaUtente(utente);
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    stileCSS(success);
+                    success.getDialogPane().setGraphic(null);
+                    success.setTitle("Successo");
+                    success.setHeaderText(null);
+                    success.setContentText("Utente eliminato con successo!");
+                    success.showAndWait();
+                    System.out.println("Utente eliminato con successo.");
 
                 } catch (Exception e) {
                     mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
@@ -570,7 +636,15 @@ public class Gestione {
 
             manager.aggiornaUtente(utente);
 
+            Alert success = new Alert(Alert.AlertType.INFORMATION);
+            stileCSS(success);
+            success.getDialogPane().setGraphic(null);
+            success.setTitle("Successo");
+            success.setHeaderText(null);
+            success.setContentText("Utente modificato con successo!");
+            success.showAndWait();
             System.out.println("Utente modificato con successo.");
+
         });
 
         dialog.showAndWait();
@@ -578,6 +652,7 @@ public class Gestione {
 
     public void formModificaPrestito(Prestito prestito){
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Modifica Prestito");
         dialog.setHeaderText("Registra un nuovo prestito");
 
@@ -602,10 +677,14 @@ public class Gestione {
 
         Button btnSalva = (Button) dialog.getDialogPane().lookupButton(salvaButtonType);
         Button btnElimina = (Button) dialog.getDialogPane().lookupButton(eliminaButton);
-        btnElimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+        Button btnAnnulla = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        btnElimina.getStyleClass().add("bottone-elimina");
+        btnAnnulla.getStyleClass().add("bottone-annulla");
 
         btnElimina.addEventFilter(ActionEvent.ACTION, event -> {
             Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            stileCSS(conferma);
             conferma.setTitle("Termina Prestito");
             conferma.setHeaderText("Vuoi terminare il prestito?");
 
@@ -618,7 +697,7 @@ public class Gestione {
             conferma.getDialogPane().setGraphic(null);
 
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-font-weight: bold; -fx-background-color: #cb3234;");
+            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
 
             Optional<ButtonType> risultato = conferma.showAndWait();
 
@@ -626,6 +705,15 @@ public class Gestione {
                 try {
 
                     manager.restituisciLibro(prestito);
+
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    stileCSS(success);
+                    success.getDialogPane().setGraphic(null);
+                    success.setTitle("Successo");
+                    success.setHeaderText(null);
+                    success.setContentText("Prestito rimosso con successo!");
+                    success.showAndWait();
+                    System.out.println("Prestito estinto con successo.");
 
                 } catch (Exception e) {
                     mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
@@ -656,11 +744,13 @@ public class Gestione {
 
 
                 Alert success = new Alert(Alert.AlertType.INFORMATION);
+                stileCSS(success);
+                success.getDialogPane().setGraphic(null);
                 success.setTitle("Successo");
                 success.setHeaderText(null);
-                success.setContentText("Prestito registrato con successo!");
+                success.setContentText("Prestito modificato con successo!");
                 success.showAndWait();
-                System.out.println("Prestito salvato con successo.");
+                System.out.println("Prestito modificato con successo.");
 
             } catch (Exception e) {
                 mostraErrore(e.getMessage());
@@ -674,11 +764,12 @@ public class Gestione {
 
     public void utentePrestito(Utente utente){
         Dialog<ButtonType> dialog = new Dialog<>();
+        stileCSS(dialog);
         dialog.setTitle("Elenco Prestiti: ");
         dialog.setHeaderText("Ecco i Prestiti dell'Utente : "+utente.getNome() + " "+ utente.getCognome());
 
         ButtonType salvaButtonType = new ButtonType("Fatto", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType);
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -710,9 +801,20 @@ public class Gestione {
      */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        stileCSS(alert);
+
         alert.setTitle("Errore Input");
-        alert.setHeaderText(null);
+        alert.setHeaderText("Attenzione!");
         alert.setContentText(messaggio);
         alert.showAndWait();
+    }
+
+    private void stileCSS(Dialog<?> dialog){
+        try {
+            String css = getClass().getResource("/InterfacciaGrafica.css").toExternalForm();
+            dialog.getDialogPane().getStylesheets().add(css);
+        } catch (Exception e) {
+            System.out.println("Impossibile caricare il CSS per il dialogo: " + e.getMessage());
+        }
     }
 }

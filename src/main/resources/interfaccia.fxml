@@ -6,9 +6,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="670.0" stylesheets="@InterfacciaGrafica.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
     <left>
-        <VBox prefHeight="363.0" prefWidth="87.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="363.0" prefWidth="95.0" BorderPane.alignment="CENTER">
             <children>
                 <ToggleButton fx:id="bLibri" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="181.0" text="Libri">
                     <toggleGroup>
@@ -26,7 +26,7 @@
                     <children>
                   <HBox minWidth="0.0">
                      <children>
-                              <Label fx:id="tUtenti"  text="Utenti">
+                              <Label fx:id="tUtenti" text="Utenti">
                                   <font>
                                       <Font name="Arial" size="24.0" />
                                   </font>
@@ -62,7 +62,7 @@
                     <children>
                   <HBox minWidth="0.0">
                      <children>
-                              <Label fx:id="tPrestiti"  text="Prestiti">
+                              <Label fx:id="tPrestiti" text="Prestiti">
                                   <font>
                                       <Font size="24.0" />
                                   </font>
@@ -84,7 +84,7 @@
                                 <TableColumn fx:id="prestitoLibro" prefWidth="70.0" text="Libro" />
                                 <TableColumn fx:id="prestitoInizio" prefWidth="110.0" text="Data Prestito" />
                                 <TableColumn fx:id="prestitoFine" prefWidth="110.0" text="Scadenza Prestito" />
-                                <TableColumn fx:id="prestitoModifica" prefWidth="100.0" sortable="false" text=" "/>
+                                <TableColumn fx:id="prestitoModifica" prefWidth="100.0" sortable="false" text=" " />
                             </columns>
                         </TableView>
                     </children>
@@ -93,7 +93,7 @@
                     <children>
                   <HBox maxWidth="1.7976931348623157E308" minWidth="0.0">
                      <children>
-                              <Label fx:id="tLibri"  text="Libri">
+                              <Label fx:id="tLibri" text="Libri">
                                   <font>
                                       <Font name="Arial" size="24.0" />
                                   </font>
