@@ -147,6 +147,11 @@ public class interfacciaController {
 
         BottoneModifica();
         BottonePrestito();
+        
+        impostaColoreScadenza(prestitoUtente);
+        impostaColoreScadenza(prestitoLibro);
+        impostaColoreScadenza(prestitoInizio);
+        impostaColoreScadenza(prestitoFine);
     }
 
     /**
@@ -407,5 +412,35 @@ public class interfacciaController {
         } else if (bottone.getId().equals("bPrestiti")) {
             prestiti.setVisible(true);
         }
+    }
+    //uso i generics per gestire sia string che LocalDate
+    private <T> void impostaColoreScadenza(TableColumn<Prestito, T> colonna) {
+        colonna.setCellFactory(column -> new TableCell<Prestito, T>() {
+            @Override
+            protected void updateItem(T item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item.toString());
+
+                    // mi prendo l'oggetto prestito nella riga
+                    TableRow<Prestito> rigaCorrente = getTableRow();
+                    
+                    if (rigaCorrente != null && rigaCorrente.getItem() != null) {
+                        Prestito p = rigaCorrente.getItem();
+                        
+                        // Controllo Scadenza
+                        if (p.Scaduto()) {
+                            setStyle("-fx-text-fill: red;");
+                        } else {
+                            setStyle("-fx-text-fill: black;");
+                        }
+                    }
+                }
+            }
+        });
     }
 }
