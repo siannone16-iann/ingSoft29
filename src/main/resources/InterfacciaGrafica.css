@@ -78,9 +78,9 @@
     -fx-background-color: #219150;
 }
 
-
 .text-field {
     -fx-background-color: white;
+    -fx-prompt-text-fill: #bdc3c7;
     -fx-background-radius: 20;
     -fx-border-color: #dcdcdc;
     -fx-border-radius: 20;
@@ -89,17 +89,25 @@
 
 .text-field:focused {
     -fx-border-color: #3498db;
+    -fx-border-color: #2c3e50;
+    -fx-effect: dropshadow(three-pass-box, rgba(44, 62, 80, 0.2), 5, 0, 0, 0);
 }
 
 
 .table-view {
     -fx-background-color: white;
     -fx-table-cell-border-color: transparent;
-    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
     -fx-background-radius: 5;
 }
 
 .table-view .column-header-background {
+    -fx-background-color: transparent;
+        -fx-border-width: 0 0 2 0;
+        -fx-border-color: #ecf0f1;
+}
+
+.table-view .column-header {
     -fx-background-color: transparent;
 }
 
@@ -111,12 +119,17 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #7f8c8d;
+    -fx-text-fill: #95a5a6;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
+    -fx-text-transform: uppercase;
     -fx-alignment: CENTER_LEFT;
 }
 
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+}
 .table-row-cell {
     -fx-background-color: white;
     -fx-border-width: 0 0 1 0;
@@ -178,6 +191,46 @@
     -fx-background-color: #ecf0f1;
     -fx-text-fill: #2c3e50;
     -fx-cursor: hand;
+}
+
+.date-picker {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 20;
+    -fx-padding: 0;
+}
+
+.date-picker:focused {
+    -fx-background-color: white;
+    -fx-border-color: #dcdcdc;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0 10 0 0;
+}
+
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 7;
+}
+
+
+.date-picker .arrow-button:hover .arrow {
+      -fx-background-color: #3498db;
+}
+
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-border-color: transparent;
+    -fx-padding: 8 15;
 }
 
 date-picker-popup {

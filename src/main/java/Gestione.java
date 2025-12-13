@@ -416,7 +416,9 @@ public class Gestione {
             conferma.getDialogPane().setContent(box);
             conferma.getDialogPane().setGraphic(null);
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
+            Button annulla = (Button) conferma.getDialogPane().lookupButton(ButtonType.CANCEL);
+            elimina.getStyleClass().add("bottone-elimina");
+            annulla.getStyleClass().add("bottone-annulla");
             elimina.setDisable(true);
 
             confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
@@ -575,7 +577,11 @@ public class Gestione {
             conferma.getDialogPane().setGraphic(null);
 
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
+            Button annulla = (Button) conferma.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+            elimina.getStyleClass().add("bottone-elimina");
+            annulla.getStyleClass().add("bottone-annulla");
+
             elimina.setDisable(true);
 
             confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
@@ -697,8 +703,10 @@ public class Gestione {
             conferma.getDialogPane().setGraphic(null);
 
             Button elimina = (Button) conferma.getDialogPane().lookupButton(ButtonType.OK);
-            elimina.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
+            Button annulla = (Button) conferma.getDialogPane().lookupButton(ButtonType.CANCEL);
 
+            elimina.getStyleClass().add("bottone-elimina");
+            annulla.getStyleClass().add("bottone-annulla");
             Optional<ButtonType> risultato = conferma.showAndWait();
 
             if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
