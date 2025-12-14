@@ -6,137 +6,117 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="670.0" stylesheets="@InterfacciaGrafica.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@InterfacciaGrafica.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfacciaController">
+
     <left>
-        <VBox prefHeight="363.0" prefWidth="95.0" BorderPane.alignment="CENTER">
+        <VBox prefWidth="200.0" styleClass="sidebar-menu" BorderPane.alignment="CENTER">
             <children>
-                <ToggleButton fx:id="bLibri" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="181.0" text="Libri">
+                <ToggleButton fx:id="bLibri" alignment="CENTER_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#switchTab" text="Libri">
                     <toggleGroup>
                         <ToggleGroup fx:id="gruppoMenu" />
-                    </toggleGroup></ToggleButton>
-                <ToggleButton fx:id="bUtenti" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="180.0" text="Utenti" toggleGroup="$gruppoMenu" />
-                <ToggleButton fx:id="bPrestiti" alignment="CENTER" mnemonicParsing="false" onAction="#switchTab" prefHeight="27.0" prefWidth="156.0" text="Prestiti" toggleGroup="$gruppoMenu" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="bUtenti" alignment="CENTER_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#switchTab" text="Utenti" toggleGroup="$gruppoMenu" />
+                <ToggleButton fx:id="bPrestiti" alignment="CENTER_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#switchTab" text="Prestiti" toggleGroup="$gruppoMenu" />
             </children>
         </VBox>
     </left>
+
     <center>
-        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <StackPane BorderPane.alignment="CENTER">
             <children>
-                <VBox fx:id="utenti" minWidth="0.0" prefHeight="363.0" prefWidth="443.0" visible="false">
+
+                <VBox fx:id="utenti" spacing="10.0" visible="false">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                     <children>
-                  <HBox minWidth="0.0">
-                     <children>
-                              <Label fx:id="tUtenti" text="Utenti">
-                                  <font>
-                                      <Font name="Arial" size="24.0" />
-                                  </font>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="barraRicercaUtenti" prefHeight="30.0" prefWidth="290.0" promptText="Cerca Utente per Nome , Cognome o Matricola" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button fx:id="btUtente" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" text="Nuovo Utente" textAlignment="JUSTIFY">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                        <TableView fx:id="tabellaUtente" prefHeight="316.0" prefWidth="497.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <Label fx:id="tUtenti" text="Utenti" />
+                                <TextField fx:id="barraRicercaUtenti" promptText="Cerca per Nome, Cognome o Matricola" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btUtente" mnemonicParsing="false" text="Nuovo Utente" />
+                            </children>
+                        </HBox>
+                        <TableView fx:id="tabellaUtente" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="utenteNome" prefWidth="75.0" text="Nome" />
-                                <TableColumn fx:id="utenteCognome" prefWidth="75.0" text="Cognome" />
-                                <TableColumn fx:id="utenteEmail" prefWidth="75.0" text="email" />
-                                <TableColumn fx:id="utenteID" prefWidth="75.0" text="Matricola" />
-                                <TableColumn fx:id="utentePrestiti" prefWidth="75.0" text="Prestiti" />
-                                <TableColumn fx:id="utenteModifica" prefWidth="100.0" sortable="false" text=" " />
+                                <TableColumn fx:id="utenteNome" text="Nome" />
+                                <TableColumn fx:id="utenteCognome" text="Cognome" />
+                                <TableColumn fx:id="utenteEmail" text="Email" />
+                                <TableColumn fx:id="utenteID" text="Matricola" />
+                                <TableColumn fx:id="utentePrestiti" text="Prestiti" />
+                                <TableColumn fx:id="utenteModifica" sortable="false" text="Azioni" />
                             </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="prestiti" minWidth="0.0" prefHeight="363.0" prefWidth="557.0" visible="false">
+
+                <VBox fx:id="prestiti" spacing="10.0" visible="false">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                     <children>
-                  <HBox minWidth="0.0">
-                     <children>
-                              <Label fx:id="tPrestiti" text="Prestiti">
-                                  <font>
-                                      <Font size="24.0" />
-                                  </font>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Region minWidth="0.0" prefHeight="30.0" prefWidth="290.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></Region>
-                        <Button fx:id="btPrestito" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" text="Nuovo Prestito" textAlignment="JUSTIFY">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                        <TableView fx:id="tabellaPrestiti" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <Label fx:id="tPrestiti" text="Prestiti" />
+                                <Region HBox.hgrow="ALWAYS" /> <Button fx:id="btPrestito" mnemonicParsing="false" text="Nuovo Prestito" />
+                            </children>
+                        </HBox>
+                        <TableView fx:id="tabellaPrestiti" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="prestitoUtente" prefWidth="75.0" text="Utente" />
-                                <TableColumn fx:id="prestitoLibro" prefWidth="70.0" text="Libro" />
-                                <TableColumn fx:id="prestitoInizio" prefWidth="110.0" text="Data Prestito" />
-                                <TableColumn fx:id="prestitoFine" prefWidth="110.0" text="Scadenza Prestito" />
-                                <TableColumn fx:id="prestitoModifica" prefWidth="100.0" sortable="false" text=" " />
+                                <TableColumn fx:id="prestitoUtente" text="Utente" />
+                                <TableColumn fx:id="prestitoLibro" text="Libro" />
+                                <TableColumn fx:id="prestitoInizio" text="Data Prestito" />
+                                <TableColumn fx:id="prestitoFine" text="Scadenza" />
+                                <TableColumn fx:id="prestitoModifica" sortable="false" text="Azioni" />
                             </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
                     </children>
                 </VBox>
-                <VBox fx:id="libri" minWidth="0.0">
+
+                <VBox fx:id="libri" spacing="10.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                     <children>
-                  <HBox maxWidth="1.7976931348623157E308" minWidth="0.0">
-                     <children>
-                              <Label fx:id="tLibri" text="Libri">
-                                  <font>
-                                      <Font name="Arial" size="24.0" />
-                                  </font>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="barraRicercaLibri" minHeight="29.0" minWidth="20.0" prefHeight="30.0" prefWidth="290.0" promptText="Cerca libro per Titolo, Autore o ISBN" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" top="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button fx:id="btLibro" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" text="Nuovo Libro" textAlignment="JUSTIFY">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                        <TableView fx:id="tabellaLibri" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <Label fx:id="tLibri" text="Libri" />
+                                <TextField fx:id="barraRicercaLibri" promptText="Cerca per Titolo, Autore o ISBN" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btLibro" mnemonicParsing="false" text="Nuovo Libro" />
+                            </children>
+                        </HBox>
+                        <TableView fx:id="tabellaLibri" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="libroTitolo" prefWidth="100.0" text="Titolo" />
-                                <TableColumn fx:id="libroAutore" prefWidth="100.0" text="Autore" />
-                                <TableColumn fx:id="libroAnno" prefWidth="50.0" text="Anno" />
-                                <TableColumn fx:id="libroIsbn" prefWidth="50.0" text="ISBN" />
-                                <TableColumn fx:id="libroCopie" prefWidth="50.0" text="Copie" />
-                                <TableColumn fx:id="libroCopieD" prefWidth="75.0" text="Copie Disponibili" />
-                                <TableColumn fx:id="libroDisponibile" prefWidth="50.0" text="Disponibilità" />
-                                <TableColumn fx:id="libroModifica" prefWidth="100.0" sortable="false" text=" " />
+                                <TableColumn fx:id="libroTitolo" text="Titolo" />
+                                <TableColumn fx:id="libroAutore" text="Autore" />
+                                <TableColumn fx:id="libroAnno" text="Anno" />
+                                <TableColumn fx:id="libroIsbn" text="ISBN" />
+                                <TableColumn fx:id="libroCopie" text="Totali" />
+                                <TableColumn fx:id="libroCopieD" text="Disponibili" />
+                                <TableColumn fx:id="libroDisponibile" text="Stato" />
+                                <TableColumn fx:id="libroModifica" sortable="false" text="Azioni" />
                             </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
                     </children>
                 </VBox>
+
             </children>
         </StackPane>
     </center>
+
     <top>
-        <Label prefHeight="37.0" prefWidth="574.0" text="Biblioteca Universitaria" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
-            <font>
-                <Font size="30.0" />
-            </font></Label>
+        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Biblioteca Universitaria" BorderPane.alignment="CENTER">
+        </Label>
     </top>
+
 </BorderPane>
