@@ -164,12 +164,18 @@ public class Gestione {
                 return;
             }
 
+            for (Utente u : manager.getRegistroUtenti()){
+                if(u.getEmail().equalsIgnoreCase(email.getText())){
+                    mostraErrore("L'email digitata è gia stata utilizzata.");
+                    event.consume();
+                    return;
+                }
+            }
             manager.aggiungiUtente(
                     nome.getText(),
                     cognome.getText(),
                     email.getText()
             );
-
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             stileCSS(success);
             success.getDialogPane().setGraphic(null);
@@ -640,24 +646,28 @@ public class Gestione {
                 return;
             }
 
+            for (Utente u : manager.getRegistroUtenti()){
+                if(u.getEmail().equalsIgnoreCase(email.getText()) && (u.getIdUtente() != utente.getIdUtente())){
+                    mostraErrore("Non puoi modificare l'email in una già utilizzata.");
+                    event.consume();
+                    return;
+                }
+            }
             utente.modificaUtente(
                     nome.getText(),
                     cognome.getText(),
                     email.getText(),
                     utente.getIdUtente()
             );
-
-            manager.aggiornaUtente(utente);
-
-            Alert success = new Alert(Alert.AlertType.INFORMATION);
-            stileCSS(success);
-            success.getDialogPane().setGraphic(null);
-            success.setTitle("Successo");
-            success.setHeaderText(null);
-            success.setContentText("Utente modificato con successo!");
-            success.showAndWait();
-            System.out.println("Utente modificato con successo.");
-
+                manager.aggiornaUtente(utente);
+                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                stileCSS(success);
+                success.getDialogPane().setGraphic(null);
+                success.setTitle("Successo");
+                success.setHeaderText(null);
+                success.setContentText("Utente modificato con successo!");
+                success.showAndWait();
+                System.out.println("Utente modificato con successo.");
         });
 
         dialog.showAndWait();
