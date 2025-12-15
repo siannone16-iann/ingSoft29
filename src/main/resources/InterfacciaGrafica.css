@@ -120,7 +120,6 @@
     -fx-background-color: -color-surface;
     -fx-border-color: #f0f0f0;
     -fx-border-width: 0 0 1 0;
-    -fx-text
 }
 
 .table-row-cell:odd {
@@ -339,44 +338,42 @@
     -fx-border-color: #d1d5db;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-padding: 4 8; /* Un po' più compatto dei TextField */
+    -fx-padding: 4 8;
 }
 
-/* Effetto focus identico ai Text Field */
+
 .combo-box:focused {
     -fx-border-color: -color-secondary;
     -fx-background-color: -color-surface;
     -fx-effect: dropshadow(three-pass-box, rgba(74,111,165,0.25), 6, 0, 0, 0);
 }
 
-/* Testo all'interno della Combo chiusa */
+
 .combo-box .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: -color-text;
     -fx-padding: 4 0 4 5;
 }
 
-/* Pulsante Freccia (Destra) */
+
 .combo-box .arrow-button {
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-padding: 0 8;
 }
 
-/* La forma della freccia */
+
 .combo-box .arrow {
     -fx-background-color: -color-text-light;
-    -fx-padding: 4; /* Dimensione freccia */
+    -fx-padding: 4;
 }
 
-/* Cambio colore freccia al passaggio del mouse sulla combo */
+
 .combo-box:hover .arrow-button .arrow {
     -fx-background-color: -color-secondary;
 }
 
-/* ==============================================
-   STILE POPUP (Lista a discesa)
-   ============================================== */
+
 
 .combo-box-popup .list-view {
     -fx-background-color: -color-surface;
@@ -386,20 +383,20 @@
     -fx-border-width: 1;
 }
 
-/* Celle della lista a discesa */
+
 .combo-box-popup .list-cell {
     -fx-padding: 8 10;
     -fx-text-fill: -color-text;
     -fx-background-color: -color-surface;
 }
 
-/* Elemento sotto il mouse (Hover) */
+
 .combo-box-popup .list-cell:filled:hover {
     -fx-background-color: -color-hover;
     -fx-text-fill: -color-primary;
 }
 
-/* Elemento Selezionato */
+
 .combo-box-popup .list-cell:filled:selected,
 .combo-box-popup .list-cell:filled:selected:hover {
     -fx-background-color: -color-secondary;

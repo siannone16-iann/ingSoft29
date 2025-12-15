@@ -103,10 +103,10 @@ public class Gestione {
                 }
             }
             else {
-                mostraErrore("ISBN già presente.\n Il resto dei dati non corrisponde al Libro in Catalogo.");
+                mostraErrore("ISBN è già presente in catalogo.\nSe vuoi aggiungere copie al libro già in catalogo controlla i dati inseriti.");
                 event.consume();
             }
-            });
+        });
 
         dialog.showAndWait();
     }
@@ -432,7 +432,6 @@ public class Gestione {
             });
 
             Optional<ButtonType> risultato = conferma.showAndWait();
-
             if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
@@ -469,45 +468,49 @@ public class Gestione {
                 event.consume();
                 return;
             }
+            int vIsbn = Integer.parseInt(isbn.getText());
+            int vAnno = Integer.parseInt(anno.getText());
+            int vCopie = Integer.parseInt(copie.getText());
+            if (controllaISBN(titolo.getText(), autore.getText(), vIsbn, vAnno) ) {
+                try {
 
+                    if(vCopie >= libro.getCopiePrestate()) {
+                        try {
 
-            try {
-                int vIsbn = Integer.parseInt(isbn.getText());
-                int vAnno = Integer.parseInt(anno.getText());
-                int vCopie = Integer.parseInt(copie.getText());
+                            libro.modificaLibro(
+                                    titolo.getText(),
+                                    autore.getText(),
+                                    vIsbn,
+                                    vAnno,
+                                    vCopie
+                            );
+                            manager.aggiornaLibro(libro);
 
-                if(vCopie >= libro.getCopiePrestate()) {
-                    try {
+                            Alert success = new Alert(Alert.AlertType.INFORMATION);
+                            stileCSS(success);
+                            success.getDialogPane().setGraphic(null);
+                            success.setTitle("Successo");
+                            success.setHeaderText(null);
+                            success.setContentText("Libro modificato con successo!");
+                            success.showAndWait();
+                            System.out.println("Libro modificato con successo.");
 
-                        libro.modificaLibro(
-                                titolo.getText(),
-                                autore.getText(),
-                                vIsbn,
-                                vAnno,
-                                vCopie
-                        );
-                        manager.aggiornaLibro(libro);
-
-                        Alert success = new Alert(Alert.AlertType.INFORMATION);
-                        stileCSS(success);
-                        success.getDialogPane().setGraphic(null);
-                        success.setTitle("Successo");
-                        success.setHeaderText(null);
-                        success.setContentText("Libro modificato con successo!");
-                        success.showAndWait();
+                        } catch (Exception e) {
+                            mostraErrore("Errore nella modifica del libro : " + e.getMessage());
+                        }
                         System.out.println("Libro modificato con successo.");
-
-                    } catch (Exception e) {
-                        mostraErrore("Errore nella modifica del libro : " + e.getMessage());
                     }
-                    System.out.println("Libro modificato con successo.");
-                }
-                else {
-                    mostraErrore("Il numero di copie che hai inserito : "+vCopie +", è minore di quelle già prestate ("+libro.getCopiePrestate()+ ").");
+                    else {
+                        mostraErrore("Il numero di copie che hai inserito : "+vCopie +", è minore di quelle già prestate ("+libro.getCopiePrestate()+ ").");
+                        event.consume();
+                    }
+                } catch (NumberFormatException e) {
+                    mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
                     event.consume();
                 }
-            } catch (NumberFormatException e) {
-                mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+            }
+            else {
+                mostraErrore("ISBN già presente per in catalogo.  L'ISBN è univoco.");
                 event.consume();
             }
         });
@@ -813,16 +816,14 @@ public class Gestione {
                 if(l.getTitolo().equalsIgnoreCase(titolo) &&
                         l.getAutore().equalsIgnoreCase(autore) &&
                         l.getAnnoProduzione() == anno) {
-                        return true;
+                    return true;
                 }
                 else {
                     return false;
                 }
             }
         }
-
         return true;
-
     }
 
     /**
@@ -833,8 +834,9 @@ public class Gestione {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         stileCSS(alert);
 
-        alert.setTitle("Errore Input");
+        alert.setTitle("Errore");
         alert.setHeaderText("Attenzione!");
+        //alert.getDialogPane().setGraphic(null);
         alert.setContentText(messaggio);
         alert.showAndWait();
     }
