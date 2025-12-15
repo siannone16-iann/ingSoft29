@@ -239,10 +239,8 @@ public class interfacciaController {
                 final TableCell<Libro, Void> cellLibro = new TableCell<Libro, Void>() {
 
                     private final Button btn = new Button("Modifica");
-
                     {
-
-                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
+                        btn.getStyleClass().add("bottone-tabella");
 
                         btn.setOnAction((ActionEvent event) -> {
 
@@ -279,7 +277,7 @@ public class interfacciaController {
                     private final Button btn = new Button("Modifica");
 
                     {
-                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
+                        btn.getStyleClass().add("bottone-tabella");
 
                         btn.setOnAction((ActionEvent event) -> {
 
@@ -317,8 +315,7 @@ public class interfacciaController {
 
                     {
 
-                        btn.setStyle("-fx-background-color: #bcbcbc; -fx-text-fill: white;");
-
+                        btn.getStyleClass().add("bottone-tabella");
                         btn.setOnAction((ActionEvent event) -> {
 
                             Prestito prestitoSelezionato = getTableView().getItems().get(getIndex());
@@ -360,7 +357,8 @@ public class interfacciaController {
                         private final Button btn = new Button();
 
                         {
-                            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-border-color: transparent; -fx-cursor: hand; -fx-alignment: CENTER-LEFT; -fx-font-weight: bold;");
+                            btn.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-border-color: transparent; -fx-cursor: hand; -fx-alignment: CENTER-LEFT; -fx-font-weight: bold;" +
+                                    "-fx-underline: true;");
                             btn.setOnAction((ActionEvent event) -> {
 
                                 Utente utenteSelezionato = getTableView().getItems().get(getIndex());

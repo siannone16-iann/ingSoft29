@@ -74,35 +74,39 @@ public class Gestione {
                 event.consume();
                 return;
             }
+            int vIsbn = Integer.parseInt(isbn.getText());
+            int vAnno = Integer.parseInt(anno.getText());
+            int vCopie = Integer.parseInt(copie.getText());
+            if (controllaISBN(titolo.getText(), autore.getText(), vIsbn, vAnno) ) {
+                try {
+                    manager.aggiungiLibro(
+                            titolo.getText(),
+                            autore.getText(),
+                            vIsbn,
+                            vAnno,
+                            vCopie
+                    );
 
-            try {
-                int vIsbn = Integer.parseInt(isbn.getText());
-                int vAnno = Integer.parseInt(anno.getText());
-                int vCopie = Integer.parseInt(copie.getText());
-
-                manager.aggiungiLibro(
-                        titolo.getText(),
-                        autore.getText(),
-                        vIsbn,
-                        vAnno,
-                        vCopie
-                );
-
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                stileCSS(success);
-                success.getDialogPane().setGraphic(null);
-                success.setTitle("Successo");
-                success.setHeaderText(null);
-                success.setContentText("Libro registrato con successo!");
-                success.showAndWait();
-                System.out.println("Libro salvato con successo.");
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    stileCSS(success);
+                    success.getDialogPane().setGraphic(null);
+                    success.setTitle("Successo");
+                    success.setHeaderText(null);
+                    success.setContentText("Libro registrato con successo!");
+                    success.showAndWait();
+                    System.out.println("Libro salvato con successo.");
 
 
-            } catch (NumberFormatException e) {
-                mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+                } catch (NumberFormatException e) {
+                    mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+                    event.consume();
+                }
+            }
+            else {
+                mostraErrore("ISBN già presente.\n Il resto dei dati non corrisponde al Libro in Catalogo.");
                 event.consume();
             }
-        });
+            });
 
         dialog.showAndWait();
     }
@@ -801,6 +805,24 @@ public class Gestione {
         dialog.getDialogPane().setContent(grid);
 
         dialog.showAndWait();
+    }
+
+    public boolean controllaISBN(String titolo, String autore, int ISBN, int anno){
+        for (Libro l : manager.getCatalogo()){
+            if(l.getIsbn() == ISBN){
+                if(l.getTitolo().equalsIgnoreCase(titolo) &&
+                        l.getAutore().equalsIgnoreCase(autore) &&
+                        l.getAnnoProduzione() == anno) {
+                        return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
     }
 
     /**

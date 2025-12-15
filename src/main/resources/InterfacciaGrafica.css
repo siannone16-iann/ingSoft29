@@ -1,249 +1,216 @@
-
 .root {
 
-    -color-primary: #2c3e50;
-    -color-secondary: #3498db;
-    -color-accent: #27ae60;
-    -color-danger: #c0392b;
-    -color-text: #2c3e50;
-    -color-text-light: #7f8c8d;
-    -color-bg: #f4f6f8;
+    -color-primary: #2b2f36;
+    -color-primary-light: #3a3f46;
+    -color-secondary: #4a6fa5;
+    -color-accent: #3fa796;
+    -color-danger: #c84b4b;
+
+
+    -color-text: #1f2328;
+    -color-text-light: #6b7280;
+
+
+    -color-bg: #f2f4f7;
     -color-surface: #ffffff;
 
+
+    -color-hover: #edf0f4;
+    -color-selected: #e4e8ee;
 
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-background-color: -color-bg;
 }
-
-
 .sidebar-menu {
     -fx-background-color: -color-primary;
-    -fx-spacing: 0;
 }
-
 
 .toggle-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #bdc3c7;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 15 20 15 20;
+    -fx-text-fill: #cfd3da;
+    -fx-padding: 15 20;
     -fx-font-size: 16px;
+    -fx-alignment: CENTER_LEFT;
     -fx-cursor: hand;
-    -fx-border-width: 0 0 0 5;
+    -fx-border-width: 0 0 0 4;
     -fx-border-color: transparent;
-    -fx-pref-width: 200;
 }
 
 .toggle-button:hover {
-    -fx-background-color: #34495e;
-    -fx-text-fill: -color-surface;
+    -fx-background-color: -color-primary-light;
+    -fx-text-fill: white;
 }
 
 .toggle-button:selected {
-    -fx-background-color: #34495e;
-    -fx-text-fill: -color-surface;
+    -fx-background-color: -color-primary-light;
+    -fx-text-fill: white;
     -fx-border-color: -color-secondary;
     -fx-font-weight: bold;
 }
-
-
-.toggle-button:focused {
-    -fx-border-width: 0 0 0 5;
-    -fx-border-color: -color-secondary;
-    -fx-effect: dropshadow(two-pass-box, rgba(52, 152, 219, 0.5), 5, 0, 0, 0);
-}
-
 
 .label {
     -fx-text-fill: -color-text;
-    -fx-alignment: center;
 }
-
 
 .border-pane > .top > .label {
-    -fx-font-size: 28px;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
-    -fx-padding: 15;
+    -fx-padding: 16;
     -fx-background-color: -color-surface;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
-    -fx-text-fill: #2980b9;
+    -fx-text-fill: -color-primary;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 6, 0, 0, 1);
 }
 
-
 #tLibri, #tUtenti, #tPrestiti {
-    -fx-font-size: 24px;
-    -fx-font-weight: normal;
+    -fx-font-size: 22px;
     -fx-text-fill: -color-text-light;
 }
 
-
 .button {
-    -fx-background-color: -color-accent;
-    -fx-text-fill: -color-surface;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
+    -fx-background-color: -color-secondary;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
     -fx-cursor: hand;
-    -fx-padding: 8 15;
 }
 
 .button:hover {
-    -fx-background-color: #2ecc71;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-background-color: derive(-color-secondary, -10%);
 }
-
-.button:pressed {
-    -fx-background-color: #219150;
-}
-
 
 .button:disabled {
-    -fx-opacity: 0.6;
-    -fx-background-color: #95a5a6;
-    -fx-cursor: default;
-    -fx-effect: none;
+    -fx-opacity: 0.5;
 }
-
-
-.button:focused {
-    -fx-border-color: -color-surface;
-    -fx-border-width: 1.5;
-    -fx-border-style: solid;
-    -fx-border-insets: -3;
-    -fx-border-radius: 7; /* Più grande del background-radius */
-}
-
 
 .text-field {
     -fx-background-color: -color-surface;
-    -fx-prompt-text-fill: #bdc3c7;
-    -fx-background-radius: 5;
-    -fx-border-color: #dcdcdc;
+    -fx-border-color: #d1d5db;
     -fx-border-radius: 5;
-    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+    -fx-padding: 8 14;
 }
 
 .text-field:focused {
     -fx-border-color: -color-secondary;
-    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.2), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(74,111,165,0.25), 6, 0, 0, 0);
 }
-
-.text-field:disabled {
-    -fx-opacity: 0.7;
-    -fx-background-color: #ecf0f1;
-}
-
 
 .table-view {
     -fx-background-color: -color-surface;
+    -fx-background-radius: 6;
     -fx-table-cell-border-color: transparent;
     -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
-    -fx-background-radius: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-color: #ecf0f1;
 }
 
 .table-view .column-header {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
     -fx-background-color: -color-surface;
-    -fx-border-color: #ecf0f1;
+    -fx-border-color: #e5e7eb;
     -fx-border-width: 0 0 2 0;
-    -fx-padding: 10 0;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #95a5a6;
-    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-light;
     -fx-font-size: 12px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-font-weight: bold;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -color-primary;
-    -fx-text-fill: -color-surface;
-}
 .table-row-cell {
     -fx-background-color: -color-surface;
-    -fx-border-width: 0 0 1 0;
     -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+    -fx-text
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #fbfbfb;
+    -fx-background-color: #fafafa;
 }
 
 .table-row-cell:hover {
-    -fx-background-color: #eaf2f8;
+    -fx-background-color: -color-hover;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #d6eaf8;
-    -fx-text-fill: black;
+    -fx-background-color: -color-selected;
+    -fx-table-cell-border-color: transparent;
 }
 
-
-.scroll-bar:vertical, .scroll-bar:horizontal {
-    -fx-background-color: transparent;
+.table-row-cell .text {
+    -fx-fill: -color-text;
 }
 
-.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
-    -fx-background-color: transparent;
+.table-row-cell:selected .text,
+.table-view:focused .table-row-cell:selected .text {
+    -fx-fill: -color-text;
+}
+.table-row-cell .bottone-tabella .text,
+.table-row-cell:selected .bottone-tabella .text,
+.table-view:focused .table-row-cell:selected .bottone-tabella .text,
+.table-row-cell:selected:hover .bottone-tabella .text {
+    -fx-fill: white;
+}
+
+.bottone-tabella,
+.bottone-tabella:hover,
+.bottone-tabella:pressed,
+.bottone-tabella:focused {
+    -fx-background-color: -color-primary-light;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-effect: none;
     -fx-border-color: transparent;
 }
 
-.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
-    -fx-background-color: #bdc3c7;
-    -fx-background-radius: 5em;
-    -fx-background-insets: 2;
+.table-row-cell .bottone-tabella .text {
+    -fx-fill: white;
+    -fx-alignment: CENTER;
 }
 
-.scroll-bar:vertical .thumb:hover, .scroll-bar:horizontal .thumb:hover {
-    -fx-background-color: #95a5a6;
+.colonna-centro {
+    -fx-alignment: CENTER;
 }
-
 
 .bottone-aggiorna {
-    -fx-background-color: #2980b9;
-    -fx-text-fill: -color-surface;
-    -fx-font-weight: bold;
+    -fx-background-color: -color-accent;
+    -fx-text-fill: white;
 }
 
 .bottone-aggiorna:hover {
-    -fx-background-color: -color-secondary;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-background-color: derive(-color-accent, -8%);
 }
 
 .bottone-elimina {
     -fx-background-color: -color-danger;
-    -fx-text-fill: -color-surface;
-    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .bottone-elimina:hover {
-    -fx-background-color: #e74c3c;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-background-color: derive(-color-danger, -8%);
 }
 
 .bottone-annulla {
     -fx-background-color: transparent;
     -fx-text-fill: -color-text-light;
-    -fx-font-weight: normal;
-    -fx-border-color: transparent;
 }
-
 
 .bottone-annulla:hover {
-    -fx-background-color: #ecf0f1;
+    -fx-background-color: -color-hover;
     -fx-text-fill: -color-primary;
-    -fx-cursor: hand;
 }
+
+
+.scroll-bar .thumb {
+    -fx-background-color: #cbd0d8;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #aab1bb;
+}
+
 
 .date-picker {
     -fx-background-color: -color-surface;
@@ -365,4 +332,76 @@
     -fx-text-fill: #2980b9;
     -fx-border-color: #2980b9;
     -fx-font-weight: bold;
+}
+
+.combo-box {
+    -fx-background-color: -color-surface;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8; /* Un po' più compatto dei TextField */
+}
+
+/* Effetto focus identico ai Text Field */
+.combo-box:focused {
+    -fx-border-color: -color-secondary;
+    -fx-background-color: -color-surface;
+    -fx-effect: dropshadow(three-pass-box, rgba(74,111,165,0.25), 6, 0, 0, 0);
+}
+
+/* Testo all'interno della Combo chiusa */
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text;
+    -fx-padding: 4 0 4 5;
+}
+
+/* Pulsante Freccia (Destra) */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0 8;
+}
+
+/* La forma della freccia */
+.combo-box .arrow {
+    -fx-background-color: -color-text-light;
+    -fx-padding: 4; /* Dimensione freccia */
+}
+
+/* Cambio colore freccia al passaggio del mouse sulla combo */
+.combo-box:hover .arrow-button .arrow {
+    -fx-background-color: -color-secondary;
+}
+
+/* ==============================================
+   STILE POPUP (Lista a discesa)
+   ============================================== */
+
+.combo-box-popup .list-view {
+    -fx-background-color: -color-surface;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 2);
+    -fx-background-radius: 4;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+}
+
+/* Celle della lista a discesa */
+.combo-box-popup .list-cell {
+    -fx-padding: 8 10;
+    -fx-text-fill: -color-text;
+    -fx-background-color: -color-surface;
+}
+
+/* Elemento sotto il mouse (Hover) */
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: -color-hover;
+    -fx-text-fill: -color-primary;
+}
+
+/* Elemento Selezionato */
+.combo-box-popup .list-cell:filled:selected,
+.combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: -color-secondary;
+    -fx-text-fill: white;
 }
