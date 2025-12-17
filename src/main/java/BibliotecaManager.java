@@ -331,8 +331,8 @@ public class BibliotecaManager {
 
                     int idUtente = Integer.parseInt(dati[0]);
                     int isbnLibro = Integer.parseInt(dati[1]);
-                    LocalDate scadenza = LocalDate.parse(dati[2]);
-                    LocalDate inizio = LocalDate.parse(dati[3]);
+                    LocalDate scadenza = LocalDate.parse(dati[3]);
+                    LocalDate inizio = LocalDate.parse(dati[2]);
 
                     // Trovo utente e Id
                     Utente u = trovaUtentePerId(idUtente);
