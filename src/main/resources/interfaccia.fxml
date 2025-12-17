@@ -34,8 +34,14 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
                                 <Label fx:id="tUtenti" text="Utenti" />
-                                <TextField fx:id="barraRicercaUtenti" promptText="Cerca per Nome, Cognome o Matricola" HBox.hgrow="ALWAYS" />
-                                <Button fx:id="btUtente" mnemonicParsing="false" text="Nuovo Utente" />
+                                <TextField fx:id="barraRicercaUtenti" promptText="Cerca per Nome, Cognome o Matricola" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></TextField>
+                                <Button fx:id="btUtente" mnemonicParsing="false" text="Nuovo Utente">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></Button>
                             </children>
                         </HBox>
                         <TableView fx:id="tabellaUtente" VBox.vgrow="ALWAYS">
@@ -62,7 +68,13 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
                                 <Label fx:id="tPrestiti" text="Prestiti" />
-                                <Region HBox.hgrow="ALWAYS" /> <Button fx:id="btPrestito" mnemonicParsing="false" text="Nuovo Prestito" />
+                                <Region HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></Region> <Button fx:id="btPrestito" mnemonicParsing="false" text="Nuovo Prestito">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></Button>
                             </children>
                         </HBox>
                         <TableView fx:id="tabellaPrestiti" VBox.vgrow="ALWAYS">
@@ -88,11 +100,17 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
                                 <Label fx:id="tLibri" text="Libri" />
-                                <TextField fx:id="barraRicercaLibri" promptText="Cerca per Titolo, Autore o ISBN" HBox.hgrow="ALWAYS" />
-                                <Button fx:id="btLibro" mnemonicParsing="false" text="Nuovo Libro" />
+                                <TextField fx:id="barraRicercaLibri" promptText="Cerca per Titolo, Autore o ISBN" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></TextField>
+                                <Button fx:id="btLibro" mnemonicParsing="false" text="Nuovo Libro">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></Button>
                             </children>
                         </HBox>
-                        <TableView fx:id="tabellaLibri" prefWidth="0.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="tabellaLibri" minWidth="100.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="libroTitolo" maxWidth="6000.0" prefWidth="120.0" text="Titolo" />
                                 <TableColumn fx:id="libroAutore" maxWidth="4500.0" text="Autore" />
@@ -113,12 +131,20 @@
             </children>
         </StackPane>
     </center>
-
-    <top>
-        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Biblioteca Universitaria" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font></Label>
-    </top>
+   <top>
+      <HBox prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #2b2f36;" />
+              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Biblioteca Universitaria" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 
 </BorderPane>
