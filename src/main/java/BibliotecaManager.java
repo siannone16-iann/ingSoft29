@@ -19,9 +19,9 @@ public class BibliotecaManager {
     private ObservableList<Libro> catalogo;
     private ObservableList<Utente> registroUtenti;
     private ObservableList<Prestito> registroPrestiti;
-    private final String FILE_LIBRI = "dati/libri.csv";
-    private final String FILE_UTENTI = "dati/utenti.csv";
-    private final String FILE_PRESTITI = "dati/prestiti.csv";
+    private String FILE_LIBRI = "dati/libri.csv";
+    private String FILE_UTENTI = "dati/utenti.csv";
+    private String FILE_PRESTITI = "dati/prestiti.csv";
     private int prossimoIdUtente;
 
     /**
@@ -351,6 +351,23 @@ public class BibliotecaManager {
     private Utente trovaUtentePerId(int id) {
         for(Utente u : registroUtenti) if(u.getIdUtente() == id) return u;
         return null;
+    }
+
+    /**
+     * @brief Costruttore con percorsi personalizzati (per i test).
+     */
+    public BibliotecaManager(String fileLibri, String fileUtenti, String filePrestiti){
+        this.FILE_LIBRI = fileLibri;
+        this.FILE_UTENTI = fileUtenti;
+        this.FILE_PRESTITI = filePrestiti;
+
+        this.catalogo = FXCollections.observableArrayList();
+        this.registroUtenti = FXCollections.observableArrayList();
+        this.registroPrestiti = FXCollections.observableArrayList();
+        this.prossimoIdUtente = 1;
+
+        caricaDati();
+        aggiornaIdUtente();
     }
 
     private Libro trovaLibroPerIsbn(int isbn) {

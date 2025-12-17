@@ -2,17 +2,43 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import org.junit.jupiter.api.AfterEach;
+
+
 
 public class BibliotecaManagerTest {
 
     private BibliotecaManager manager;
+    private Path tempLibri;
+    private Path tempUtenti;
+    private Path tempPrestiti;
 
     @BeforeEach
-    void setUp() {
-        manager = new BibliotecaManager();
+    void setUp() throws IOException {
+        tempLibri = Files.createTempFile("libri_test_", ".csv");
+        tempUtenti = Files.createTempFile("utenti_test_", ".csv");
+        tempPrestiti = Files.createTempFile("prestiti_test_", ".csv");
+
+        manager = new BibliotecaManager( tempLibri.toString(),tempUtenti.toString(),tempPrestiti.toString());
+
         manager.getCatalogo().clear();
         manager.getRegistroUtenti().clear();
         manager.getRegistroPrestiti().clear();
+    }
+    @AfterEach
+    void tearDown() throws IOException {
+        if (tempLibri != null && Files.exists(tempLibri)) {
+            Files.delete(tempLibri);
+        }
+        if (tempUtenti != null && Files.exists(tempUtenti)) {
+            Files.delete(tempUtenti);
+        }
+        if (tempPrestiti != null && Files.exists(tempPrestiti)) {
+            Files.delete(tempPrestiti);
+        }
     }
 
     @Test
