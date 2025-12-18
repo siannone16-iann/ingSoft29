@@ -19,18 +19,20 @@ public class Gestione {
     private final BibliotecaManager manager;
 
     /**
-     * @brief Costruttore della classe Finestre.
      * @param manager La classe che gestisce le funzioni della biblioteca.
+     * @brief Costruttore della classe Finestre.
      */
-    public Gestione (BibliotecaManager manager){
-        this.manager=manager;
+    public Gestione(BibliotecaManager manager) {
+        this.manager = manager;
     }
+
     /**
      * @brief Apre il form per l'inserimento di un nuovo libro.
      * * Gestisce la validazione dei campi (titolo, autore, ISBN, anno, copie)
      * e invoca il manager per il salvataggio.
      */
     public void nuovoLibro() {
+        ;
         Dialog<ButtonType> dialog = new Dialog<>();
         stileCSS(dialog);
         dialog.setTitle("Nuovo Libro");
@@ -50,11 +52,16 @@ public class Gestione {
         TextField anno = new TextField();
         TextField copie = new TextField();
 
-        grid.add(new Label("Titolo:"), 0, 0); grid.add(titolo, 1, 0);
-        grid.add(new Label("Autore:"), 0, 1); grid.add(autore, 1, 1);
-        grid.add(new Label("ISBN:"), 0, 2);   grid.add(isbn, 1, 2);
-        grid.add(new Label("Anno:"), 0, 3);   grid.add(anno, 1, 3);
-        grid.add(new Label("Copie:"), 0, 4);  grid.add(copie, 1, 4);
+        grid.add(new Label("Titolo:"), 0, 0);
+        grid.add(titolo, 1, 0);
+        grid.add(new Label("Autore:"), 0, 1);
+        grid.add(autore, 1, 1);
+        grid.add(new Label("ISBN:"), 0, 2);
+        grid.add(isbn, 1, 2);
+        grid.add(new Label("Anno:"), 0, 3);
+        grid.add(anno, 1, 3);
+        grid.add(new Label("Copie:"), 0, 4);
+        grid.add(copie, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -74,33 +81,38 @@ public class Gestione {
                 event.consume();
                 return;
             }
-            int vIsbn = Integer.parseInt(isbn.getText());
-            int vAnno = Integer.parseInt(anno.getText());
-            int vCopie = Integer.parseInt(copie.getText());
+            int vIsbn;
+            int vAnno;
+            int vCopie;
+            try{
+                vIsbn = Integer.parseInt(isbn.getText());
+                vAnno = Integer.parseInt(anno.getText());
+                vCopie = Integer.parseInt(copie.getText());
+            }
+            catch (NumberFormatException e) {
+                mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+                event.consume();
+                return;
+            }
+
             if (controllaISBN(titolo.getText(), autore.getText(), vIsbn, vAnno) ) {
-                try {
-                    manager.aggiungiLibro(
-                            titolo.getText(),
-                            autore.getText(),
-                            vIsbn,
-                            vAnno,
-                            vCopie
-                    );
 
-                    Alert success = new Alert(Alert.AlertType.INFORMATION);
-                    stileCSS(success);
-                    success.getDialogPane().setGraphic(null);
-                    success.setTitle("Successo");
-                    success.setHeaderText(null);
-                    success.setContentText("Libro registrato con successo!");
-                    success.showAndWait();
-                    System.out.println("Libro salvato con successo.");
+                manager.aggiungiLibro(
+                        titolo.getText(),
+                        autore.getText(),
+                        vIsbn,
+                        vAnno,
+                        vCopie
+                );
 
-
-                } catch (NumberFormatException e) {
-                    mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
-                    event.consume();
-                }
+                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                stileCSS(success);
+                success.getDialogPane().setGraphic(null);
+                success.setTitle("Successo");
+                success.setHeaderText(null);
+                success.setContentText("Libro registrato con successo!");
+                success.showAndWait();
+                System.out.println("Libro salvato con successo.");
             }
             else {
                 mostraErrore("ISBN è già presente in catalogo.\nSe vuoi aggiungere copie al libro già in catalogo controlla i dati inseriti.");
@@ -110,6 +122,7 @@ public class Gestione {
 
         dialog.showAndWait();
     }
+
     /**
      * @brief Apre il form per la registrazione di un nuovo utente.
      * * Visualizza la matricola generata automaticamente e richiede nome, cognome ed email.
@@ -136,9 +149,12 @@ public class Gestione {
         Label labelId = new Label("Matricola (automatico): " + manager.getProssimoIdUtente());
         labelId.setStyle("-fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
-        grid.add(new Label("Nome:"), 0, 0);    grid.add(nome, 1, 0);
-        grid.add(new Label("Cognome:"), 0, 1); grid.add(cognome, 1, 1);
-        grid.add(new Label("Email:"), 0, 2);   grid.add(email, 1, 2);
+        grid.add(new Label("Nome:"), 0, 0);
+        grid.add(nome, 1, 0);
+        grid.add(new Label("Cognome:"), 0, 1);
+        grid.add(cognome, 1, 1);
+        grid.add(new Label("Email:"), 0, 2);
+        grid.add(email, 1, 2);
         grid.add(labelId, 0, 3, 2, 1);
 
         dialog.getDialogPane().setContent(grid);
@@ -164,8 +180,8 @@ public class Gestione {
                 return;
             }
 
-            for (Utente u : manager.getRegistroUtenti()){
-                if(u.getEmail().equalsIgnoreCase(email.getText())){
+            for (Utente u : manager.getRegistroUtenti()) {
+                if (u.getEmail().equalsIgnoreCase(email.getText())) {
                     mostraErrore("L'email digitata è gia stata utilizzata.");
                     event.consume();
                     return;
@@ -188,6 +204,7 @@ public class Gestione {
 
         dialog.showAndWait();
     }
+
     /**
      * @brief Apre il form per la creazione di un nuovo prestito.
      * * Utilizza ComboBox per mostrare lo stato degli utenti (quanti prestiti hanno)
@@ -300,10 +317,14 @@ public class Gestione {
         DatePicker dataScadenza = new DatePicker();
         dataScadenza.setValue(LocalDate.now().plusDays(30));
 
-        grid.add(new Label("Utente:"), 0, 0);      grid.add(comboUtente, 1, 0);
-        grid.add(new Label("Libro:"), 0, 1);       grid.add(comboLibro, 1, 1);
-        grid.add(new Label("Data Inizio:"), 0, 2); grid.add(dataInizio, 1, 2);
-        grid.add(new Label("Scadenza:"), 0, 3);    grid.add(dataScadenza, 1, 3);
+        grid.add(new Label("Utente:"), 0, 0);
+        grid.add(comboUtente, 1, 0);
+        grid.add(new Label("Libro:"), 0, 1);
+        grid.add(comboLibro, 1, 1);
+        grid.add(new Label("Data Inizio:"), 0, 2);
+        grid.add(dataInizio, 1, 2);
+        grid.add(new Label("Scadenza:"), 0, 3);
+        grid.add(dataScadenza, 1, 3);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -359,7 +380,7 @@ public class Gestione {
      * * @param libro L'oggetto Libro da modificare o eliminare.
      */
 
-    public void formModificaLibro(Libro libro){
+    public void formModificaLibro(Libro libro) {
         Dialog<ButtonType> dialog = new Dialog<>();
         stileCSS(dialog);
         dialog.setTitle("Modifica Libro");
@@ -376,8 +397,6 @@ public class Gestione {
                 ButtonType.CANCEL);
 
 
-
-
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -389,11 +408,16 @@ public class Gestione {
         TextField anno = new TextField(String.valueOf(libro.getAnnoProduzione()));
         TextField copie = new TextField(String.valueOf(libro.getCopie()));
 
-        grid.add(new Label("Titolo:"), 0, 0); grid.add(titolo, 1, 0);
-        grid.add(new Label("Autore:"), 0, 1); grid.add(autore, 1, 1);
-        grid.add(new Label("ISBN:"), 0, 2);   grid.add(isbn, 1, 2);
-        grid.add(new Label("Anno:"), 0, 3);   grid.add(anno, 1, 3);
-        grid.add(new Label("Copie:"), 0, 4);  grid.add(copie, 1, 4);
+        grid.add(new Label("Titolo:"), 0, 0);
+        grid.add(titolo, 1, 0);
+        grid.add(new Label("Autore:"), 0, 1);
+        grid.add(autore, 1, 1);
+        grid.add(new Label("ISBN:"), 0, 2);
+        grid.add(isbn, 1, 2);
+        grid.add(new Label("Anno:"), 0, 3);
+        grid.add(anno, 1, 3);
+        grid.add(new Label("Copie:"), 0, 4);
+        grid.add(copie, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -431,14 +455,14 @@ public class Gestione {
             annulla.getStyleClass().add("bottone-annulla");
             elimina.setDisable(true);
 
-            confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
+            confermaTesto.textProperty().addListener((obs, oldVal, newVal) -> {
                 elimina.setDisable(
                         !"CONFERMA".equals(newVal.trim())
                 );
             });
 
             Optional<ButtonType> risultato = conferma.showAndWait();
-            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
                     manager.eliminaLibro(libro);
@@ -453,65 +477,75 @@ public class Gestione {
                     System.out.println("Libro eliminato con successo.");
 
                 } catch (Exception e) {
-                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    mostraErrore("Errore durante l'eliminazione: " + e.getMessage());
                     event.consume();
                 }
-            }
-            else {
+            } else {
                 event.consume();
             }
 
         });
 
         btnSalva.addEventFilter(ActionEvent.ACTION, event -> {
-            if (titolo.getText().trim().isEmpty() ||
-                    autore.getText().trim().isEmpty() ||
-                    isbn.getText().trim().isEmpty() ||
-                    anno.getText().trim().isEmpty() ||
-                    copie.getText().trim().isEmpty()) {
+                    if (titolo.getText().trim().isEmpty() ||
+                            autore.getText().trim().isEmpty() ||
+                            isbn.getText().trim().isEmpty() ||
+                            anno.getText().trim().isEmpty() ||
+                            copie.getText().trim().isEmpty()) {
 
-                mostraErrore("Tutti i campi sono obbligatori.");
+                        mostraErrore("Tutti i campi sono obbligatori.");
+                        event.consume();
+                        return;
+                    }
+
+            int vIsbn;
+            int vAnno;
+            int vCopie;
+            try{
+                vIsbn = Integer.parseInt(isbn.getText());
+                vAnno = Integer.parseInt(anno.getText());
+                vCopie = Integer.parseInt(copie.getText());
+            }
+            catch (NumberFormatException e) {
+                mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
                 event.consume();
                 return;
             }
-            int vIsbn = Integer.parseInt(isbn.getText());
-            int vAnno = Integer.parseInt(anno.getText());
-            int vCopie = Integer.parseInt(copie.getText());
-            if (controllaISBN(titolo.getText(), autore.getText(), vIsbn, vAnno) ) {
+
+            int pos= manager.getCatalogo().indexOf(libro);
+
+            if (controllaISBNModifica(vIsbn, pos) ) {
                 try {
 
                     if(vCopie >= libro.getCopiePrestate()) {
-                        try {
 
-                            libro.modificaLibro(
-                                    titolo.getText(),
-                                    autore.getText(),
-                                    vIsbn,
-                                    vAnno,
-                                    vCopie
-                            );
-                            manager.aggiornaLibro(libro);
 
-                            Alert success = new Alert(Alert.AlertType.INFORMATION);
-                            stileCSS(success);
-                            success.getDialogPane().setGraphic(null);
-                            success.setTitle("Successo");
-                            success.setHeaderText(null);
-                            success.setContentText("Libro modificato con successo!");
-                            success.showAndWait();
-                            System.out.println("Libro modificato con successo.");
+                        libro.modificaLibro(
+                                titolo.getText(),
+                                autore.getText(),
+                                vIsbn,
+                                vAnno,
+                                vCopie
+                        );
+                        manager.aggiornaLibro(libro);
 
-                        } catch (Exception e) {
-                            mostraErrore("Errore nella modifica del libro : " + e.getMessage());
-                        }
+                        Alert success = new Alert(Alert.AlertType.INFORMATION);
+                        stileCSS(success);
+                        success.getDialogPane().setGraphic(null);
+                        success.setTitle("Successo");
+                        success.setHeaderText(null);
+                        success.setContentText("Libro modificato con successo!");
+                        success.showAndWait();
+                        System.out.println("Libro modificato con successo.");
                         System.out.println("Libro modificato con successo.");
                     }
                     else {
                         mostraErrore("Il numero di copie che hai inserito : "+vCopie +", è minore di quelle già prestate ("+libro.getCopiePrestate()+ ").");
                         event.consume();
                     }
-                } catch (NumberFormatException e) {
-                    mostraErrore("ISBN, Anno e Copie devono essere numeri interi.");
+                }
+                catch (Exception e) {
+                    mostraErrore("Errore nella modifica del libro : " + e.getMessage());
                     event.consume();
                 }
             }
@@ -519,20 +553,22 @@ public class Gestione {
                 mostraErrore("ISBN già presente per in catalogo.  L'ISBN è univoco.");
                 event.consume();
             }
+
         });
         dialog.showAndWait();
     }
+
     /**
      * @brief Apre il form per modificare o eliminare un utente esistente.
      * * Permette l'aggiornamento dei dati anagrafici o l'eliminazione dell'utente
      * previa conferma esplicita.
      * * @param utente L'oggetto Utente da modificare o eliminare.
      */
-    public void formModificaUtente(Utente utente){
+    public void formModificaUtente(Utente utente) {
         Dialog<ButtonType> dialog = new Dialog<>();
         stileCSS(dialog);
         dialog.setTitle("Modifica Utente");
-        dialog.setHeaderText("Modifica l'Utente: " + utente.getNome()+ " " + utente.getCognome());
+        dialog.setHeaderText("Modifica l'Utente: " + utente.getNome() + " " + utente.getCognome());
 
         ButtonType aggiornaButton = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
         ButtonType eliminaButton = new ButtonType("Rimuovi", ButtonBar.ButtonData.LEFT);
@@ -554,9 +590,12 @@ public class Gestione {
         Label idUtente = new Label("Matricola : " + String.valueOf(utente.getIdUtente()));
         idUtente.setStyle("-fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
-        grid.add(new Label("Nome:"), 0, 0);    grid.add(nome, 1, 0);
-        grid.add(new Label("Cognome:"), 0, 1); grid.add(cognome, 1, 1);
-        grid.add(new Label("Email:"), 0, 2);   grid.add(email, 1, 2);
+        grid.add(new Label("Nome:"), 0, 0);
+        grid.add(nome, 1, 0);
+        grid.add(new Label("Cognome:"), 0, 1);
+        grid.add(cognome, 1, 1);
+        grid.add(new Label("Email:"), 0, 2);
+        grid.add(email, 1, 2);
         grid.add(idUtente, 0, 3, 2, 1);
 
         dialog.getDialogPane().setContent(grid);
@@ -574,7 +613,7 @@ public class Gestione {
             stileCSS(conferma);
 
             conferma.setTitle("Elimina");
-            conferma.setHeaderText("Eliminare l'Utente : " + utente.getNome() +" "+ utente.getCognome());
+            conferma.setHeaderText("Eliminare l'Utente : " + utente.getNome() + " " + utente.getCognome());
 
             TextField confermaTesto = new TextField();
 
@@ -597,7 +636,7 @@ public class Gestione {
 
             elimina.setDisable(true);
 
-            confermaTesto.textProperty().addListener((obs,oldVal, newVal) -> {
+            confermaTesto.textProperty().addListener((obs, oldVal, newVal) -> {
                 elimina.setDisable(
                         !"CONFERMA".equals(newVal.trim())
                 );
@@ -605,7 +644,7 @@ public class Gestione {
 
             Optional<ButtonType> risultato = conferma.showAndWait();
 
-            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
                     manager.eliminaUtente(utente);
@@ -619,11 +658,10 @@ public class Gestione {
                     System.out.println("Utente eliminato con successo.");
 
                 } catch (Exception e) {
-                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    mostraErrore("Errore durante l'eliminazione: " + e.getMessage());
                     event.consume();
                 }
-            }
-            else {
+            } else {
                 event.consume();
             }
 
@@ -646,8 +684,8 @@ public class Gestione {
                 return;
             }
 
-            for (Utente u : manager.getRegistroUtenti()){
-                if(u.getEmail().equalsIgnoreCase(email.getText()) && (u.getIdUtente() != utente.getIdUtente())){
+            for (Utente u : manager.getRegistroUtenti()) {
+                if (u.getEmail().equalsIgnoreCase(email.getText()) && (u.getIdUtente() != utente.getIdUtente())) {
                     mostraErrore("Non puoi modificare l'email in una già utilizzata.");
                     event.consume();
                     return;
@@ -659,21 +697,21 @@ public class Gestione {
                     email.getText(),
                     utente.getIdUtente()
             );
-                manager.aggiornaUtente(utente);
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                stileCSS(success);
-                success.getDialogPane().setGraphic(null);
-                success.setTitle("Successo");
-                success.setHeaderText(null);
-                success.setContentText("Utente modificato con successo!");
-                success.showAndWait();
-                System.out.println("Utente modificato con successo.");
+            manager.aggiornaUtente(utente);
+            Alert success = new Alert(Alert.AlertType.INFORMATION);
+            stileCSS(success);
+            success.getDialogPane().setGraphic(null);
+            success.setTitle("Successo");
+            success.setHeaderText(null);
+            success.setContentText("Utente modificato con successo!");
+            success.showAndWait();
+            System.out.println("Utente modificato con successo.");
         });
 
         dialog.showAndWait();
     }
 
-    public void formModificaPrestito(Prestito prestito){
+    public void formModificaPrestito(Prestito prestito) {
         Dialog<ButtonType> dialog = new Dialog<>();
         stileCSS(dialog);
         dialog.setTitle("Modifica Prestito");
@@ -681,7 +719,7 @@ public class Gestione {
 
         ButtonType salvaButtonType = new ButtonType("Aggiorna", ButtonBar.ButtonData.OK_DONE);
         ButtonType eliminaButton = new ButtonType("Rimuovi", ButtonBar.ButtonData.LEFT);
-        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, eliminaButton ,ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType, eliminaButton, ButtonType.CANCEL);
 
 
         GridPane grid = new GridPane();
@@ -689,12 +727,16 @@ public class Gestione {
         grid.setVgap(10);
         grid.setPadding(new Insets(0, 150, 10, 10));
 
-        grid.add(new Label("Utente:"), 0, 0);      grid.add(new Label(prestito.getNomeUtente()), 1, 0);
-        grid.add(new Label("Libro:"), 0, 1);       grid.add(new Label(prestito.getTitoloLibro()), 1, 1);
-        grid.add(new Label("Data Inizio:"), 0, 2); grid.add(new Label(""+prestito.getDataInizioPrestito()), 1, 2);
+        grid.add(new Label("Utente:"), 0, 0);
+        grid.add(new Label(prestito.getNomeUtente()), 1, 0);
+        grid.add(new Label("Libro:"), 0, 1);
+        grid.add(new Label(prestito.getTitoloLibro()), 1, 1);
+        grid.add(new Label("Data Inizio:"), 0, 2);
+        grid.add(new Label("" + prestito.getDataInizioPrestito()), 1, 2);
 
         DatePicker dataScadenza = new DatePicker(prestito.getDataScadenza());
-        grid.add(new Label("Scadenza:"), 0, 3);    grid.add(dataScadenza, 1, 3);
+        grid.add(new Label("Scadenza:"), 0, 3);
+        grid.add(dataScadenza, 1, 3);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -714,7 +756,7 @@ public class Gestione {
             VBox box = new VBox(10);
             box.getChildren().addAll(
                     new Label("Premendo conferma terminerai il prestito di: "),
-                    new Label("Libro : "+prestito.getTitoloLibro()+" preso in prestito da: " + prestito.getNomeUtente()+".")
+                    new Label("Libro : " + prestito.getTitoloLibro() + " preso in prestito da: " + prestito.getNomeUtente() + ".")
             );
             conferma.getDialogPane().setContent(box);
             conferma.getDialogPane().setGraphic(null);
@@ -726,7 +768,7 @@ public class Gestione {
             annulla.getStyleClass().add("bottone-annulla");
             Optional<ButtonType> risultato = conferma.showAndWait();
 
-            if(risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
                 try {
 
                     manager.restituisciLibro(prestito);
@@ -741,11 +783,10 @@ public class Gestione {
                     System.out.println("Prestito estinto con successo.");
 
                 } catch (Exception e) {
-                    mostraErrore("Errore durante l'eliminazione: "+ e.getMessage());
+                    mostraErrore("Errore durante l'eliminazione: " + e.getMessage());
                     event.consume();
                 }
-            }
-            else {
+            } else {
                 event.consume();
             }
 
@@ -787,11 +828,11 @@ public class Gestione {
         dialog.showAndWait();
     }
 
-    public void utentePrestito(Utente utente){
+    public void utentePrestito(Utente utente) {
         Dialog<ButtonType> dialog = new Dialog<>();
         stileCSS(dialog);
         dialog.setTitle("Elenco Prestiti: ");
-        dialog.setHeaderText("Ecco i Prestiti dell'Utente : "+utente.getNome() + " "+ utente.getCognome());
+        dialog.setHeaderText("Ecco i Prestiti dell'Utente : " + utente.getNome() + " " + utente.getCognome());
 
         ButtonType salvaButtonType = new ButtonType("Fatto", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(salvaButtonType);
@@ -803,15 +844,15 @@ public class Gestione {
 
         int riga = 0;
         boolean flag = true;
-        for(Prestito p : manager.getRegistroPrestiti()) {
+        for (Prestito p : manager.getRegistroPrestiti()) {
             if (p.getUtente() == utente) {
-                flag=false;
+                flag = false;
                 Libro l = p.getLibro();
-                grid.add(new Label(" Titolo: "+l.getTitolo() + ",   Autore : " + l.getAutore() +",  Scadenza Prestito: "+ p.getDataScadenza()), 0, riga);
+                grid.add(new Label(" Titolo: " + l.getTitolo() + ",   Autore : " + l.getAutore() + ",  Scadenza Prestito: " + p.getDataScadenza()), 0, riga);
                 riga++;
             }
         }
-        if(flag){
+        if (flag) {
             grid.add(new Label("L'Utente non ha prestiti a carico."), 0, 0);
         }
 
@@ -820,15 +861,43 @@ public class Gestione {
         dialog.showAndWait();
     }
 
-    public boolean controllaISBN(String titolo, String autore, int ISBN, int anno){
-        for (Libro l : manager.getCatalogo()){
-            if(l.getIsbn() == ISBN){
-                if(l.getTitolo().equalsIgnoreCase(titolo) &&
+    /**
+     * @brief Controlla se un ISBN è accettabile nel catalogo.
+     *
+     *
+     * @param ISBN ISBN inserito.
+     * @param indice indice del libro che si sta modificando.
+     * @return true se l’ISBN non esiste oppure se esiste ma appartiene allo stesso libro (stessi dati);
+     *         false se l’ISBN esiste ma con dati diversi.
+     */
+    public boolean controllaISBNModifica(int ISBN, int indice) {
+        for (Libro l : manager.getCatalogo()) {
+            if(indice == manager.getCatalogo().indexOf(l)) continue;
+            if (l.getIsbn() == ISBN  ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * @brief Controlla se un ISBN è accettabile nel catalogo.
+     * @param titolo Titolo inserito.
+     * @param autore Autore inserito.
+     * @param ISBN ISBN inserito.
+     * @param anno Anno inserito.
+     * @return true se l’ISBN non esiste oppure se esiste ma appartiene allo stesso libro (stessi dati);
+     *         false se l’ISBN esiste ma con dati diversi.
+     */
+    public boolean controllaISBN(String titolo, String autore, int ISBN, int anno) {
+        for (Libro l : manager.getCatalogo()) {
+            if (l.getIsbn() == ISBN) {
+                if (l.getTitolo().equalsIgnoreCase(titolo) &&
                         l.getAutore().equalsIgnoreCase(autore) &&
                         l.getAnnoProduzione() == anno) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
@@ -836,9 +905,11 @@ public class Gestione {
         return true;
     }
 
+
+
     /**
-     * @brief Mostra un alert di errore a video.
      * @param messaggio Il testo dell'errore da visualizzare.
+     * @brief Mostra un alert di errore a video.
      */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -851,7 +922,7 @@ public class Gestione {
         alert.showAndWait();
     }
 
-    private void stileCSS(Dialog<?> dialog){
+    private void stileCSS(Dialog<?> dialog) {
         try {
             String css = getClass().getResource("/InterfacciaGrafica.css").toExternalForm();
             dialog.getDialogPane().getStylesheets().add(css);
@@ -860,3 +931,4 @@ public class Gestione {
         }
     }
 }
+
